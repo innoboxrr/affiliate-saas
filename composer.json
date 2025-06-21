@@ -4,7 +4,8 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Innoboxrr\\AffiliateSaas\\": "src/"
+            "Innoboxrr\\AffiliateSaas\\": "src/",
+            "Innoboxrr\\AffiliateSaas\\Database\\Factories\\": "database/factories/"
         }
     },
     "authors": [
@@ -26,6 +27,11 @@
                 "Innoboxrr\\AffiliateSaas\\Providers\\EventServiceProvider",
                 "Innoboxrr\\AffiliateSaas\\Providers\\RouteServiceProvider"
             ]
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Innoboxrr\\AffiliateSaas\\Tests\\": "tests/"
         }
     }
 }
