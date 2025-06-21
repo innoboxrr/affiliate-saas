@@ -3,13 +3,13 @@ const appRoutes = Object.values(modules).flatMap(m => m.default || []);
 
 // Validar que las rutas dinámicas sean un arreglo
 if (!Array.isArray(appRoutes)) {
-    console.error('[DealsApp] appRoutes is not an array.');
+    console.error('[AffiliateApp] appRoutes is not an array.');
 }
 
 export default [{
 	path: 'app',
-	name: 'DealsApp',
-	redirect: { name: 'DealsDashboard' },
+	name: 'AffiliateApp',
+	redirect: { name: 'AffiliateDashboard' },
 	meta: {
 		title: 'Domain Manager App',
 	},

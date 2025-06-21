@@ -15,7 +15,7 @@
 
 <script>
 
-    import { showModel, updateModel} from '@affiliatesModels/affilaite-payout'
+    import { showModel, updateModel} from '@affiliatesModels/Affiliate-payout'
     import JSValidator from 'innoboxrr-js-validator'
     import {
         TextInputComponent,
@@ -35,9 +35,9 @@
         props: {
             formId: {
                 type: String,
-                default: 'editAffilaitePayoutForm'
+                default: 'editAffiliatePayoutForm'
             },
-            affilaitePayoutId: {
+            AffiliatePayoutId: {
                 type: [Number, String],
                 required: true
             },
@@ -54,7 +54,7 @@
 
         data() {
             return {
-                affilaitePayout: {
+                AffiliatePayout: {
 //model_data//
                 },
                 disabled: false,
@@ -65,19 +65,19 @@
         methods: {
 
             fetchData() {
-                this.fetchAffilaitePayout();
+                this.fetchAffiliatePayout();
             },
 
-            fetchAffilaitePayout() {
-                showModel(this.affilaitePayoutId).then( res => {
-                    this.affilaitePayout = res;
+            fetchAffiliatePayout() {
+                showModel(this.AffiliatePayoutId).then( res => {
+                    this.AffiliatePayout = res;
                 });
             },
 
             onSubmit() {
                 if(this.JSValidator.status) {
                     this.disabled = true;
-                    updateModel(this.affilaitePayout.id, {
+                    updateModel(this.AffiliatePayout.id, {
 //submit_data//
                     }).then( res => {
                         this.$emit('submit', res);

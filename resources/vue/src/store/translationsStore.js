@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 
-export const useTranslationsStore = defineStore('deals-translations', {
+export const useTranslationsStore = defineStore('affiliate-translations', {
     state: () => ({
         currentLang: 'en', // Idioma por defecto
         translations: {}, // Traducciones cargadas

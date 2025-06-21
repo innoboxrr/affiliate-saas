@@ -1,13 +1,13 @@
 <template>
 	
 	<data-table
-		title="AffilaitePayout" 
+		title="AffiliatePayout" 
 		:data-url="dataUrl"
 		data-method="get"
 		:policy-url="policyUrl"
 		policy-method="get"
 		:model="model"
-		:external-filters="affilaitePayoutExternalFilters"
+		:external-filters="AffiliatePayoutExternalFilters"
 		:form-filters="formFilters"
 		:extra-params="extraParams"
 		:hide-columns="hideColumns"
@@ -30,8 +30,8 @@
 <script>
 	
 	import DataTable from 'innoboxrr-vue-datatable'
-	import FilterForm from '@affiliatesModels/affilaite-payout/forms/FilterForm.vue'
-	import * as model from '@affiliatesModels/affilaite-payout' 
+	import FilterForm from '@affiliatesModels/Affiliate-payout/forms/FilterForm.vue'
+	import * as model from '@affiliatesModels/Affiliate-payout' 
 
 	export default {
 
@@ -110,7 +110,7 @@
 
 		computed: {
 
-			affilaitePayoutExternalFilters() {
+			AffiliatePayoutExternalFilters() {
 
 				let filters = {/* Add custom filters */}
 

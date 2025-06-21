@@ -2,11 +2,11 @@ import * as middleware from '@router/middleware'
 
 export default [
 	{
-		path: 'affilaite-asset',
-		name: "AdminAffilaiteAssets",
+		path: 'affiliate-asset',
+		name: "AdminAffiliateAssets",
 		component: () => import ("./../views/AdminView.vue"),
 		meta: {
-			title: 'AffilaiteAssets',
+			title: 'AffiliateAssets',
 			middleware: [
 				middleware.auth
 			]
@@ -14,10 +14,10 @@ export default [
 		children: [
 			{
 				path: 'create',
-				name: "AdminCreateAffilaiteAsset",
+				name: "AdminCreateAffiliateAsset",
 				component: () => import ("./../views/CreateView.vue"),
 				meta: {
-					title: 'Crear AffilaiteAssets',
+					title: 'Crear AffiliateAssets',
 					middleware: [
 						middleware.auth
 					]
@@ -25,10 +25,10 @@ export default [
 			},
 			{
 				path: ':id',
-				name: "AdminShowAffilaiteAsset",
+				name: "AdminShowAffiliateAsset",
 				component: () => import ("./../views/ShowView.vue"),
 				meta: {
-					title: 'Ver AffilaiteAssets',
+					title: 'Ver AffiliateAssets',
 					middleware: [
 						middleware.auth
 					]
@@ -36,10 +36,10 @@ export default [
 				children: [
 					{
 						path: 'edit',
-						name: "AdminEditAffilaiteAsset",
+						name: "AdminEditAffiliateAsset",
 						component: () => import ("./../views/EditView.vue"),
 						meta: {
-							title: 'Editar AffilaiteAssets',
+							title: 'Editar AffiliateAssets',
 							middleware: [
 								middleware.auth
 							]

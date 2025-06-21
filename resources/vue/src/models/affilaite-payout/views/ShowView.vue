@@ -11,7 +11,7 @@
 	    		<div class="uk-width-1-3@m uk-width-1-1@s">
 
 					<model-card 
-						:affilaite-payout="affilaitePayout" />
+						:Affiliate-payout="AffiliatePayout" />
 
 	    		</div>
 
@@ -20,7 +20,7 @@
 	    			<div v-if="this.isShowView">
 
 	    				<model-profile 
-	    					:affilaite-payout="affilaitePayout" />
+	    					:Affiliate-payout="AffiliatePayout" />
 	    				
 	    			</div>
 
@@ -42,9 +42,9 @@
 
 <script>
 
-	import { showModel } from '@affiliatesModels/affilaite-payout'
-	import ModelCard from '@affiliatesModels/affilaite-payout/widgets/ModelCard.vue'
-	import ModelProfile from '@affiliatesModels/affilaite-payout/widgets/ModelProfile.vue'
+	import { showModel } from '@affiliatesModels/Affiliate-payout'
+	import ModelCard from '@affiliatesModels/Affiliate-payout/widgets/ModelCard.vue'
+	import ModelProfile from '@affiliatesModels/Affiliate-payout/widgets/ModelProfile.vue'
 
 	export default {
 
@@ -70,9 +70,9 @@
 
 				title: undefined,
 
-				affilaitePayoutId: this.$route.params.id,
+				AffiliatePayoutId: this.$route.params.id,
 
-				affilaitePayout: {},
+				AffiliatePayout: {},
 
 			}
 		
@@ -82,25 +82,25 @@
 
 			isShowView() {
 
-				return (this.$route.name == 'AdminShowAffilaitePayout');
+				return (this.$route.name == 'AdminShowAffiliatePayout');
 
 			},
 
 			items() {
 
-				if(this.$route.name == 'AdminShowAffilaitePayout') {
+				if(this.$route.name == 'AdminShowAffiliatePayout') {
 
 					return [
-						{ text: 'AffilaitePayouts', path: '/admin/affilaite-payout'},
-						{ text: this.affilaite-payout.name ?? 'AffilaitePayout', path: '/admin/affilaite-payout/' + this.affilaite-payout.id}
+						{ text: 'AffiliatePayouts', path: '/admin/Affiliate-payout'},
+						{ text: this.Affiliate-payout.name ?? 'AffiliatePayout', path: '/admin/Affiliate-payout/' + this.Affiliate-payout.id}
 					];
 
-				} else if(this.$route.name == 'AdminEditAffilaitePayout') {
+				} else if(this.$route.name == 'AdminEditAffiliatePayout') {
 
 					return [
-						{ text: 'AffilaitePayouts', path: '/admin/affilaite-payout'},
-						{ text: this.affilaite-payout.name ?? 'AffilaitePayout' , path: '/admin/affilaite-payout/' + this.affilaite-payout.id},
-						{ text: 'Editar affilaite-payout', path: '/admin/affilaite-payout/' + this.affilaite-payout.id + '/edit'}	
+						{ text: 'AffiliatePayouts', path: '/admin/Affiliate-payout'},
+						{ text: this.Affiliate-payout.name ?? 'AffiliatePayout' , path: '/admin/Affiliate-payout/' + this.Affiliate-payout.id},
+						{ text: 'Editar Affiliate-payout', path: '/admin/Affiliate-payout/' + this.Affiliate-payout.id + '/edit'}	
 					];
 
 				}
@@ -113,21 +113,21 @@
 
 			async fetchData() {
 
-				await this.fetchAffilaitePayout()
+				await this.fetchAffiliatePayout()
 
 				this.dataLoaded = true;
 				
-				this.title = this.affilaitePayout.name;
+				this.title = this.AffiliatePayout.name;
 
 				document.title = this.title;
 
 			},
 
-			async fetchAffilaitePayout() {
+			async fetchAffiliatePayout() {
 
-				let res = await showModel(this.affilaitePayoutId);
+				let res = await showModel(this.AffiliatePayoutId);
 
-				this.affilaitePayout = res;
+				this.AffiliatePayout = res;
 
             },
 

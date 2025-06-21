@@ -9,9 +9,9 @@
 					{
 						type: 'router',
 						to: {
-							name: 'AdminShowAffilaiteAsset',
+							name: 'AdminShowAffiliateAsset',
 							params: {
-								id: affilaiteAsset.id
+								id: AffiliateAsset.id
 							}
 						},
 						label: 'Mostrar',
@@ -19,16 +19,16 @@
 					{
 						type: 'router',
 						to: {
-							name: 'AdminEditAffilaiteAsset',
+							name: 'AdminEditAffiliateAsset',
 							params: {
-								id: affilaiteAsset.id
+								id: AffiliateAsset.id
 							}
 						},
 						label: 'Editar',
 					},
 					{
 						type: 'event',
-						action: deleteAffilaiteAsset,
+						action: deleteAffiliateAsset,
 						label: 'Eliminar',
 					},
 				]"/>
@@ -80,12 +80,12 @@
 
 		props: {
 
-			affilaiteAsset: {
+			AffiliateAsset: {
 				type: Object,
 				required: false,
 			},
 
-			affilaiteAssetId: {
+			AffiliateAssetId: {
 				type: [Number, String],
 				required: false
 			}
@@ -94,9 +94,9 @@
 
 		created() {
 	
-	        if (!this.affilaiteAsset && !this.affilaiteAssetId) {
+	        if (!this.AffiliateAsset && !this.AffiliateAssetId) {
 	
-	            console.error("Se debe proporcionar 'affilaiteAsset' o 'affilaiteAssetId'.");
+	            console.error("Se debe proporcionar 'AffiliateAsset' o 'AffiliateAssetId'.");
 	
 	        }
 	
@@ -104,11 +104,11 @@
 
 	    methods: {
 
-	    	deleteAffilaiteAsset() {
+	    	deleteAffiliateAsset() {
 
-	    		deleteModel(this.affilaiteAsset).then( res => {
+	    		deleteModel(this.AffiliateAsset).then( res => {
 
-	    			this.$router.push({ name: 'AdminAffilaiteAssets' });
+	    			this.$router.push({ name: 'AdminAffiliateAssets' });
 
 	    		})
 

@@ -8,7 +8,7 @@
 
 				<edit-form 
 					:key="$route.params.id"
-					:affilaite-payout-id="$route.params.id"
+					:Affiliate-payout-id="$route.params.id"
 					@submit="formSubmit"/>
 
 			</div>
@@ -21,8 +21,8 @@
 
 <script>
 
-	import { getPolicy } from '@affiliatesModels/affilaite-payout'
-	import EditForm from '@affiliatesModels/affilaite-payout/forms/EditForm.vue'
+	import { getPolicy } from '@affiliatesModels/Affiliate-payout'
+	import EditForm from '@affiliatesModels/Affiliate-payout/forms/EditForm.vue'
 
 	export default {
 
@@ -62,7 +62,7 @@
 
 				this.$router.push({
 
-					name: "AdminShowAffilaitePayout", 
+					name: "AdminShowAffiliatePayout", 
 
 					params: { 
 

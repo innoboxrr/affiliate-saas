@@ -15,7 +15,7 @@
 
 <script>
 
-    import { createModel } from '@affiliatesModels/affilaite-payout'
+    import { createModel } from '@affiliatesModels/Affiliate-payout'
     import JSValidator from 'innoboxrr-js-validator'
     import {
         TextInputComponent,
@@ -34,7 +34,7 @@
         props: {
         	formId: {
         		type: String,
-        		default: 'createAffilaitePayoutForm',
+        		default: 'createAffiliatePayoutForm',
         	}
 //props//
         },

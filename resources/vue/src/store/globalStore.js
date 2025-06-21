@@ -12,37 +12,31 @@ import {
     UsersIcon,
 } from '@heroicons/vue/24/outline'
 
-export const useGlobalStore = defineStore('deals-global', {
+export const useGlobalStore = defineStore('affiliate-global', {
     state: () => ({
         sidebarOpen: false,
         navigation: [
-            { name: __affiliate('Dashboard'), route: { name: 'DealsDashboard' }, icon: HomeIcon, current: true },
-            { name: __affiliate('Deals'), route: { name: 'DealsManager' }, icon: BriefcaseIcon, current: false },
-            { name: __affiliate('Advertisers'), route: { name: 'DealsAdvertisersManager' }, icon: BuildingStorefrontIcon, current: false },
-            // { name: __affiliate('Routing'), route: { name: 'DealsDashboard' }, icon: ShareIcon, current: false },
-            // { name: __affiliate('Agreements'), route: { name: 'DealsAgreementsManager' }, icon: DocumentTextIcon, current: false },
-            { name: __affiliate('Ads'), route: { name: 'DealsAdsManager' }, icon: MegaphoneIcon, current: false },
-            // { name: __affiliate('Affiliates'), route: { name: 'DealsDashboard' }, icon: UsersIcon, current: false },
-            { name: __affiliate('Leads'), route: { name: 'DealsLeadsManager' }, icon: UserGroupIcon, current: false },
-            { name: __affiliate('Products'), route: { name: 'DealsProductsManager' }, icon: CubeIcon, current: false },
+            { name: __affiliate('Dashboard'), route: { name: 'AffiliateDashboard' }, icon: HomeIcon, current: true },
+            { name: __affiliate('Programs'), route: { name: 'AffiliateProgram' }, icon: CubeIcon, current: false },
+            { name: __affiliate('Affiliates'), route: { name: 'AffiliateManager' }, icon: UserGroupIcon, current: false },
         ],
-        dealsList: [
+        affiliateList: [
             /*
             {
                 id: 1,
-                name: 'Deals 1 ',
-                description: 'Deals description',
+                name: 'Affiliate 1 ',
+                description: 'Affiliate description',
                 status: 'active',
-                route: { name: 'DealsDashboard' },
+                route: { name: 'AffiliateDashboard' },
                 createdAt: '2023-01-23T11:00',
                 updatedAt: '2023-01-23T11:00',
             },
             {
                 id: 2,
-                name: 'Deals 2',
-                description: 'Deals 2 description',
+                name: 'Affiliate 2',
+                description: 'Affiliate 2 description',
                 status: 'inactive',
-                route: { name: 'DealsDashboard' },
+                route: { name: 'AffiliateDashboard' },
                 createdAt: '2023-01-23T11:00',
                 updatedAt: '2023-01-23T11:00',
             },

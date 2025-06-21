@@ -11,7 +11,7 @@
 	    		<div class="uk-width-1-3@m uk-width-1-1@s">
 
 					<model-card 
-						:affilaite-asset="affilaiteAsset" />
+						:Affiliate-asset="AffiliateAsset" />
 
 	    		</div>
 
@@ -20,7 +20,7 @@
 	    			<div v-if="this.isShowView">
 
 	    				<model-profile 
-	    					:affilaite-asset="affilaiteAsset" />
+	    					:Affiliate-asset="AffiliateAsset" />
 	    				
 	    			</div>
 
@@ -42,9 +42,9 @@
 
 <script>
 
-	import { showModel } from '@affiliatesModels/affilaite-asset'
-	import ModelCard from '@affiliatesModels/affilaite-asset/widgets/ModelCard.vue'
-	import ModelProfile from '@affiliatesModels/affilaite-asset/widgets/ModelProfile.vue'
+	import { showModel } from '@affiliatesModels/Affiliate-asset'
+	import ModelCard from '@affiliatesModels/Affiliate-asset/widgets/ModelCard.vue'
+	import ModelProfile from '@affiliatesModels/Affiliate-asset/widgets/ModelProfile.vue'
 
 	export default {
 
@@ -70,9 +70,9 @@
 
 				title: undefined,
 
-				affilaiteAssetId: this.$route.params.id,
+				AffiliateAssetId: this.$route.params.id,
 
-				affilaiteAsset: {},
+				AffiliateAsset: {},
 
 			}
 		
@@ -82,25 +82,25 @@
 
 			isShowView() {
 
-				return (this.$route.name == 'AdminShowAffilaiteAsset');
+				return (this.$route.name == 'AdminShowAffiliateAsset');
 
 			},
 
 			items() {
 
-				if(this.$route.name == 'AdminShowAffilaiteAsset') {
+				if(this.$route.name == 'AdminShowAffiliateAsset') {
 
 					return [
-						{ text: 'AffilaiteAssets', path: '/admin/affilaite-asset'},
-						{ text: this.affilaite-asset.name ?? 'AffilaiteAsset', path: '/admin/affilaite-asset/' + this.affilaite-asset.id}
+						{ text: 'AffiliateAssets', path: '/admin/Affiliate-asset'},
+						{ text: this.Affiliate-asset.name ?? 'AffiliateAsset', path: '/admin/Affiliate-asset/' + this.Affiliate-asset.id}
 					];
 
-				} else if(this.$route.name == 'AdminEditAffilaiteAsset') {
+				} else if(this.$route.name == 'AdminEditAffiliateAsset') {
 
 					return [
-						{ text: 'AffilaiteAssets', path: '/admin/affilaite-asset'},
-						{ text: this.affilaite-asset.name ?? 'AffilaiteAsset' , path: '/admin/affilaite-asset/' + this.affilaite-asset.id},
-						{ text: 'Editar affilaite-asset', path: '/admin/affilaite-asset/' + this.affilaite-asset.id + '/edit'}	
+						{ text: 'AffiliateAssets', path: '/admin/Affiliate-asset'},
+						{ text: this.Affiliate-asset.name ?? 'AffiliateAsset' , path: '/admin/Affiliate-asset/' + this.Affiliate-asset.id},
+						{ text: 'Editar Affiliate-asset', path: '/admin/Affiliate-asset/' + this.Affiliate-asset.id + '/edit'}	
 					];
 
 				}
@@ -113,21 +113,21 @@
 
 			async fetchData() {
 
-				await this.fetchAffilaiteAsset()
+				await this.fetchAffiliateAsset()
 
 				this.dataLoaded = true;
 				
-				this.title = this.affilaiteAsset.name;
+				this.title = this.AffiliateAsset.name;
 
 				document.title = this.title;
 
 			},
 
-			async fetchAffilaiteAsset() {
+			async fetchAffiliateAsset() {
 
-				let res = await showModel(this.affilaiteAssetId);
+				let res = await showModel(this.AffiliateAssetId);
 
-				this.affilaiteAsset = res;
+				this.AffiliateAsset = res;
 
             },
 

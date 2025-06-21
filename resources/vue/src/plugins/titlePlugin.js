@@ -1,4 +1,4 @@
-import { useGlobalStore } from '@dealsStore/globalStore';
+import { useGlobalStore } from '@affiliatesStore/globalStore';
 
 export default {
     install(app) {

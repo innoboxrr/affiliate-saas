@@ -8,12 +8,12 @@
 		
 			<div class="sm:col-span-1">
 				<dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Name</dt>
-				<dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ affilaiteAsset.id }}</dd>
+				<dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ AffiliateAsset.id }}</dd>
 			</div>
 		
 			<div class="sm:col-span-1">
 				<dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Other</dt>
-				<dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ affilaiteAsset.other }}</dd>
+				<dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ AffiliateAsset.other }}</dd>
 			</div>
 			<!-- Repite para otros campos como status, country_id, etc. -->
 		
@@ -25,18 +25,18 @@
 
 <script>
 
-	import { showModel } from '@affiliatesModels/affilaite-asset'
+	import { showModel } from '@affiliatesModels/Affiliate-asset'
 	
 	export default {
 
 		props: {
 
-			affilaiteAsset: {
+			AffiliateAsset: {
 				type: Object,
 				required: false,
 			},
 
-			affilaiteAssetId: {
+			AffiliateAssetId: {
 				type: [Number, String],
 				required: false
 			}
@@ -56,9 +56,9 @@
 		created() {
 	
 	        // Asegurarse de que al menos uno de los dos props esté definido.
-	        if (!this.affilaiteAsset && !this.affilaiteAssetId) {
+	        if (!this.AffiliateAsset && !this.AffiliateAssetId) {
 	
-	            console.error("Se debe proporcionar 'affilaiteAsset' o 'affilaiteAssetId'.");
+	            console.error("Se debe proporcionar 'AffiliateAsset' o 'AffiliateAssetId'.");
 	
 	        }
 	
@@ -66,9 +66,9 @@
 
 		mounted() {
 
-			if (!this.affilaiteAsset && this.affilaiteAssetId) {
+			if (!this.AffiliateAsset && this.AffiliateAssetId) {
 
-				this.fetchAffilaiteAsset();
+				this.fetchAffiliateAsset();
 
 			} else {
 
@@ -80,11 +80,11 @@
 
 	    methods: {
 
-			fetchAffilaiteAsset() {
+			fetchAffiliateAsset() {
 
-				showModel(this.affilaiteAssetId).then( res => {
+				showModel(this.AffiliateAssetId).then( res => {
 
-					this.affilaiteAsset = res;
+					this.AffiliateAsset = res;
 
 					this.dataLoaded = true;
 

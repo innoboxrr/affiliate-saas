@@ -15,7 +15,7 @@
 
 <script>
 
-    import { showModel, updateModel} from '@affiliatesModels/affilaite-asset'
+    import { showModel, updateModel} from '@affiliatesModels/Affiliate-asset'
     import JSValidator from 'innoboxrr-js-validator'
     import {
         TextInputComponent,
@@ -35,9 +35,9 @@
         props: {
             formId: {
                 type: String,
-                default: 'editAffilaiteAssetForm'
+                default: 'editAffiliateAssetForm'
             },
-            affilaiteAssetId: {
+            AffiliateAssetId: {
                 type: [Number, String],
                 required: true
             },
@@ -54,7 +54,7 @@
 
         data() {
             return {
-                affilaiteAsset: {
+                AffiliateAsset: {
 //model_data//
                 },
                 disabled: false,
@@ -65,19 +65,19 @@
         methods: {
 
             fetchData() {
-                this.fetchAffilaiteAsset();
+                this.fetchAffiliateAsset();
             },
 
-            fetchAffilaiteAsset() {
-                showModel(this.affilaiteAssetId).then( res => {
-                    this.affilaiteAsset = res;
+            fetchAffiliateAsset() {
+                showModel(this.AffiliateAssetId).then( res => {
+                    this.AffiliateAsset = res;
                 });
             },
 
             onSubmit() {
                 if(this.JSValidator.status) {
                     this.disabled = true;
-                    updateModel(this.affilaiteAsset.id, {
+                    updateModel(this.AffiliateAsset.id, {
 //submit_data//
                     }).then( res => {
                         this.$emit('submit', res);

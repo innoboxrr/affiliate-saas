@@ -1,17 +1,17 @@
 export default [
     {
         path: 'affiliate-manager',
-        name: "AffilaiteManager",
+        name: "AffiliateManager",
         component: () => import("../layout/AffiliateManagerLayout.vue"),
-        redirect: { name: "DealsAdsManagerAds" },
+        redirect: { name: "AffiliateManagerDashboard" },
         meta: {
             title: "Affiliate Manager",
         },
         children: [
             {
-                path: 'programs',
-                name: "AffilaiteManagerPrograms",
-                component: () => import("../views/ProgramsView.vue"),
+                path: 'dashboard',
+                name: "AffiliateManagerDashboard",
+                component: () => import("../views/DashboardView.vue"),
             }
         ]
     }

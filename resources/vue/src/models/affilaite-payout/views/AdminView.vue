@@ -1,12 +1,12 @@
 <template>
 
-	<div id="AdminAffilaitePayoutsWrapper">
+	<div id="AdminAffiliatePayoutsWrapper">
 
 		<div v-if="isHome" class="uk-section uk-section-xsmall">
 			
 			<breadcrumb-component 
 				:pages="[
-					{ link: $router.resolve({ name: 'AdminAffilaitePayouts' }).fullPath, title: 'AffilaitePayouts'}
+					{ link: $router.resolve({ name: 'AdminAffiliatePayouts' }).fullPath, title: 'AffiliatePayouts'}
 				]"/>
 				
 			<data-table 
@@ -28,7 +28,7 @@
 
 <script>
 	
-	import DataTable from '@affiliatesModels/affilaite-payout/widgets/DataTable.vue'
+	import DataTable from '@affiliatesModels/Affiliate-payout/widgets/DataTable.vue'
 
 	export default {
 
@@ -54,7 +54,7 @@
 
 			isHome() {
 
-				return (this.$route.name == 'AdminAffilaitePayouts');
+				return (this.$route.name == 'AdminAffiliatePayouts');
 
 			},
 

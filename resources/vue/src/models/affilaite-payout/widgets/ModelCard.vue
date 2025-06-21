@@ -9,9 +9,9 @@
 					{
 						type: 'router',
 						to: {
-							name: 'AdminShowAffilaitePayout',
+							name: 'AdminShowAffiliatePayout',
 							params: {
-								id: affilaitePayout.id
+								id: AffiliatePayout.id
 							}
 						},
 						label: 'Mostrar',
@@ -19,16 +19,16 @@
 					{
 						type: 'router',
 						to: {
-							name: 'AdminEditAffilaitePayout',
+							name: 'AdminEditAffiliatePayout',
 							params: {
-								id: affilaitePayout.id
+								id: AffiliatePayout.id
 							}
 						},
 						label: 'Editar',
 					},
 					{
 						type: 'event',
-						action: deleteAffilaitePayout,
+						action: deleteAffiliatePayout,
 						label: 'Eliminar',
 					},
 				]"/>
@@ -80,12 +80,12 @@
 
 		props: {
 
-			affilaitePayout: {
+			AffiliatePayout: {
 				type: Object,
 				required: false,
 			},
 
-			affilaitePayoutId: {
+			AffiliatePayoutId: {
 				type: [Number, String],
 				required: false
 			}
@@ -94,9 +94,9 @@
 
 		created() {
 	
-	        if (!this.affilaitePayout && !this.affilaitePayoutId) {
+	        if (!this.AffiliatePayout && !this.AffiliatePayoutId) {
 	
-	            console.error("Se debe proporcionar 'affilaitePayout' o 'affilaitePayoutId'.");
+	            console.error("Se debe proporcionar 'AffiliatePayout' o 'AffiliatePayoutId'.");
 	
 	        }
 	
@@ -104,11 +104,11 @@
 
 	    methods: {
 
-	    	deleteAffilaitePayout() {
+	    	deleteAffiliatePayout() {
 
-	    		deleteModel(this.affilaitePayout).then( res => {
+	    		deleteModel(this.AffiliatePayout).then( res => {
 
-	    			this.$router.push({ name: 'AdminAffilaitePayouts' });
+	    			this.$router.push({ name: 'AdminAffiliatePayouts' });
 
 	    		})
 

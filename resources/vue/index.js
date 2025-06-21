@@ -1,9 +1,9 @@
 import AffiliateApp from './src/AffiliateApp.vue';
-import affilaiteRoutes from './src/routes';
+import AffiliateRoutes from './src/routes';
 import { TranslatePlugin, TitlePlugin } from './src/plugins';
 import PageHeader from './src/components/partials/PageHeader.vue';
 
-export const routes = affilaiteRoutes;
+export const routes = AffiliateRoutes;
 
 export default {
     install(app, options = {}) {

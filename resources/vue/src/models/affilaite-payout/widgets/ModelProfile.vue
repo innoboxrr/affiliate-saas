@@ -8,12 +8,12 @@
 		
 			<div class="sm:col-span-1">
 				<dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Name</dt>
-				<dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ affilaitePayout.id }}</dd>
+				<dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ AffiliatePayout.id }}</dd>
 			</div>
 		
 			<div class="sm:col-span-1">
 				<dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Other</dt>
-				<dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ affilaitePayout.other }}</dd>
+				<dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ AffiliatePayout.other }}</dd>
 			</div>
 			<!-- Repite para otros campos como status, country_id, etc. -->
 		
@@ -25,18 +25,18 @@
 
 <script>
 
-	import { showModel } from '@affiliatesModels/affilaite-payout'
+	import { showModel } from '@affiliatesModels/Affiliate-payout'
 	
 	export default {
 
 		props: {
 
-			affilaitePayout: {
+			AffiliatePayout: {
 				type: Object,
 				required: false,
 			},
 
-			affilaitePayoutId: {
+			AffiliatePayoutId: {
 				type: [Number, String],
 				required: false
 			}
@@ -56,9 +56,9 @@
 		created() {
 	
 	        // Asegurarse de que al menos uno de los dos props esté definido.
-	        if (!this.affilaitePayout && !this.affilaitePayoutId) {
+	        if (!this.AffiliatePayout && !this.AffiliatePayoutId) {
 	
-	            console.error("Se debe proporcionar 'affilaitePayout' o 'affilaitePayoutId'.");
+	            console.error("Se debe proporcionar 'AffiliatePayout' o 'AffiliatePayoutId'.");
 	
 	        }
 	
@@ -66,9 +66,9 @@
 
 		mounted() {
 
-			if (!this.affilaitePayout && this.affilaitePayoutId) {
+			if (!this.AffiliatePayout && this.AffiliatePayoutId) {
 
-				this.fetchAffilaitePayout();
+				this.fetchAffiliatePayout();
 
 			} else {
 
@@ -80,11 +80,11 @@
 
 	    methods: {
 
-			fetchAffilaitePayout() {
+			fetchAffiliatePayout() {
 
-				showModel(this.affilaitePayoutId).then( res => {
+				showModel(this.AffiliatePayoutId).then( res => {
 
-					this.affilaitePayout = res;
+					this.AffiliatePayout = res;
 
 					this.dataLoaded = true;
 

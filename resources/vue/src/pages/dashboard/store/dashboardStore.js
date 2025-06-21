@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 
-export const useDashboardStore = defineStore('affilaites-pages-dashboard', {
+export const useDashboardStore = defineStore('affiliate-pages-dashboard', {
     state: () => ({
         
     }),

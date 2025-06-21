@@ -1,1 +1,1 @@
-# Affilaite SaaS
+# Affiliate SaaS

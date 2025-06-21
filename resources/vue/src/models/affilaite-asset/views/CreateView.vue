@@ -4,8 +4,8 @@
 
 		<breadcrumb-component 
 			:pages="[
-				{ link: $router.resolve({ name: 'AdminAffilaiteAssets' }).fullPath, title: 'AffilaiteAssets'},
-				{ link: $router.resolve({ name: 'AdminCreateAffilaiteAsset' }).fullPath, title: 'Crear AffilaiteAssets'}
+				{ link: $router.resolve({ name: 'AdminAffiliateAssets' }).fullPath, title: 'AffiliateAssets'},
+				{ link: $router.resolve({ name: 'AdminCreateAffiliateAsset' }).fullPath, title: 'Crear AffiliateAssets'}
 			]"/>
 			
 		<div class="flex justify-center items-center mt-8">
@@ -14,7 +14,7 @@
 				
 				<div class="card bg-white dark:bg-slate-600 border rounded-lg px-8 pt-6 pb-8 mb-4 dark:border-slate-800">
 
-					<h2 class="text-4xl font-bold dark:text-white mb-6">Crear AffilaiteAssets</h2>
+					<h2 class="text-4xl font-bold dark:text-white mb-6">Crear AffiliateAssets</h2>
 					
 					<create-form 
 						@submit="formSubmit"/>
@@ -31,8 +31,8 @@
 
 <script>
 
-	import { getPolicy } from '@affiliatesModels/affilaite-asset'
-	import CreateForm from '@affiliatesModels/affilaite-asset/forms/CreateForm.vue'
+	import { getPolicy } from '@affiliatesModels/Affiliate-asset'
+	import CreateForm from '@affiliatesModels/Affiliate-asset/forms/CreateForm.vue'
 
 	export default {
 
@@ -72,7 +72,7 @@
 
 				this.$router.push({
 
-					name: "AdminShowAffilaiteAsset", 
+					name: "AdminShowAffiliateAsset", 
 
 					params: { 
 

@@ -1,16 +1,16 @@
 export default [
 	{
 		path: 'dashboard',
-		name: "AffiliatesDashboard",
+		name: "AffiliateDashboard",
 		component: () => import("./../layout/DashboardLayout.vue"),
-		redirect: { name: "AffiliatesDashboardHome" },
+		redirect: { name: "AffiliateDashboardHome" },
 		meta: {
-			title: "Affiliates Dashboard",
+			title: "Affiliate Dashboard",
 		},
 		children: [
 			{
 				path: 'home',
-				name: "AffiliatesDashboardHome",
+				name: "AffiliateDashboardHome",
 				component: () => import("./../views/HomeView.vue"),
 			}
 		]

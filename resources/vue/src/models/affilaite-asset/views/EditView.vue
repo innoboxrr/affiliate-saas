@@ -8,7 +8,7 @@
 
 				<edit-form 
 					:key="$route.params.id"
-					:affilaite-asset-id="$route.params.id"
+					:Affiliate-asset-id="$route.params.id"
 					@submit="formSubmit"/>
 
 			</div>
@@ -21,8 +21,8 @@
 
 <script>
 
-	import { getPolicy } from '@affiliatesModels/affilaite-asset'
-	import EditForm from '@affiliatesModels/affilaite-asset/forms/EditForm.vue'
+	import { getPolicy } from '@affiliatesModels/Affiliate-asset'
+	import EditForm from '@affiliatesModels/Affiliate-asset/forms/EditForm.vue'
 
 	export default {
 
@@ -62,7 +62,7 @@
 
 				this.$router.push({
 
-					name: "AdminShowAffilaiteAsset", 
+					name: "AdminShowAffiliateAsset", 
 
 					params: { 
 

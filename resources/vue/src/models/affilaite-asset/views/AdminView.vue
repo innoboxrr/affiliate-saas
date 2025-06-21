@@ -1,12 +1,12 @@
 <template>
 
-	<div id="AdminAffilaiteAssetsWrapper">
+	<div id="AdminAffiliateAssetsWrapper">
 
 		<div v-if="isHome" class="uk-section uk-section-xsmall">
 			
 			<breadcrumb-component 
 				:pages="[
-					{ link: $router.resolve({ name: 'AdminAffilaiteAssets' }).fullPath, title: 'AffilaiteAssets'}
+					{ link: $router.resolve({ name: 'AdminAffiliateAssets' }).fullPath, title: 'AffiliateAssets'}
 				]"/>
 				
 			<data-table 
@@ -28,7 +28,7 @@
 
 <script>
 	
-	import DataTable from '@affiliatesModels/affilaite-asset/widgets/DataTable.vue'
+	import DataTable from '@affiliatesModels/Affiliate-asset/widgets/DataTable.vue'
 
 	export default {
 
@@ -54,7 +54,7 @@
 
 			isHome() {
 
-				return (this.$route.name == 'AdminAffilaiteAssets');
+				return (this.$route.name == 'AdminAffiliateAssets');
 
 			},
 

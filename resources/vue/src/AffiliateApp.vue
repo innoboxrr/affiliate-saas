@@ -1,6 +1,5 @@
 <template>
     <div v-if="dataLoaded">
-        <!-- Sidebar -->
         <TransitionRoot as="template" :show="sidebarOpen">
             <Dialog class="relative z-50 xl:hidden" @close="sidebarOpen = false">
                 <TransitionChild
@@ -72,7 +71,7 @@
 			style="height: calc(100vh - 54px)">
             <SearchHeader @open-sidebar="toggleSidebar" />
             <div class="flex flex-1 overflow-hidden">
-                <main id="DealAppMainWrapper" class="flex-1 overflow-y-auto">
+                <main id="AffiliateAppMainWrapper" class="flex-1 overflow-y-auto">
                     <router-view />
                 </main>
             </div>
@@ -91,10 +90,10 @@ import { XMarkIcon } from "@heroicons/vue/24/outline";
 import SidebarMenu from "./components/partials/SidebarMenu.vue";
 import SearchHeader from "./components/partials/SearchHeader.vue";
 import ActivityFeed from "./components/partials/ActivityFeed.vue";
-import { useGlobalStore } from "@dealsStore/globalStore.js";
+import { useGlobalStore } from "@affiliatesStore/globalStore.js";
 
 export default {
-	name: "DealsDashboard",
+	name: "AffiliateDashboard",
 	components: {
 		Dialog,
 		DialogPanel,
@@ -135,6 +134,5 @@ export default {
             this.visibleRow = this.visibleRow === row ? null : row;
         },
 	},
-
 };
 </script>

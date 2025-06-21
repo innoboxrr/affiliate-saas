@@ -2,11 +2,11 @@ import * as middleware from '@router/middleware'
 
 export default [
 	{
-		path: 'affilaite-payout',
-		name: "AdminAffilaitePayouts",
+		path: 'affiliate-payout',
+		name: "AdminAffiliatePayouts",
 		component: () => import ("./../views/AdminView.vue"),
 		meta: {
-			title: 'AffilaitePayouts',
+			title: 'AffiliatePayouts',
 			middleware: [
 				middleware.auth
 			]
@@ -14,10 +14,10 @@ export default [
 		children: [
 			{
 				path: 'create',
-				name: "AdminCreateAffilaitePayout",
+				name: "AdminCreateAffiliatePayout",
 				component: () => import ("./../views/CreateView.vue"),
 				meta: {
-					title: 'Crear AffilaitePayouts',
+					title: 'Crear AffiliatePayouts',
 					middleware: [
 						middleware.auth
 					]
@@ -25,10 +25,10 @@ export default [
 			},
 			{
 				path: ':id',
-				name: "AdminShowAffilaitePayout",
+				name: "AdminShowAffiliatePayout",
 				component: () => import ("./../views/ShowView.vue"),
 				meta: {
-					title: 'Ver AffilaitePayouts',
+					title: 'Ver AffiliatePayouts',
 					middleware: [
 						middleware.auth
 					]
@@ -36,10 +36,10 @@ export default [
 				children: [
 					{
 						path: 'edit',
-						name: "AdminEditAffilaitePayout",
+						name: "AdminEditAffiliatePayout",
 						component: () => import ("./../views/EditView.vue"),
 						meta: {
-							title: 'Editar AffilaitePayouts',
+							title: 'Editar AffiliatePayouts',
 							middleware: [
 								middleware.auth
 							]

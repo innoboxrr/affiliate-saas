@@ -1,6 +1,6 @@
 import makeHttpRequest from 'innoboxrr-http-request'
 
-export const API_ROUTE_PREFIX = 'api.innoboxrr.affiliatesaas.affilaite_asset.'; // Reemplaza con la ruta adecuada
+export const API_ROUTE_PREFIX = 'api.innoboxrr.affiliatesaas.Affiliate_asset.'; // Reemplaza con la ruta adecuada
 
 export const CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); // Reemplaza con el token adecuado
 
@@ -29,13 +29,13 @@ export const crudActions = () => {
 		{
 			id: 'create',
 			name: 'Create',
-			callback: 'createAffilaiteAsset',
+			callback: 'createAffiliateAsset',
 			icon: 'fa-plus',
 			route: true,
 			policy: false,
 			params: {
 				to: {
-					name: 'AdminCreateAffilaiteAsset',
+					name: 'AdminCreateAffiliateAsset',
 					params: {}
 				}
 			}
@@ -102,7 +102,7 @@ export const getPolicy = (policy, modelId = null) => {
 export const showModel = (modelId, loadRelations = [], loadCounts = [], data = {}) => {
     return makeHttpRequest('get', route(API_ROUTE_PREFIX + 'show'), {
         _token: CSRF_TOKEN,
-        affilaite_asset_id: modelId,
+        Affiliate_asset_id: modelId,
         load_relations: loadRelations,
         load_counts: loadCounts,
         ...data,
@@ -127,7 +127,7 @@ export const updateModel = (modelId, data) => {
     return makeHttpRequest('put', route(API_ROUTE_PREFIX + 'update'), {
         _token: CSRF_TOKEN,
         ...data,
-        affilaite_asset_id: modelId,
+        Affiliate_asset_id: modelId,
     }, {}, 1, 1500);
 };
 
@@ -144,7 +144,7 @@ export const deleteModel = (data) => {
     return makeHttpRequest('post', route(API_ROUTE_PREFIX + 'delete'), {
         _token: CSRF_TOKEN,
         _method: 'DELETE',
-        affilaite_asset_id: data.id,
+        Affiliate_asset_id: data.id,
     }, {}, 3, 1500, confirmOptions);
 };
 

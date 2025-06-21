@@ -7,31 +7,10 @@
                         <div class="flex items-center justify-between py-3">
                             <div class="flex items-center flex-1 space-x-2">
                                 <h5 class="font-semibold dark:text-white">
-                                    Dashboard de anunciantes
+                                    {{ __affiliate('Affiliate Dashboard') }}
                                 </h5>
                             </div>
                             <div class="flex items-center gap-4 justify-between sm:justify-end">
-                                
-                                <!-- Selector de Deal -->
-                                <div class="flex items-center">
-                                    <label for="deal-select" class="mr-2 text-sm font-medium text-gray-700">
-                                        Deal:
-                                    </label>
-                                    <select
-                                        id="deal-select"
-                                        v-model="dealId"
-                                        class="block w-48 rounded-md border-gray-300 bg-white py-2 px-3 text-sm focus:outline-none">
-                                        <option disabled value="">-- Selecciona un Deal --</option>
-                                        <option 
-                                            v-for="deal in deals" 
-                                            :key="deal.id" 
-                                            :value="deal.id">
-                                            {{ deal.name }}
-                                        </option>
-                                    </select>
-                                </div>
-
-                                <!-- Métricas del Deal seleccionado -->
                                 <Menu as="div" class="relative inline-block text-left">
                                     <div>
                                         <MenuButton class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
@@ -960,18 +939,17 @@
 </template>
 
 <script>
-    import { indexModel as indexDealModel, showModel as showDealModel } from '@dealsModels/deal'
     import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
     import {
         ChevronDownIcon,
     } from '@heroicons/vue/20/solid'
-    import AreaChart from '@dealsComponents/charts/AreaChart.vue';
-    import LineChart from '@dealsComponents/charts/LineChart.vue';
-    import ColumnChart from '@dealsComponents/charts/ColumnChart.vue';
-    import BarChart from '@dealsComponents/charts/BarChart.vue';
-    import PieChart from '@dealsComponents/charts/PieChart.vue';
-    import DonutChart from '@dealsComponents/charts/DonutChart.vue';
-    import RadialChart from '@dealsComponents/charts/RadialChart.vue';
+    import AreaChart from '@affiliatesComponents/charts/AreaChart.vue';
+    import LineChart from '@affiliatesComponents/charts/LineChart.vue';
+    import ColumnChart from '@affiliatesComponents/charts/ColumnChart.vue';
+    import BarChart from '@affiliatesComponents/charts/BarChart.vue';
+    import PieChart from '@affiliatesComponents/charts/PieChart.vue';
+    import DonutChart from '@affiliatesComponents/charts/DonutChart.vue';
+    import RadialChart from '@affiliatesComponents/charts/RadialChart.vue';
 
     export default {
         name: "dealDashboardSection",
@@ -992,13 +970,6 @@
         data() {
             return {
                 visibleRow: null,
-                dealId: 1,
-                deals: [
-                    { id: 0, name: 'All' },
-                    { id: 1, name: 'Deal 1' },
-                    { id: 2, name: 'Deal 2' },
-                    { id: 3, name: 'Deal 3' },
-                ],
             };
         },
     };
