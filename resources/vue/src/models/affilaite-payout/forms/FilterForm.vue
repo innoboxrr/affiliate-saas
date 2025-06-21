@@ -1,5 +1,5 @@
 <template>	
-	<form id="affilaitePayoutFilterForm" @submit.prevent="onSubmit">
+	<form id="AffiliatePayoutFilterForm" @submit.prevent="onSubmit">
 		<div class="uk-flex uk-flex-left uk-child-width-1-4@m uk-child-width-1-1@s" uk-grid>
 			<div>
 				<text-input-component
