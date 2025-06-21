@@ -1,0 +1,138 @@
+<template>
+
+	<div v-if="dataLoaded">
+
+		<breadcrumb-component :items="items" />
+	    
+	    <div class="uk-container uk-container-expand">
+
+	    	<div class="uk-grid-small" uk-grid>
+	    		
+	    		<div class="uk-width-1-3@m uk-width-1-1@s">
+
+					<model-card 
+						:affiliate-conversion="affiliateConversion" />
+
+	    		</div>
+
+	    		<div class="uk-width-expand uk-width-1-2@m uk-width-1-1@s">
+
+	    			<div v-if="this.isShowView">
+
+	    				<model-profile 
+	    					:affiliate-conversion="affiliateConversion" />
+	    				
+	    			</div>
+
+	    			<div v-else>
+	    				
+	    				<router-view @updateData="fetchData"></router-view>
+
+	    			</div>
+
+	    		</div>
+
+	    	</div>
+
+	    </div>
+
+	</div>
+
+</template>
+
+<script>
+
+	import { showModel } from '@affiliatesModels/affiliate-conversion'
+	import ModelCard from '@affiliatesModels/affiliate-conversion/widgets/ModelCard.vue'
+	import ModelProfile from '@affiliatesModels/affiliate-conversion/widgets/ModelProfile.vue'
+
+	export default {
+
+		components: {
+
+			ModelCard,
+
+			ModelProfile
+
+		},
+
+		mounted() {
+
+			this.fetchData();
+
+		},
+
+		data() {
+		
+			return {
+
+				dataLoaded: false,
+
+				title: undefined,
+
+				affiliateConversionId: this.$route.params.id,
+
+				affiliateConversion: {},
+
+			}
+		
+		},
+
+		computed: {
+
+			isShowView() {
+
+				return (this.$route.name == 'AdminShowAffiliateConversion');
+
+			},
+
+			items() {
+
+				if(this.$route.name == 'AdminShowAffiliateConversion') {
+
+					return [
+						{ text: 'AffiliateConversions', path: '/admin/affiliate-conversion'},
+						{ text: this.affiliate-conversion.name ?? 'AffiliateConversion', path: '/admin/affiliate-conversion/' + this.affiliate-conversion.id}
+					];
+
+				} else if(this.$route.name == 'AdminEditAffiliateConversion') {
+
+					return [
+						{ text: 'AffiliateConversions', path: '/admin/affiliate-conversion'},
+						{ text: this.affiliate-conversion.name ?? 'AffiliateConversion' , path: '/admin/affiliate-conversion/' + this.affiliate-conversion.id},
+						{ text: 'Editar affiliate-conversion', path: '/admin/affiliate-conversion/' + this.affiliate-conversion.id + '/edit'}	
+					];
+
+				}
+
+			}
+
+		},
+
+		methods: {
+
+			async fetchData() {
+
+				await this.fetchAffiliateConversion()
+
+				this.dataLoaded = true;
+				
+				this.title = this.affiliateConversion.name;
+
+				document.title = this.title;
+
+			},
+
+			async fetchAffiliateConversion() {
+
+				let res = await showModel(this.affiliateConversionId);
+
+				this.affiliateConversion = res;
+
+            },
+
+		}
+
+	}
+
+</script>
