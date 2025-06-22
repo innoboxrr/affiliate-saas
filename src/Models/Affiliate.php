@@ -52,6 +52,21 @@ class Affiliate extends Model
     protected $protected_metas = [];
 
     protected $editable_metas = [
+        'name',
+        'email',
+        'phone',
+        'address',
+        'city',
+        'state',
+        'country',
+        'zip',
+        'website',
+        'facebook',
+        'twitter',
+        'instagram',
+        'linkedin',
+        'youtube',
+        'tiktok',
         'payment_method',
         'payment_data',
         'affiliate_type',

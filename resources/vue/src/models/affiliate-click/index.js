@@ -60,29 +60,87 @@ export const dataTableHead = () => {
 			sortable: true,
 			html: false,
 		},
-//DATA_TABLE_COLUMNS//
-		/*
 		{
-			id: 'column',
-			value: 'Column',
+			id: 'uuid',
+			value: 'UUID',
 			sortable: true,
 			html: false,
+		},
+		{
+			id: 'ip_address',
+			value: 'IP',
+			sortable: true,
+			html: false,
+		},
+		{
+			id: 'user_agent',
+			value: 'Navegador',
+			sortable: false,
+			html: true,
 			parser: (value) => {
-
-				return value;
-
+				return `<span class="block max-w-[200px] truncate" title="${value}">${value}</span>`;
 			}
 		},
-		*/
+		{
+			id: 'referrer',
+			value: 'Referente',
+			sortable: false,
+			html: true,
+			parser: (value) => {
+				if (!value) return '<span class="text-gray-400">—</span>';
+				return `<a href="${value}" target="_blank" class="text-blue-600 hover:underline">${value}</a>`;
+			}
+		},
+		{
+			id: 'url',
+			value: 'Enlace',
+			sortable: false,
+			html: true,
+			parser: (value) => {
+				return `<a href="${value}" target="_blank" class="text-blue-600 hover:underline">${value}</a>`;
+			}
+		},
+		{
+			id: 'affiliate_link_id',
+			value: 'ID Link',
+			sortable: true,
+			html: false,
+		},
+		{
+			id: 'created_at',
+			value: 'Creado',
+			sortable: true,
+			html: false,
+		},
+		{
+			id: 'updated_at',
+			value: 'Actualizado',
+			sortable: true,
+			html: false,
+		},
+		{
+			id: 'deleted_at',
+			value: 'Eliminado',
+			sortable: true,
+			html: false,
+		},
+		//DATA_TABLE_COLUMNS//
 	];
 };
 
 export const dataTableSort = () => {
 	return {
 		id: 'asc',
-//DATA_TABLE_SORT//
+		uuid: 'asc',
+		ip_address: 'asc',
+		affiliate_link_id: 'asc',
+		created_at: 'asc',
+		updated_at: 'asc',
+		deleted_at: 'asc',
+		//DATA_TABLE_SORT//
 	};
 };
+
 
 export const getPolicies = (modelId = null) => {
     return makeHttpRequest('get', route(API_ROUTE_PREFIX + 'policies'), {

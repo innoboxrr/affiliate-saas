@@ -60,29 +60,138 @@ export const dataTableHead = () => {
 			sortable: true,
 			html: false,
 		},
-//DATA_TABLE_COLUMNS//
-		/*
 		{
-			id: 'column',
-			value: 'Column',
+			id: 'status',
+			value: 'Estado',
 			sortable: true,
-			html: false,
+			html: true,
 			parser: (value) => {
-
-				return value;
-
+				const color = value === 'approved' ? 'green' : value === 'rejected' ? 'red' : 'gray';
+				return `<span class="px-2 py-1 text-xs font-semibold text-${color}-800 bg-${color}-100 rounded dark:bg-${color}-900 dark:text-${color}-300">${value}</span>`;
 			}
 		},
-		*/
+		{
+			id: 'amount',
+			value: 'Monto',
+			sortable: true,
+			html: false,
+		},
+		{
+			id: 'currency',
+			value: 'Moneda',
+			sortable: true,
+			html: false,
+		},
+		{
+			id: 'commission',
+			value: 'Comisión',
+			sortable: true,
+			html: false,
+		},
+		{
+			id: 'event_type',
+			value: 'Tipo de Evento',
+			sortable: true,
+			html: false,
+		},
+		{
+			id: 'is_test',
+			value: 'Test',
+			sortable: true,
+			html: true,
+			parser: (value) => {
+				return value
+					? `<span class="text-xs px-2 py-1 rounded bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300">Sí</span>`
+					: `<span class="text-xs px-2 py-1 rounded bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">No</span>`;
+			}
+		},
+		{
+			id: 'external_order_id',
+			value: 'Orden Externa',
+			sortable: true,
+			html: false,
+		},
+		{
+			id: 'external_user_id',
+			value: 'Usuario Externo',
+			sortable: true,
+			html: false,
+		},
+		{
+			id: 'affiliate_link_id',
+			value: 'ID Link',
+			sortable: true,
+			html: false,
+		},
+		{
+			id: 'affiliate_click_id',
+			value: 'ID Click',
+			sortable: true,
+			html: false,
+		},
+		{
+			id: 'affiliate_payout_id',
+			value: 'ID Pago',
+			sortable: true,
+			html: false,
+		},
+		{
+			id: 'approved_by',
+			value: 'Aprobado por',
+			sortable: true,
+			html: false,
+		},
+		{
+			id: 'approved_at',
+			value: 'Aprobado el',
+			sortable: true,
+			html: false,
+		},
+		{
+			id: 'created_at',
+			value: 'Creado',
+			sortable: true,
+			html: false,
+		},
+		{
+			id: 'updated_at',
+			value: 'Actualizado',
+			sortable: true,
+			html: false,
+		},
+		{
+			id: 'deleted_at',
+			value: 'Eliminado',
+			sortable: true,
+			html: false,
+		},
+		//DATA_TABLE_COLUMNS//
 	];
 };
 
 export const dataTableSort = () => {
 	return {
 		id: 'asc',
-//DATA_TABLE_SORT//
+		status: 'asc',
+		amount: 'asc',
+		currency: 'asc',
+		commission: 'asc',
+		event_type: 'asc',
+		is_test: 'asc',
+		external_order_id: 'asc',
+		external_user_id: 'asc',
+		affiliate_link_id: 'asc',
+		affiliate_click_id: 'asc',
+		affiliate_payout_id: 'asc',
+		approved_by: 'asc',
+		approved_at: 'asc',
+		created_at: 'asc',
+		updated_at: 'asc',
+		deleted_at: 'asc',
+		//DATA_TABLE_SORT//
 	};
 };
+
 
 export const getPolicies = (modelId = null) => {
     return makeHttpRequest('get', route(API_ROUTE_PREFIX + 'policies'), {

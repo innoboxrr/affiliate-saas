@@ -60,7 +60,43 @@ export const dataTableHead = () => {
 			sortable: true,
 			html: false,
 		},
-//DATA_TABLE_COLUMNS//
+		{
+			id: 'workspace_id',
+			value: 'Workspace ID',
+			sortable: true,
+			html: false,
+		},
+		{
+			id: 'user_id',
+			value: 'User ID',
+			sortable: true,
+			html: false,
+		},
+		{
+			id: 'verified_at',
+			value: 'Verificado',
+			sortable: true,
+			html: false,
+		},
+		{
+			id: 'created_at',
+			value: 'Creado',
+			sortable: true,
+			html: false,
+		},
+		{
+			id: 'updated_at',
+			value: 'Actualizado',
+			sortable: true,
+			html: false,
+		},
+		{
+			id: 'deleted_at',
+			value: 'Eliminado',
+			sortable: true,
+			html: false,
+		},
+		//DATA_TABLE_COLUMNS//
 		/*
 		{
 			id: 'column',
@@ -68,9 +104,7 @@ export const dataTableHead = () => {
 			sortable: true,
 			html: false,
 			parser: (value) => {
-
 				return value;
-
 			}
 		},
 		*/
@@ -80,9 +114,16 @@ export const dataTableHead = () => {
 export const dataTableSort = () => {
 	return {
 		id: 'asc',
-//DATA_TABLE_SORT//
+		workspace_id: 'asc',
+		user_id: 'asc',
+		verified_at: 'asc',
+		created_at: 'asc',
+		updated_at: 'asc',
+		deleted_at: 'asc',
+		//DATA_TABLE_SORT//
 	};
 };
+
 
 export const getPolicies = (modelId = null) => {
     return makeHttpRequest('get', route(API_ROUTE_PREFIX + 'policies'), {

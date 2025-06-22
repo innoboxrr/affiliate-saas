@@ -1,129 +1,267 @@
-# InnoboxRR Vue Blog
+# InnoboxRR Affiliate SaaS
 
-`innoboxrr-vue-blog` es un paquete frontend desarrollado con Vue 3 y Pinia que proporciona una solución completa para la gestión de blogs, incluyendo administración de posts, categorías, etiquetas, vistas de búsqueda, suscripciones, y configuración SEO. Este paquete está diseñado para integrarse con aplicaciones de Laravel usando `laravel-blog` como backend.
+`innoboxrr-affiliate-saas` es un sistema completo para la gestión de afiliados en plataformas Laravel. Permite integrar funcionalidades clave para manejar programas de afiliados, links, clics, conversiones, pagos y más. Su arquitectura está orientada a microservicios con extensión modular, y aprovecha filtros, relaciones personalizadas, y un sistema robusto de metadatos.
 
 ---
 
 ## Características
 
-### **Vistas Administrativas**
+### 🔎 Seguimiento de Actividad
 
-1. **BlogDashboard**: Panel principal para la administración del blog.
-2. **BlogSettingsView**: Configuración general del blog (SEO, opciones avanzadas).
-3. **BlogPostDataTable**: Tabla interactiva para la gestión de posts.
-4. **BlogCategoryModal**:
-    - BlogCategoryCreateForm
-    - BlogCategoryEditForm
-5. **BlogPostModal**:
-    - BlogPostCreateForm
-        - BlogTagAssignment
-    - BlogPostEditForm
-        - BlogTagAssignment
-    - BlogPostPreview
+* Seguimiento de clics, links y conversiones.
+* Relación completa entre afiliados, programas, clics y pagos.
 
-### **Vistas del Sitio**
+### 🎁 Sistema de Programas
 
-1. **HomePageView**: Vista principal del blog para los visitantes.
-2. **SearchView**: Página de búsqueda con resultados basados en entradas del blog.
-3. **PostView**: Detalle de un post individual.
-4. **RSSFeed**: Generación de feeds RSS para el blog.
-5. **SubscriptionModal**: Modal para gestionar suscripciones de usuarios.
+* Creación de programas de afiliación por workspace.
+* Asignación automática de links.
+
+### 💰 Pagos
+
+* Registro y seguimiento de pagos a afiliados.
+* Metadatos editables para registrar detalles bancarios, condiciones o estados de revisión.
+
+### 📈 Métricas e Informes
+
+* Total de clics, conversiones, payout pendientes y aprobados.
+* Integración con dashboards.
 
 ---
 
 ## Instalación
 
+### 1. Instalar el paquete
+
+```bash
+composer require innoboxrr/affiliate-saas
+```
+
+### 2. Publicar archivos
+
+```bash
+php artisan vendor:publish --tag=affiliate-saas-config
+php artisan vendor:publish --tag=affiliate-saas-migrations
+```
+
+### 3. Ejecutar migraciones
+
+```bash
+php artisan migrate
+```
+
+### 4. Configurar clases relacionadas en `config/affiliate.php`
+
+```php
+return [
+    'user_class' => App\Models\User::class,
+    'workspace_class' => App\Models\Workspace::class,
+];
+```
+
+---
+
+## Estructura de Modelos
+
+### 🔗 `Affiliate`
+
+Representa al usuario afiliado. Tiene relación con `User`, `Workspace`, `AffiliateLink`, `AffiliateConversion` y `AffiliateMeta`.
+
+### 🖐️ `AffiliateLink`
+
+Contiene la URL personalizada de cada afiliado dentro de un programa. Pertenece a un `AffiliateProgram` y `Affiliate`.
+
+### ✨ `AffiliateClick`
+
+Guarda los clics realizados sobre los links de afiliado. Relaciona con `AffiliateLink` y contiene `AffiliateConversion`.
+
+### 🏛️ `AffiliateConversion`
+
+Registra una conversión (ej. compra). Puede estar relacionada con un `AffiliateClick`, `AffiliateLink`, `AffiliatePayout`, y mediante `BelongsToThrough` con el `Affiliate`.
+
+### 💳 `AffiliatePayout`
+
+Contiene el pago a uno o más afiliados. Puede tener metas y conversiones asociadas.
+
+### 📅 `AffiliateProgram`
+
+Definición de un programa de afiliación. Tiene links, assets y afiliados asociados.
+
+### 🖊️ `AffiliateAsset`
+
+Recursos publicitarios (banners, videos, PDF) relacionados a un programa.
+
+---
+
+## Traits
+
+Todos los modelos tienen sus propios Traits de relaciones, organizados en:
+
+```
+Innoboxrr\AffiliateSaas\Models\Traits\Relations
+```
+
+Esto permite desacoplar la lógica y mantener los modelos limpios.
+
+---
+
+## Filtros para Busquedas y Eager Loading
+
+Cada modelo tiene su filtro `EagerLoadingFilter` para cargar relaciones condicionalmente con base en los datos entrantes.
+
+Ejemplo:
+
+```php
+if ($data->load_relation == true) {
+    $query->with(['affiliate', 'link']);
+}
+```
+
+Esto se genera automáticamente según las relaciones del modelo y permite una carga flexible.
+
+---
+
+## Políticas (Traits)
+
+El paquete define políticas reutilizables para acciones como:
+
+* Crear programas
+* Gestionar links
+* Ver conversiones
+
+Se encuentran en:
+
+```
+App\Services\User\Affiliate\Traits
+```
+
+Y se importan desde un trait general:
+
+```php
+use App\Services\User\Affiliate\AffiliatePolicies;
+```
+
+---
+
+## API e Integración
+
+Puedes exponer estos modelos vía API para integrarlos a frontends como Vue o Inertia, usando recursos, policies y autorizaciones.
+
+Ejemplo de estructura de rutas:
+
+```php
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::apiResource('affiliate-programs', AffiliateProgramController::class);
+    Route::apiResource('affiliate-links', AffiliateLinkController::class);
+});
+```
+
+Aquí tienes la sección **Instalación** adaptada de forma profesional, clara y completa para el paquete `innoboxrr-vue-affiliate`, con todos los nombres, rutas y componentes cambiados y organizados con precisión:
+
+---
+
+## 🚀 Instalación
+
 ### 1. Instalar el Paquete
 
-Asegúrate de tener el paquete instalado desde npm o enlazado localmente:
+Instala el paquete desde npm o usando un enlace local:
+
 ```bash
-npm install innoboxrr-vue-blog
+npm install innoboxrr-vue-affiliate
 ```
 
-### 2. Registrar el Paquete en Bootstrap
+> También puedes usar `npm link` si estás trabajando en desarrollo local del paquete.
 
-Agrega `BlogApp` al bootstrap de tu aplicación:
+---
+
+### 2. Registrar el Paquete en tu Bootstrap de Vue
+
+Agrega el paquete `AffiliateApp` a tu aplicación principal:
 
 ```javascript
 import { createApp } from 'vue';
-import BlogApp from 'innoboxrr-vue-blog';
+import AffiliateApp from 'innoboxrr-vue-affiliate';
 
 const app = createApp(App);
-app.use(BlogApp);
+app.use(AffiliateApp);
 ```
 
-### 2.1 Traducciones
+---
 
-Puedes añadir traducciones personalizadas de la siguinte manera
+### 3. Traducciones Personalizadas (Opcional)
+
+Puedes sobrescribir los textos por defecto en distintos idiomas con tu propio archivo de traducciones:
+
 ```javascript
-import { createApp } from 'vue';
-import BlogPackage from 'path/to/your/package';
+import AffiliatePackage from 'innoboxrr-vue-affiliate';
 
 const customLocales = {
     es: {
-        Hello: 'Hola personalizado',
-        'Create Blog': 'Crear Blog personalizado',
+        'Affiliate Program': 'Programa de Afiliados',
+        'Create Affiliate': 'Crear Afiliado',
+        // ...otros textos
     },
 };
 
-const app = createApp(App);
-
-app.use(BlogPackage, {
+app.use(AffiliatePackage, {
     translateOptions: {
-        defaultLang: 'es', // Idioma por defecto
-        locales: customLocales, // Locales personalizados
+        defaultLang: 'es',
+        locales: customLocales,
     }
 });
-
-app.mount('#app');
 ```
 
+---
 
-### 3. Configurar la Vista Principal
+### 4. Crear la Vista Principal
 
-Crea una vista en tu aplicación principal donde quieras mostrar el blog:
+Genera una vista específica para la sección de afiliados:
 
-**Archivo: `BlogView.vue`**
+**Archivo: `AffiliateView.vue`**
+
 ```vue
 <template>
-    <BlogApp />
+    <AffiliateApp />
 </template>
 
 <script>
 export default {
-    name: 'BlogView',
+    name: 'AffiliateView',
 };
 </script>
 ```
 
-### 4. Registrar Rutas
+---
 
-Incluye las rutas del paquete como hijos de una ruta principal:
+### 5. Registrar las Rutas
+
+Incluye las rutas del paquete como hijos de tu ruta principal `/affiliate`:
 
 **Archivo: `routes/index.js`**
+
 ```javascript
-import blogRoutes from 'innoboxrr-vue-blog/routes';
+import affiliateRoutes from 'innoboxrr-vue-affiliate/routes';
 
 export default [
     {
-        path: '/blog',
-        name: 'AdminBlog',
-        component: () => import('./../views/BlogView.vue'),
+        path: '/affiliate',
+        name: 'AdminAffiliate',
+        component: () => import('./../views/AffiliateView.vue'),
         meta: {
-            title: 'Blog',
+            title: 'Afiliados',
         },
         children: [
-            ...blogRoutes,
+            ...affiliateRoutes,
         ],
     },
 ];
 ```
 
-### 5. Configurar Alias en `vite.config.js`
+---
 
-Añade los alias para facilitar las importaciones de modelos, páginas y tiendas del paquete:
+### 6. Configurar Aliases en `vite.config.js`
 
-**Archivo: `vite.config.js`**
+Agrega alias personalizados para facilitar las importaciones desde el paquete:
+
 ```javascript
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
@@ -133,112 +271,62 @@ export default defineConfig({
     plugins: [vue()],
     resolve: {
         alias: {
-            '@blog': path.resolve(__dirname, 'node_modules/innoboxrr-vue-blog/'),
-            '@blogComponents': path.resolve(__dirname, 'node_modules/innoboxrr-vue-blog/src/components'),
-            '@blogModels': path.resolve(__dirname, 'node_modules/innoboxrr-vue-blog/src/models'),
-            '@blogPages': path.resolve(__dirname, 'node_modules/innoboxrr-vue-blog/src/pages'),
-            '@blogStore': path.resolve(__dirname, 'node_modules/innoboxrr-vue-blog/src/store'),
+            '@affiliate': path.resolve(__dirname, 'node_modules/innoboxrr-vue-affiliate/'),
+            '@affiliateComponents': path.resolve(__dirname, 'node_modules/innoboxrr-vue-affiliate/src/components'),
+            '@affiliateModels': path.resolve(__dirname, 'node_modules/innoboxrr-vue-affiliate/src/models'),
+            '@affiliatePages': path.resolve(__dirname, 'node_modules/innoboxrr-vue-affiliate/src/pages'),
+            '@affiliateStore': path.resolve(__dirname, 'node_modules/innoboxrr-vue-affiliate/src/store'),
         },
     },
 });
 ```
 
-### 6. Configurar tailwind.config.js
-
-Añade los contenidos que tienen que ser analizados por tailwind
-
-```javascript
-/** @type {import('tailwindcss').Config} */
-const {addDynamicIconSelectors} = require('@iconify/tailwind');
-const colors = require('tailwindcss/colors');
-const defaultTheme = require("tailwindcss/defaultTheme");
-
-module.exports = {
-  content: [
-    // ...
-    "./node_modules/innoboxrr-vue-blog/**/*.vue",
-    "./node_modules/innoboxrr-vue-blog/**/*.js",
-    "./node_modules/innoboxrr-vue-blog/**/*.blade.php",
-    // ...
-  ],
-  darkMode: "class",
-  theme: {/*...*/},
-  plugins: [/*...*/],
-}
-
-```
-
 ---
 
-## Uso del Paquete
+### 7. Configurar `tailwind.config.js`
 
-### Store Global con Pinia
-`innoboxrr-vue-blog` utiliza una tienda global para manejar el estado del blog. El estado inicial del blog debe pasarse como `prop` al componente `BlogApp` y sincronizarse con la tienda global.
+Asegúrate de que Tailwind procese también los archivos del paquete:
 
-**Ejemplo:**
 ```javascript
-import { useGlobalStore } from '@blogStore/globalStore';
-const globalStore = useGlobalStore();
-globalStore.setBlog(blogData);
-```
+const { addDynamicIconSelectors } = require('@iconify/tailwind');
+const colors = require('tailwindcss/colors');
+const defaultTheme = require('tailwindcss/defaultTheme');
 
-### Acceso al Estado en Componentes
-Las propiedades del blog almacenadas en la tienda global son accesibles en cualquier componente mediante `useGlobalStore`.
-
-**Ejemplo:**
-```javascript
-import { useGlobalStore } from '@blogStore/globalStore';
-
-export default {
-    setup() {
-        const globalStore = useGlobalStore();
-        return {
-            blog: globalStore.blog,
-        };
+module.exports = {
+    content: [
+        './node_modules/innoboxrr-vue-affiliate/**/*.vue',
+        './node_modules/innoboxrr-vue-affiliate/**/*.js',
+        './node_modules/innoboxrr-vue-affiliate/**/*.blade.php',
+    ],
+    darkMode: 'class',
+    theme: {
+        extend: {},
     },
+    plugins: [],
 };
 ```
 
 ---
 
-## Desarrollo Local
+## Roadmap
 
-### Crear Enlace Simbólico
-Si estás desarrollando el paquete y quieres probarlo localmente en una aplicación principal:
-
-1. Crea un enlace simbólico desde el paquete:
-   ```bash
-   cd innoboxrr-vue-blog
-   npm link
-   ```
-
-2. Usa el enlace en la aplicación principal:
-   ```bash
-   cd tu-aplicacion
-   npm link innoboxrr-vue-blog
-   ```
-
-3. Reinicia el servidor de desarrollo para aplicar los cambios.
-
----
-
-## Notas Adicionales
-
-1. **Configuración SEO:**
-   Usa `BlogSettingsView` para configurar el SEO del blog.
-
-2. **Integración con Laravel:**
-   Este paquete está diseñado para funcionar junto con `laravel-blog`. Configura las APIs necesarias en tu backend para la funcionalidad completa.
-
-3. **Rendimiento:**
-   Aprovecha las optimizaciones de Pinia y Vue 3 para garantizar un rendimiento eficiente en toda la aplicación.
+* [x] Relaciones completas entre modelos
+* [x] Métricas de actividad
+* [x] Sistema de payout
+* [ ] Dashboard interactivo
+* [ ] Integración con Stripe/PayPal
+* [ ] Interfaz frontend en Vue
 
 ---
 
 ## Contribución
-Si deseas contribuir al desarrollo de este paquete, sigue los pasos para desarrollo local y envía tus pull requests en el repositorio oficial.
+
+Sigue los pasos de instalación local para desarrollo. Las PRs y sugerencias son bienvenidas.
 
 ---
 
 ## Licencia
-`innoboxrr-vue-blog` está licenciado bajo [MIT License](LICENSE).
+
+`innoboxrr-affiliate-saas` está licenciado bajo MIT License.
+
+---

@@ -21,14 +21,15 @@
             </li>
             <li class="list-items">
                 <div class="text-xs font-semibold text-gray-400">
-                    {{ __affiliate('Affiliate Nav') }}
+                    {{ __affiliate('Models') }}
                 </div>
                 <ul role="list" class="-mx-2 mt-2 space-y-1">
                     <li 
-                        v-for="nav in affiliateNav" 
+                        v-for="nav in modelsNav" 
                         :key="nav.name">
                         <router-link 
                             :to="nav.route"
+                            @click="setCurrent(nav.route.name)"
                             :class="[nav.current ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900', 'group flex gap-x-3 rounded-md p-2 text-sm font-semibold']">
                             <i :class="nav.icon" class="pt-1 text-gray-500" aria-hidden="true"></i>
                             <span class="truncate">{{ nav.name }}</span>
@@ -66,8 +67,8 @@ export default {
         navigation() {
             return this.globalStore.navigation || []
         },
-        affiliateNav() {
-            return this.globalStore.affiliateNav || []
+        modelsNav() {
+            return this.globalStore.modelsNav || []
         },
     },
     methods: {

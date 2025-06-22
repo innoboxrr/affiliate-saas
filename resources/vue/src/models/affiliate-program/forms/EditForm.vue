@@ -2,7 +2,45 @@
 	
 	<form :id="formId" @submit.prevent="onSubmit">
 
-<!-- Add more inputs -->
+        <!-- Nombre del programa -->
+        <text-input-component
+            :custom-class="inputClass"
+            type="text"
+            name="name"
+            label="Nombre del Programa"
+            placeholder="Ej. Programa de Influencers"
+            validators="required length"
+            :min_length="3"
+            v-model="affiliateProgram.name" />
+
+        <!-- Descripción -->
+        <textarea-input-component
+            :custom-class="inputClass"
+            name="description"
+            label="Descripción"
+            placeholder="Explicación del programa"
+            :min_length="3"
+            validators="length"
+            v-model="affiliateProgram.description" />
+
+        <!-- Comisión (%) -->
+        <text-input-component
+            :custom-class="inputClass"
+            type="number"
+            name="commission"
+            label="Comisión (%)"
+            placeholder="Ej. 10"
+            validators="required decimal"
+            v-model="affiliateProgram.commission" />
+
+        <!-- Código -->
+        <text-input-component
+            :custom-class="inputClass"
+            type="text"
+            name="slug"
+            label="Código del programa"
+            placeholder="Ej. influencers2025"
+            v-model="affiliateProgram.slug" />
 
         <button-component
             :custom-class="buttonClass"
@@ -15,83 +53,87 @@
 
 <script>
 
-    import { showModel, updateModel} from '@affiliateModels/affiliate-program'
-    import JSValidator from 'innoboxrr-js-validator'
-    import {
+import { showModel, updateModel } from '@affiliateModels/affiliate-program'
+import JSValidator from 'innoboxrr-js-validator'
+import {
+    TextInputComponent,
+    TextareaInputComponent,
+    ButtonComponent
+} from 'innoboxrr-form-elements'
+
+export default {
+
+    components: {
         TextInputComponent,
-        ButtonComponent,
-//import_more_components//
-    } from 'innoboxrr-form-elements'
-    
-	
-	export default {
+        TextareaInputComponent,
+        ButtonComponent
+    },
 
-        components: {
-            TextInputComponent,
-            ButtonComponent,
-//register_more_components//
+    props: {
+        formId: {
+            type: String,
+            default: 'editAffiliateProgramForm'
+        },
+        affiliateProgramId: {
+            type: [Number, String],
+            required: true
+        }
+    },
+
+    emits: ['submit'],
+
+    data() {
+        return {
+            affiliateProgram: {
+                name: '',
+                description: '',
+                commission: '',
+                slug: ''
+            },
+            disabled: false,
+            JSValidator: undefined,
+        }
+    },
+
+    mounted() {
+        this.fetchData(); 
+        this.JSValidator = new JSValidator(this.formId).init();
+        this.JSValidator.status = true;
+    },
+
+    methods: {
+
+        fetchData() {
+            this.fetchAffiliateProgram();
         },
 
-        props: {
-            formId: {
-                type: String,
-                default: 'editAffiliateProgramForm'
-            },
-            affiliateProgramId: {
-                type: [Number, String],
-                required: true
-            },
-//props//
+        fetchAffiliateProgram() {
+            showModel(this.affiliateProgramId).then(res => {
+                this.affiliateProgram = res;
+            });
         },
 
-        emits: ['submit'],
-
-        mounted() {
-            this.fetchData(); 
-            this.JSValidator = new JSValidator(this.formId).init();
-            this.JSValidator.status = true;
-        },
-
-        data() {
-            return {
-                affiliateProgram: {
-//model_data//
-                },
-                disabled: false,
-                JSValidator: undefined,
-            }
-        },
-
-        methods: {
-
-            fetchData() {
-                this.fetchAffiliateProgram();
-            },
-
-            fetchAffiliateProgram() {
-                showModel(this.affiliateProgramId).then( res => {
-                    this.affiliateProgram = res;
-                });
-            },
-
-            onSubmit() {
-                if(this.JSValidator.status) {
-                    this.disabled = true;
-                    updateModel(this.affiliateProgram.id, {
-//submit_data//
-                    }).then( res => {
-                        this.$emit('submit', res);
-                        setTimeout(() => { this.disabled = false; }, 2500);
-                    }).catch(error => {
-                        this.disabled = false;
-                        if(error.response.status == 422)
-                            this.JSValidator
-                                .appendExternalErrors(error.response.data.errors);
-                    });
-                } else {
+        onSubmit() {
+            if(this.JSValidator.status) {
+                this.disabled = true;
+                updateModel(this.affiliateProgram.id, {
+                    name: this.affiliateProgram.name,
+                    description: this.affiliateProgram.description,
+                    commission: this.affiliateProgram.commission,
+                    slug: this.affiliateProgram.slug
+                }).then(res => {
+                    this.$emit('submit', res);
+                    setTimeout(() => { this.disabled = false; }, 2500);
+                }).catch(error => {
                     this.disabled = false;
-                }
+                    if(error.response.status == 422)
+                        this.JSValidator
+                            .appendExternalErrors(error.response.data.errors);
+                });
+            } else {
+                this.disabled = false;
             }
         }
-	}
+    }
+}
 </script>

@@ -1,6 +1,8 @@
 <template>	
 	<form id="affiliateClickFilterForm" @submit.prevent="onSubmit">
 		<div class="uk-flex uk-flex-left uk-child-width-1-4@m uk-child-width-1-1@s" uk-grid>
+
+			<!-- ID -->
 			<div>
 				<text-input-component
 					:custom-class="inputClass"
@@ -11,7 +13,38 @@
 					v-model="id" />
 			</div>
 
-<!-- Add more inputs -->
+			<!-- Affiliate ID -->
+			<div>
+				<text-input-component
+					:custom-class="inputClass"
+					type="text"
+					name="affiliate_id"
+					label="Afiliado"
+					placeholder="ID del afiliado"
+					v-model="affiliate_id" />
+			</div>
+
+			<!-- URL -->
+			<div>
+				<text-input-component
+					:custom-class="inputClass"
+					type="text"
+					name="url"
+					label="URL"
+					placeholder="URL destino"
+					v-model="url" />
+			</div>
+
+			<!-- IP -->
+			<div>
+				<text-input-component
+					:custom-class="inputClass"
+					type="text"
+					name="ip"
+					label="IP"
+					placeholder="Dirección IP"
+					v-model="ip" />
+			</div>
 
 		</div>
 
@@ -35,15 +68,13 @@
 <script>
 	
 	import { 
-		TextInputComponent,
-//import_more_components//
+		TextInputComponent
 	} from 'innoboxrr-form-elements'
 
 	export default {
 
 		components: {
-			TextInputComponent,
-//register_more_components//
+			TextInputComponent
 		},
 
 		emits: ['submit'],
@@ -51,9 +82,10 @@
 		data() {
 			return {
 				id: null,
-//add_more_data//
+				affiliate_id: null,
+				url: null,
+				ip: null
 			}
-
 		},
 
 		methods: {
@@ -64,7 +96,9 @@
 
 			resetForm() {
 				this.id = null;
-//reset_inputs//
+				this.affiliate_id = null;
+				this.url = null;
+				this.ip = null;
 				this.onSubmit();
 			}
 		}

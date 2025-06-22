@@ -2,7 +2,7 @@
 
 	<div v-if="dataLoaded">
 
-		<breadcrumb-component :items="items" />
+		<breadcrumbs-component :items="items" />
 	    
 	    <div class="uk-container uk-container-expand">
 

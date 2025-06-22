@@ -4,8 +4,59 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d1cfb9136d5d603f0287dd6b08157d3d",
-    "packages": [],
+    "content-hash": "f2f2fba8f873e499339b9c431600b433",
+    "packages": [
+        {
+            "name": "innoboxrr/support",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/innoboxrr/support.git",
+                "reference": "92f3b69861707b16115d084f2542817de61a03de"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/innoboxrr/support/zipball/92f3b69861707b16115d084f2542817de61a03de",
+                "reference": "92f3b69861707b16115d084f2542817de61a03de",
+                "shasum": ""
+            },
+            "require-dev": {
+                "innoboxrr/larapack-generator": "^5.0",
+                "orchestra/testbench": "^9"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Innoboxrr\\Support\\Providers\\AppServiceProvider",
+                        "Innoboxrr\\Support\\Providers\\AuthServiceProvider",
+                        "Innoboxrr\\Support\\Providers\\EventServiceProvider",
+                        "Innoboxrr\\Support\\Providers\\RouteServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Innoboxrr\\Support\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Homero Raul",
+                    "email": "h.raulvc@gmail.com"
+                }
+            ],
+            "support": {
+                "issues": "https://github.com/innoboxrr/support/issues",
+                "source": "https://github.com/innoboxrr/support/tree/1.0.2"
+            },
+            "time": "2025-05-20T03:52:29+00:00"
+        }
+    ],
     "packages-dev": [
         {
             "name": "brick/math",

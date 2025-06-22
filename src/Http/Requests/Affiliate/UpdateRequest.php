@@ -10,7 +10,6 @@ use Illuminate\Validation\Rule;
 
 class UpdateRequest extends FormRequest
 {
-
     protected function prepareForValidation()
     {
         //
@@ -18,33 +17,43 @@ class UpdateRequest extends FormRequest
 
     public function authorize()
     {
-        
         $affiliate = Affiliate::findOrFail($this->affiliate_id);
-
         return $this->user()->can('update', $affiliate);
-
     }
 
     public function rules()
     {
         return [
-            //
-            'affiliate_id' => 'required|numeric'
+            'affiliate_id' => ['required', 'numeric'],
+            'name' => ['sometimes', 'string', 'min:3'],
+            'email' => ['sometimes', 'email'],
+            'phone' => ['nullable', 'string'],
+            'address' => ['nullable', 'string'],
+            'city' => ['nullable', 'string'],
+            'state' => ['nullable', 'string'],
+            'country' => ['nullable', 'string'],
+            'zip' => ['nullable', 'string'],
+            'website' => ['nullable', 'url'],
+            'facebook' => ['nullable', 'url'],
+            'twitter' => ['nullable', 'url'],
+            'instagram' => ['nullable', 'url'],
+            'linkedin' => ['nullable', 'url'],
+            'youtube' => ['nullable', 'url'],
+            'tiktok' => ['nullable', 'url'],
+            'payment_method' => ['nullable', 'string'],
+            'payment_data' => ['nullable', 'string'],
+            'affiliate_type' => ['nullable', 'string'],
         ];
     }
 
     public function messages()
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public function attributes()
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     protected function passedValidation()
@@ -54,17 +63,10 @@ class UpdateRequest extends FormRequest
 
     public function handle()
     {
-
         $affiliate = Affiliate::findOrFail($this->affiliate_id);
-
         $affiliate = $affiliate->updateModel($this);
-
         $response = new AffiliateResource($affiliate);
-
         event(new UpdateEvent($affiliate, $this->all(), $response));
-
         return $response;
-
     }
-
 }

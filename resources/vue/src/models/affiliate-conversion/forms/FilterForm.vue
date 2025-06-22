@@ -1,6 +1,8 @@
 <template>	
 	<form id="affiliateConversionFilterForm" @submit.prevent="onSubmit">
 		<div class="uk-flex uk-flex-left uk-child-width-1-4@m uk-child-width-1-1@s" uk-grid>
+
+			<!-- ID -->
 			<div>
 				<text-input-component
 					:custom-class="inputClass"
@@ -11,7 +13,49 @@
 					v-model="id" />
 			</div>
 
-<!-- Add more inputs -->
+			<!-- Afiliado -->
+			<div>
+				<text-input-component
+					:custom-class="inputClass"
+					type="text"
+					name="affiliate_id"
+					label="Afiliado"
+					placeholder="ID del afiliado"
+					v-model="affiliate_id" />
+			</div>
+
+			<!-- Monto -->
+			<div>
+				<text-input-component
+					:custom-class="inputClass"
+					type="number"
+					name="amount"
+					label="Monto"
+					placeholder="Monto"
+					v-model="amount" />
+			</div>
+
+			<!-- Divisa -->
+			<div>
+				<text-input-component
+					:custom-class="inputClass"
+					type="text"
+					name="currency"
+					label="Divisa"
+					placeholder="Ej. USD, MXN"
+					v-model="currency" />
+			</div>
+
+			<!-- Referencia externa -->
+			<div>
+				<text-input-component
+					:custom-class="inputClass"
+					type="text"
+					name="external_reference"
+					label="Referencia externa"
+					placeholder="Orden externa"
+					v-model="external_reference" />
+			</div>
 
 		</div>
 
@@ -35,15 +79,13 @@
 <script>
 	
 	import { 
-		TextInputComponent,
-//import_more_components//
+		TextInputComponent
 	} from 'innoboxrr-form-elements'
 
 	export default {
 
 		components: {
-			TextInputComponent,
-//register_more_components//
+			TextInputComponent
 		},
 
 		emits: ['submit'],
@@ -51,9 +93,11 @@
 		data() {
 			return {
 				id: null,
-//add_more_data//
+				affiliate_id: null,
+				amount: null,
+				currency: null,
+				external_reference: null
 			}
-
 		},
 
 		methods: {
@@ -64,7 +108,10 @@
 
 			resetForm() {
 				this.id = null;
-//reset_inputs//
+				this.affiliate_id = null;
+				this.amount = null;
+				this.currency = null;
+				this.external_reference = null;
 				this.onSubmit();
 			}
 		}

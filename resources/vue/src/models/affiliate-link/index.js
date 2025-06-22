@@ -60,29 +60,75 @@ export const dataTableHead = () => {
 			sortable: true,
 			html: false,
 		},
-//DATA_TABLE_COLUMNS//
-		/*
 		{
-			id: 'column',
-			value: 'Column',
+			id: 'name',
+			value: 'Nombre',
 			sortable: true,
 			html: false,
+		},
+		{
+			id: 'code',
+			value: 'Código',
+			sortable: true,
+			html: false,
+		},
+		{
+			id: 'target',
+			value: 'Destino',
+			sortable: false,
+			html: true,
 			parser: (value) => {
-
-				return value;
-
+				return `<a href="${value}" target="_blank" class="text-blue-600 hover:underline">${value}</a>`;
 			}
 		},
-		*/
+		{
+			id: 'affiliate_id',
+			value: 'Afiliado',
+			sortable: true,
+			html: false,
+		},
+		{
+			id: 'affiliate_program_id',
+			value: 'Programa',
+			sortable: true,
+			html: false,
+		},
+		{
+			id: 'created_at',
+			value: 'Creado',
+			sortable: true,
+			html: false,
+		},
+		{
+			id: 'updated_at',
+			value: 'Actualizado',
+			sortable: true,
+			html: false,
+		},
+		{
+			id: 'deleted_at',
+			value: 'Eliminado',
+			sortable: true,
+			html: false,
+		},
+		//DATA_TABLE_COLUMNS//
 	];
 };
 
 export const dataTableSort = () => {
 	return {
 		id: 'asc',
-//DATA_TABLE_SORT//
+		name: 'asc',
+		code: 'asc',
+		affiliate_id: 'asc',
+		affiliate_program_id: 'asc',
+		created_at: 'asc',
+		updated_at: 'asc',
+		deleted_at: 'asc',
+		//DATA_TABLE_SORT//
 	};
 };
+
 
 export const getPolicies = (modelId = null) => {
     return makeHttpRequest('get', route(API_ROUTE_PREFIX + 'policies'), {

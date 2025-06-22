@@ -1,6 +1,8 @@
 <template>	
 	<form id="affiliateProgramFilterForm" @submit.prevent="onSubmit">
 		<div class="uk-flex uk-flex-left uk-child-width-1-4@m uk-child-width-1-1@s" uk-grid>
+
+			<!-- ID -->
 			<div>
 				<text-input-component
 					:custom-class="inputClass"
@@ -11,7 +13,38 @@
 					v-model="id" />
 			</div>
 
-<!-- Add more inputs -->
+			<!-- Nombre -->
+			<div>
+				<text-input-component
+					:custom-class="inputClass"
+					type="text"
+					name="name"
+					label="Nombre"
+					placeholder="Nombre del programa"
+					v-model="name" />
+			</div>
+
+			<!-- Slug -->
+			<div>
+				<text-input-component
+					:custom-class="inputClass"
+					type="text"
+					name="slug"
+					label="Código"
+					placeholder="Código único"
+					v-model="slug" />
+			</div>
+
+			<!-- Comisión -->
+			<div>
+				<text-input-component
+					:custom-class="inputClass"
+					type="text"
+					name="commission"
+					label="Comisión"
+					placeholder="Ej. 10"
+					v-model="commission" />
+			</div>
 
 		</div>
 
@@ -35,15 +68,13 @@
 <script>
 	
 	import { 
-		TextInputComponent,
-//import_more_components//
+		TextInputComponent
 	} from 'innoboxrr-form-elements'
 
 	export default {
 
 		components: {
-			TextInputComponent,
-//register_more_components//
+			TextInputComponent
 		},
 
 		emits: ['submit'],
@@ -51,9 +82,10 @@
 		data() {
 			return {
 				id: null,
-//add_more_data//
+				name: null,
+				slug: null,
+				commission: null
 			}
-
 		},
 
 		methods: {
@@ -64,7 +96,9 @@
 
 			resetForm() {
 				this.id = null;
-//reset_inputs//
+				this.name = null;
+				this.slug = null;
+				this.commission = null;
 				this.onSubmit();
 			}
 		}

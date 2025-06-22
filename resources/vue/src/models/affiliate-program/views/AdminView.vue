@@ -4,7 +4,7 @@
 
 		<div v-if="isHome" class="uk-section uk-section-xsmall">
 			
-			<breadcrumb-component 
+			<breadcrumbs-component 
 				:pages="[
 					{ link: $router.resolve({ name: 'AdminAffiliatePrograms' }).fullPath, title: 'AffiliatePrograms'}
 				]"/>

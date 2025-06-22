@@ -2,7 +2,7 @@
 
 	<div>
 
-		<breadcrumb-component 
+		<breadcrumbs-component 
 			:pages="[
 				{ link: $router.resolve({ name: 'AdminAffiliatePrograms' }).fullPath, title: 'AffiliatePrograms'},
 				{ link: $router.resolve({ name: 'AdminCreateAffiliateProgram' }).fullPath, title: 'Crear AffiliatePrograms'}
@@ -14,7 +14,7 @@
 				
 				<div class="card bg-white dark:bg-slate-600 border rounded-lg px-8 pt-6 pb-8 mb-4 dark:border-slate-800">
 
-					<h2 class="text-4xl font-bold dark:text-white mb-6">Crear AffiliatePrograms</h2>
+					<h2 class="text-xl font-bold mb-4">Crear AffiliatePrograms</h2>
 					
 					<create-form 
 						@submit="formSubmit"/>
@@ -56,7 +56,7 @@
 
 				getPolicy('create').then( res => {
 
-					if(!res.data.create) {
+					if(!res.create) {
 
 						// this.$router.push({name: "NotAuthorized" });
 						
@@ -76,7 +76,7 @@
 
 					params: { 
 
-						id: payload.data.id 
+						id: payload.id 
 
 					} 
 
