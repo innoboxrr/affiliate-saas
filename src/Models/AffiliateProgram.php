@@ -52,6 +52,7 @@ class AffiliateProgram extends Model
     protected $protected_metas = [];
 
     protected $editable_metas = [
+        'test_mode',
         'tracking_model',
         'cookie_lifetime',
         'default_commission',

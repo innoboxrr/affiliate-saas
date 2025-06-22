@@ -2,7 +2,7 @@
 
 	<div id="AdminAffiliateLinksWrapper">
 
-		<div v-if="isHome" class="uk-section uk-section-xsmall">
+		<div v-if="isHome">
 			
 			<breadcrumbs-component 
 				:pages="[

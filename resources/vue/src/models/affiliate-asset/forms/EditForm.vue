@@ -1,5 +1,4 @@
 <template>
-	
 	<form :id="formId" @submit.prevent="onSubmit">
 
         <!-- Nombre del activo -->
@@ -20,18 +19,10 @@
             label="Tipo de activo"
             validators="required"
             v-model="affiliateAsset.type">
-            <option value="archivo">Archivo</option>
-            <option value="imagen">Imagen</option>
-            <option value="enlace">Enlace</option>
+            <option value="image">Imagen</option>
+            <option value="video">Video</option>
+            <option value="document">Documento</option>
         </select-input-component>
-
-        <!-- Descripción -->
-        <textarea-input-component
-            :custom-class="inputClass"
-            name="description"
-            label="Descripción"
-            placeholder="Descripción del activo"
-            v-model="affiliateAsset.description" />
 
         <!-- URL -->
         <text-input-component
@@ -41,7 +32,15 @@
             label="URL"
             placeholder="https://..."
             validators="url"
-            v-model="affiliateAsset.payload.url" />
+            v-model="affiliateAsset.url" />
+
+        <!-- Notas de uso -->
+        <textarea-input-component
+            :custom-class="inputClass"
+            name="usage_notes"
+            label="Notas de uso"
+            placeholder="Indicaciones sobre el uso del activo"
+            v-model="affiliateAsset.payload.usage_notes" />
 
         <!-- Archivo -->
         <div>
@@ -59,12 +58,11 @@
             :custom-class="buttonClass"
             :disabled="disabled"
             value="Actualizar" />
-        
+
     </form>
 </template>
 
 <script>
-
 import { showModel, updateModel } from '@affiliateModels/affiliate-asset'
 import JSValidator from 'innoboxrr-js-validator'
 import {
@@ -76,7 +74,6 @@ import {
 } from 'innoboxrr-form-elements'
 
 export default {
-
     components: {
         TextInputComponent,
         TextareaInputComponent,
@@ -84,7 +81,6 @@ export default {
         FileInputComponent,
         ButtonComponent
     },
-
     props: {
         formId: {
             type: String,
@@ -95,57 +91,46 @@ export default {
             required: true
         }
     },
-
     emits: ['submit'],
-
     data() {
         return {
             affiliateAsset: {
                 name: '',
                 type: '',
-                description: '',
+                url: '',
                 payload: {
-                    url: '',
+                    usage_notes: '',
                     file: ''
                 }
             },
             disabled: false,
-            JSValidator: undefined,
+            JSValidator: undefined
         }
     },
-
     mounted() {
-        this.fetchData(); 
+        this.fetchAffiliateAsset();
         this.JSValidator = new JSValidator(this.formId).init();
         this.JSValidator.status = true;
     },
-
     methods: {
-
-        fetchData() {
-            this.fetchAffiliateAsset();
-        },
-
         fetchAffiliateAsset() {
             showModel(this.affiliateAssetId).then(res => {
                 this.affiliateAsset = res;
             });
         },
-
         onFileUpload(files) {
             if (files?.[0]?.path) {
                 this.affiliateAsset.payload.file = files[0].path;
             }
         },
-
         onSubmit() {
             if(this.JSValidator.status) {
                 this.disabled = true;
                 updateModel(this.affiliateAsset.id, {
                     name: this.affiliateAsset.name,
                     type: this.affiliateAsset.type,
-                    description: this.affiliateAsset.description,
-                    url: this.affiliateAsset.payload.url,
+                    url: this.affiliateAsset.url,
+                    usage_notes: this.affiliateAsset.payload.usage_notes,
                     file: this.affiliateAsset.payload.file
                 }).then(res => {
                     this.$emit('submit', res);
@@ -153,8 +138,7 @@ export default {
                 }).catch(error => {
                     this.disabled = false;
                     if(error.response.status == 422)
-                        this.JSValidator
-                            .appendExternalErrors(error.response.data.errors);
+                        this.JSValidator.appendExternalErrors(error.response.data.errors);
                 });
             } else {
                 this.disabled = false;

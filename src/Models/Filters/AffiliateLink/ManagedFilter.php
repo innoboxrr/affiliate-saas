@@ -12,7 +12,7 @@ class ManagedFilter extends Managed
 
         // Añadir restricciones de visibilidad
         if(method_exists($user, 'managedAffiliateLinkFilter')) {
-            $query = $user->managedAffiliateLinkFilter($query, $args);
+            $query = $user->managedAffiliateLinkFilter($query, $user, $args);
         }
         return $query;
 

@@ -1,6 +1,16 @@
 <template>
-	
-	<form :id="formId" @submit.prevent="onSubmit">      
+	<form :id="formId" @submit.prevent="onSubmit">
+
+        <!-- Programa de Afiliados -->
+        <model-search-input-component
+            v-if="!affiliateProgramId"
+            custom-class="bg-gray-50 rounded-lg text-sm py-0.5 border border-gray-300"
+            label-str="Selecciona un programa de afiliados"
+            placeholder-str="Buscar por nombre o ID"
+            :route="affiliateProgramRoute"
+            q="name"
+            :get-option-label="option => `${option.name} (ID: ${option.id})`"
+            @submit="setAffiliateProgram" />
 
         <!-- Nombre del activo -->
         <text-input-component
@@ -20,18 +30,10 @@
             label="Tipo de activo"
             validators="required"
             v-model="affiliateAsset.type">
-            <option value="archivo">Archivo</option>
-            <option value="imagen">Imagen</option>
-            <option value="enlace">Enlace</option>
+            <option value="image">Imagen</option>
+            <option value="video">Video</option>
+            <option value="document">Documento</option>
         </select-input-component>
-
-        <!-- Descripción -->
-        <textarea-input-component
-            :custom-class="inputClass"
-            name="description"
-            label="Descripción"
-            placeholder="Descripción del activo"
-            v-model="affiliateAsset.description" />
 
         <!-- URL -->
         <text-input-component
@@ -41,7 +43,15 @@
             label="URL"
             placeholder="https://..."
             validators="url"
-            v-model="affiliateAsset.payload.url" />
+            v-model="affiliateAsset.url" />
+
+        <!-- Notas de uso -->
+        <textarea-input-component
+            :custom-class="inputClass"
+            name="usage_notes"
+            label="Notas de uso"
+            placeholder="Indicaciones sobre el uso del activo"
+            v-model="affiliateAsset.payload.usage_notes" />
 
         <!-- Archivo -->
         <div>
@@ -59,90 +69,89 @@
             :custom-class="buttonClass"
             :disabled="disabled"
             value="Crear" />
-        
-    </form>
 
+    </form>
 </template>
 
 <script>
-
 import { createModel } from '@affiliateModels/affiliate-asset'
+import { API_ROUTE_PREFIX } from '@affiliateModels/affiliate-program'
 import JSValidator from 'innoboxrr-js-validator'
 import {
     TextInputComponent,
     TextareaInputComponent,
     SelectInputComponent,
     FileInputComponent,
-    ButtonComponent
+    ButtonComponent,
+    ModelSearchInputComponent
 } from 'innoboxrr-form-elements'
 
 export default {
-
     components: {
         TextInputComponent,
         TextareaInputComponent,
         SelectInputComponent,
         FileInputComponent,
-        ButtonComponent
+        ButtonComponent,
+        ModelSearchInputComponent
     },
-
     props: {
         formId: {
             type: String,
             default: 'createAffiliateAssetForm',
+        },
+        affiliateProgramId: {
+            type: [Number, String],
+            default: null
         }
     },
-
     emits: ['submit'],
-
     data() {
         return {
             disabled: false,
             JSValidator: undefined,
+            affiliateProgramRoute: route(`${API_ROUTE_PREFIX}index`),
             affiliateAsset: {
                 name: '',
                 type: '',
-                description: '',
+                url: '',
                 payload: {
-                    url: '',
+                    usage_notes: '',
                     file: ''
                 }
-            }
+            },
+            selectedAffiliateProgramId: this.affiliateProgramId
         }
     },
-
     mounted() {
-        this.fetchData();
         this.JSValidator = new JSValidator(this.formId).init();
     },
-
     methods: {
-
-        fetchData() {},
-
         onFileUpload(files) {
             if (files?.[0]?.path) {
                 this.affiliateAsset.payload.file = files[0].path;
             }
         },
-
+        setAffiliateProgram(id) {
+            this.selectedAffiliateProgramId = id;
+        },
         onSubmit() {
             if(this.JSValidator.status) {
                 this.disabled = true;
                 createModel({
                     name: this.affiliateAsset.name,
                     type: this.affiliateAsset.type,
-                    description: this.affiliateAsset.description,
-                    url: this.affiliateAsset.payload.url,
-                    file: this.affiliateAsset.payload.file
+                    url: this.affiliateAsset.url,
+                    usage_notes: this.affiliateAsset.payload.usage_notes,
+                    file: this.affiliateAsset.payload.file,
+                    affiliate_program_id: this.selectedAffiliateProgramId
                 }).then(res => {
                     this.$emit('submit', res);
                     setTimeout(() => { this.disabled = false; }, 2500);
                 }).catch(error => {
                     this.disabled = false;
                     if(error.response.status == 422)
-                        this.JSValidator
-                            .appendExternalErrors(error.response.data.errors);
+                        this.JSValidator.appendExternalErrors(error.response.data.errors);
                 });
             } else {
                 this.disabled = false;

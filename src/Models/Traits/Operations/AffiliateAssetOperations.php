@@ -8,7 +8,9 @@ trait AffiliateAssetOperations
     public function buildPayload()
     {
 
-        return [];
+        return [
+            'usage_notes' => $this->meta('usage_notes'),
+        ];
 
     }
 

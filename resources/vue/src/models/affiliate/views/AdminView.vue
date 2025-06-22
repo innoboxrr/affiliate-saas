@@ -1,6 +1,6 @@
 <template>
 	<div id="AdminAffiliatesWrapper">
-		<div v-if="isHome" class="uk-section uk-section-xsmall">
+		<div v-if="isHome">
 			<breadcrumbs-component 
 				:pages="[
 					{ link: $router.resolve({ name: 'AdminAffiliates' }).fullPath, title: 'Affiliates'}

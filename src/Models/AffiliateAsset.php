@@ -57,7 +57,6 @@ class AffiliateAsset extends Model
     protected $protected_metas = [];
 
     protected $editable_metas = [
-        'description',
         'usage_notes',
     ];
 

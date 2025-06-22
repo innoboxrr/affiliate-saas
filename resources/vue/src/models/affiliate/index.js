@@ -4,6 +4,40 @@ export const API_ROUTE_PREFIX = 'api.innoboxrr.affiliatesaas.affiliate.'; // Ree
 
 export const CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); // Reemplaza con el token adecuado
 
+export const payload = {
+	user: {
+		name: '',
+		email: ''
+	},
+	address: {
+		street: '',
+		city: '',
+		state: '',
+		country: '',
+		zip: ''
+	},
+	links: {
+		website: '',
+		facebook: '',
+		twitter: '',
+		instagram: '',
+		linkedin: '',
+		youtube: '',
+		tiktok: ''
+	},
+	financial: {
+		affiliate_type: 'influencer',
+		tax_id: '',
+		comercial_name: '',
+		payment_method: 'bank_transfer',
+		paypal_email: '',
+		bank_name: '',
+		account_number: '',
+		account_holder: '',
+		stripe_account_id: ''
+	},
+};
+
 export let filters = {}
 
 export const setFilters = (newFilters = {}) => {

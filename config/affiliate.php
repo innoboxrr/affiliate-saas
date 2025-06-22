@@ -20,6 +20,11 @@ return [
 		'affiliate-link-except-abilities' => [],
 		'affiliate-payout-except-abilities' => [],
 		'affiliate-program-except-abilities' => [],
-	]
+	],
+
+	'search-options' => [
+		'filtersPath' => 'vendor' . DIRECTORY_SEPARATOR . 'innoboxrr' . DIRECTORY_SEPARATOR . 'affiliate-saas' . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Models' . DIRECTORY_SEPARATOR . 'Filters',
+		'filtersNamespace' => 'Innoboxrr\AffiliateSaas\Models\Filters',
+	],
 	
 ];
