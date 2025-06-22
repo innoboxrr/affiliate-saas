@@ -31,8 +31,8 @@
 
 <script>
 
-	import { getPolicy } from '@affiliatesModels/affiliate-conversion'
-	import CreateForm from '@affiliatesModels/affiliate-conversion/forms/CreateForm.vue'
+	import { getPolicy } from '@affiliateModels/affiliate-conversion'
+	import CreateForm from '@affiliateModels/affiliate-conversion/forms/CreateForm.vue'
 
 	export default {
 

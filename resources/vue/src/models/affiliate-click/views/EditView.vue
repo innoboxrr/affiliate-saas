@@ -21,8 +21,8 @@
 
 <script>
 
-	import { getPolicy } from '@affiliatesModels/affiliate-click'
-	import EditForm from '@affiliatesModels/affiliate-click/forms/EditForm.vue'
+	import { getPolicy } from '@affiliateModels/affiliate-click'
+	import EditForm from '@affiliateModels/affiliate-click/forms/EditForm.vue'
 
 	export default {
 

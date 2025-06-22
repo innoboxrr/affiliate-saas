@@ -19,7 +19,7 @@ class AffiliatePayoutObserver
      */
     public function created(AffiliatePayout $affiliatePayout): void
     {
-        // Remove if laravel-audit is used: $affiliatePayout->log('created');
+        $affiliatePayout->log('created');
     }
  
     /**
@@ -27,7 +27,7 @@ class AffiliatePayoutObserver
      */
     public function updated(AffiliatePayout $affiliatePayout): void
     {
-        // Remove if laravel-audit is used: $affiliatePayout->log('updated');
+        $affiliatePayout->log('updated');
     }
  
     /**
@@ -35,7 +35,7 @@ class AffiliatePayoutObserver
      */
     public function deleted(AffiliatePayout $affiliatePayout): void
     {
-        // Remove if laravel-audit is used: $affiliatePayout->log('deleted');
+        $affiliatePayout->log('deleted');
     }
  
     /**
@@ -43,7 +43,7 @@ class AffiliatePayoutObserver
      */
     public function restored(AffiliatePayout $affiliatePayout): void
     {
-        // Remove if laravel-audit is used: $affiliatePayout->log('restored');
+        $affiliatePayout->log('restored');
     }
  
     /**
@@ -51,6 +51,6 @@ class AffiliatePayoutObserver
      */
     public function forceDeleted(AffiliatePayout $affiliatePayout): void
     {
-        // Remove if laravel-audit is used: $affiliatePayout->log('forceDeleted');
+        $affiliatePayout->log('forceDeleted');
     }
 }

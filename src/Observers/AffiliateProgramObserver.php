@@ -19,7 +19,7 @@ class AffiliateProgramObserver
      */
     public function created(AffiliateProgram $affiliateProgram): void
     {
-        // Remove if laravel-audit is used: $affiliateProgram->log('created');
+        $affiliateProgram->log('created');
     }
  
     /**
@@ -27,7 +27,7 @@ class AffiliateProgramObserver
      */
     public function updated(AffiliateProgram $affiliateProgram): void
     {
-        // Remove if laravel-audit is used: $affiliateProgram->log('updated');
+        $affiliateProgram->log('updated');
     }
  
     /**
@@ -35,7 +35,7 @@ class AffiliateProgramObserver
      */
     public function deleted(AffiliateProgram $affiliateProgram): void
     {
-        // Remove if laravel-audit is used: $affiliateProgram->log('deleted');
+        $affiliateProgram->log('deleted');
     }
  
     /**
@@ -43,7 +43,7 @@ class AffiliateProgramObserver
      */
     public function restored(AffiliateProgram $affiliateProgram): void
     {
-        // Remove if laravel-audit is used: $affiliateProgram->log('restored');
+        $affiliateProgram->log('restored');
     }
  
     /**
@@ -51,6 +51,6 @@ class AffiliateProgramObserver
      */
     public function forceDeleted(AffiliateProgram $affiliateProgram): void
     {
-        // Remove if laravel-audit is used: $affiliateProgram->log('forceDeleted');
+        $affiliateProgram->log('forceDeleted');
     }
 }

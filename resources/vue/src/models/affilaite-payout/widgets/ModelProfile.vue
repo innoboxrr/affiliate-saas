@@ -25,7 +25,7 @@
 
 <script>
 
-	import { showModel } from '@affiliatesModels/Affiliate-payout'
+	import { showModel } from '@affiliateModels/affiliate-payout'
 	
 	export default {
 

@@ -11,7 +11,9 @@ class ManagedFilter extends Managed
     {   
 
         // Añadir restricciones de visibilidad
-
+        if(method_exists($user, 'managedAffiliateClickFilter')) {
+            $query = $user->managedAffiliateClickFilter($query, $args);
+        }
         return $query;
 
     }

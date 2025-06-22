@@ -1,5 +1,8 @@
 <template>
     <nav v-if="dataLoaded" class="flex flex-1 flex-col">
+        <div class="text-xs font-semibold text-gray-400 mb-2">
+            {{ __affiliate('Admin Nav') }}
+        </div>
         <ul role="list" class="flex flex-1 flex-col gap-y-7">
             <li class="list-items">
                 <ul role="list" class="-mx-2 space-y-1">
@@ -17,18 +20,18 @@
                 </ul>
             </li>
             <li class="list-items">
-                <div class="text-xs font-semibold text-gray-600">
-                    {{ __affiliate('Last Deals') }}
+                <div class="text-xs font-semibold text-gray-400">
+                    {{ __affiliate('Affiliate Nav') }}
                 </div>
                 <ul role="list" class="-mx-2 mt-2 space-y-1">
                     <li 
-                        v-for="deal in dealsList" 
-                        :key="deal.name">
+                        v-for="nav in affiliateNav" 
+                        :key="nav.name">
                         <router-link 
-                            :to="deal.route"
-                            :class="[deal.current ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900', 'group flex gap-x-3 rounded-md p-2 text-sm font-semibold']">
-                            <i class="fa-solid fa-file-invoice h" aria-hidden="true"></i>
-                            <span class="truncate">{{ deal.name }}</span>
+                            :to="nav.route"
+                            :class="[nav.current ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900', 'group flex gap-x-3 rounded-md p-2 text-sm font-semibold']">
+                            <i :class="nav.icon" class="pt-1 text-gray-500" aria-hidden="true"></i>
+                            <span class="truncate">{{ nav.name }}</span>
                         </router-link>
                     </li>
                 </ul>
@@ -47,7 +50,7 @@
 </template>
 
 <script>
-import { useGlobalStore } from '@affiliatesStore/globalStore.js'
+import { useGlobalStore } from '@affiliateStore/globalStore.js'
 export default {
     name: 'SidebarMenu',
     data() {
@@ -63,8 +66,8 @@ export default {
         navigation() {
             return this.globalStore.navigation || []
         },
-        dealsList() {
-            return this.globalStore.dealsList || []
+        affiliateNav() {
+            return this.globalStore.affiliateNav || []
         },
     },
     methods: {

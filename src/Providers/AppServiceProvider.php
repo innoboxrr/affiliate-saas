@@ -10,22 +10,22 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         
-        // $this->mergeConfigFrom(__DIR__ . '/../../config/innoboxrraffiliatesaas.php', 'innoboxrraffiliatesaas');
+        $this->mergeConfigFrom(__DIR__ . '/../../config/affiliate.php', 'affiliate');
 
     }
 
     public function boot()
     {
         
-        // $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
 
-        // $this->loadViewsFrom(__DIR__.'/../../resources/views', 'innoboxrraffiliatesaas');
+        $this->loadViewsFrom(__DIR__.'/../../resources/views', 'affiliate');
 
         if ($this->app->runningInConsole()) {
             
-            // $this->publishes([__DIR__.'/../../resources/views' => resource_path('views/vendor/innoboxrraffiliatesaas'),], 'views');
+            // $this->publishes([__DIR__.'/../../resources/views' => resource_path('views/vendor/affiliate'),], 'views');
 
-            // $this->publishes([__DIR__.'/../../config/innoboxrraffiliatesaas.php' => config_path('innoboxrraffiliatesaas.php')], 'config');
+            $this->publishes([__DIR__.'/../../config/affiliate.php' => config_path('affiliate.php')], 'config');
 
         }
 

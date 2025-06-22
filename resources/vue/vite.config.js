@@ -6,11 +6,11 @@ export default defineConfig({
     plugins: [vue()],
     resolve: {
         alias: {
-            '@affiliates': path.resolve(__dirname, './'),
-            '@affiliatesComponents': path.resolve(__dirname, './src/components'),
-            '@affiliatesModels': path.resolve(__dirname, './src/models'),
-            '@affiliatesPages': path.resolve(__dirname, './src/pages'),
-            '@affiliatesStore': path.resolve(__dirname, './src/store'),
+            '@affiliate': path.resolve(__dirname, './'),
+            '@affiliateComponents': path.resolve(__dirname, './src/components'),
+            '@affiliateModels': path.resolve(__dirname, './src/models'),
+            '@affiliatePages': path.resolve(__dirname, './src/pages'),
+            '@affiliateStore': path.resolve(__dirname, './src/store'),
         },
     },
 });

@@ -30,8 +30,8 @@
 <script>
 	
 	import DataTable from 'innoboxrr-vue-datatable'
-	import FilterForm from '@affiliatesModels/affiliate-click/forms/FilterForm.vue'
-	import * as model from '@affiliatesModels/affiliate-click' 
+	import FilterForm from '@affiliateModels/affiliate-click/forms/FilterForm.vue'
+	import * as model from '@affiliateModels/affiliate-click' 
 
 	export default {
 

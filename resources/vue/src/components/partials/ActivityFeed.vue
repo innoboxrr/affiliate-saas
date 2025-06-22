@@ -38,7 +38,7 @@
 </template>
 
 <script>
-    import { useGlobalStore } from '@affiliatesStore/globalStore.js'
+    import { useGlobalStore } from '@affiliateStore/globalStore.js'
 
     export default {
         name: 'ActivityFeed',

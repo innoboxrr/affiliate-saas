@@ -15,7 +15,12 @@ return new class extends Migration
     {
         Schema::create('affiliate_clicks', function (Blueprint $table) {
             $table->id();
-            //EDIT//
+            $table->uuid('uuid')->unique();
+            $table->string('ip_address')->nullable();
+            $table->string('user_agent')->nullable();
+            $table->string('referrer')->nullable();
+            $table->string('url')->nullable();
+            $table->foreignId('affiliate_link_id')->constrained('affiliate_links')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -15,7 +15,11 @@ return new class extends Migration
     {
         Schema::create('affiliate_assets', function (Blueprint $table) {
             $table->id();
-            //EDIT//
+            $table->string('name');
+            $table->string('type');
+            $table->string('url'); 
+            $table->json('payload')->nullable();
+            $table->foreignId('affiliate_program_id')->constrained('affiliate_programs')->onDelete('cascade'); 
             $table->timestamps();
             $table->softDeletes();
         });

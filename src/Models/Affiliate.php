@@ -12,10 +12,10 @@ use Innoboxrr\AffiliateSaas\Models\Traits\Storage\AffiliateStorage;
 use Innoboxrr\AffiliateSaas\Models\Traits\Assignments\AffiliateAssignment;
 use Innoboxrr\AffiliateSaas\Models\Traits\Operations\AffiliateOperations;
 use Innoboxrr\AffiliateSaas\Models\Traits\Mutators\AffiliateMutators;
+use Innoboxrr\AffiliateSaas\Support\Traits\Logger;
 
 class Affiliate extends Model
 {
-
     use HasFactory,
         SoftDeletes,
         MetaOperations,
@@ -24,47 +24,64 @@ class Affiliate extends Model
         AffiliateStorage,
         AffiliateAssignment,
         AffiliateOperations,
-        AffiliateMutators;
+        AffiliateMutators,
+        Logger;
         
     protected $fillable = [
-        //FILLABLE//
+        'payload',
+        'workspace_id',
+        'user_id',
+        'verified_at',
     ];
 
     protected $creatable = [
-        //CREATABLE//
+        'workspace_id',
+        'user_id',
+        'verified_at',
     ];
 
     protected $updatable = [
-        //UPDATABLE//
+        'verified_at',
     ];
 
     protected $casts = [
-        //CASTS//
+        'payload' => 'array',
+        'verified_at' => 'datetime',
     ];
 
     protected $protected_metas = [];
 
     protected $editable_metas = [
-        //EDITABLEMETAS//
+        'payment_method',
+        'payment_data',
+        'affiliate_type',
     ];
 
     public static $export_cols = [
-        //EXPORTCOLS//
+        'id',
+        'workspace_id',
+        'user_id',
+        'verified_at',
+        'created_at',
+        'updated_at',
+        'deleted_at',
     ];
 
     public static $loadable_relations = [
-        //LOADABLERELATIONS//
+        'user',
+        'workspace',
+        'links',
+        'metas',
+        'conversions',
     ];
 
     public static $loadable_counts = [
-        //LOADABLECOUNTS//
+        'links',
+        'conversions',
     ];
 
-    /*
     protected static function newFactory()
     {
         return \Innoboxrr\AffiliateSaas\Database\Factories\AffiliateFactory::new();
     }
-    */
-
 }

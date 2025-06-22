@@ -25,7 +25,7 @@
 
 <script>
 
-	import { showModel } from '@affiliatesModels/affiliate-program'
+	import { showModel } from '@affiliateModels/affiliate-program'
 	
 	export default {
 

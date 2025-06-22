@@ -19,7 +19,7 @@ class AffiliateClickObserver
      */
     public function created(AffiliateClick $affiliateClick): void
     {
-        // Remove if laravel-audit is used: $affiliateClick->log('created');
+        $affiliateClick->log('created');
     }
  
     /**
@@ -27,7 +27,7 @@ class AffiliateClickObserver
      */
     public function updated(AffiliateClick $affiliateClick): void
     {
-        // Remove if laravel-audit is used: $affiliateClick->log('updated');
+        $affiliateClick->log('updated');
     }
  
     /**
@@ -35,7 +35,7 @@ class AffiliateClickObserver
      */
     public function deleted(AffiliateClick $affiliateClick): void
     {
-        // Remove if laravel-audit is used: $affiliateClick->log('deleted');
+        $affiliateClick->log('deleted');
     }
  
     /**
@@ -43,7 +43,7 @@ class AffiliateClickObserver
      */
     public function restored(AffiliateClick $affiliateClick): void
     {
-        // Remove if laravel-audit is used: $affiliateClick->log('restored');
+        $affiliateClick->log('restored');
     }
  
     /**
@@ -51,6 +51,6 @@ class AffiliateClickObserver
      */
     public function forceDeleted(AffiliateClick $affiliateClick): void
     {
-        // Remove if laravel-audit is used: $affiliateClick->log('forceDeleted');
+        $affiliateClick->log('forceDeleted');
     }
 }

@@ -12,10 +12,10 @@ use Innoboxrr\AffiliateSaas\Models\Traits\Storage\AffiliateClickStorage;
 use Innoboxrr\AffiliateSaas\Models\Traits\Assignments\AffiliateClickAssignment;
 use Innoboxrr\AffiliateSaas\Models\Traits\Operations\AffiliateClickOperations;
 use Innoboxrr\AffiliateSaas\Models\Traits\Mutators\AffiliateClickMutators;
+use Innoboxrr\AffiliateSaas\Support\Traits\Logger;
 
 class AffiliateClick extends Model
 {
-
     use HasFactory,
         SoftDeletes,
         MetaOperations,
@@ -24,47 +24,58 @@ class AffiliateClick extends Model
         AffiliateClickStorage,
         AffiliateClickAssignment,
         AffiliateClickOperations,
-        AffiliateClickMutators;
-        
+        AffiliateClickMutators,
+        Logger;
+
     protected $fillable = [
-        //FILLABLE//
+        'uuid',
+        'ip_address',
+        'user_agent',
+        'referrer',
+        'url',
+        'affiliate_link_id',
     ];
 
     protected $creatable = [
-        //CREATABLE//
+        'uuid',
+        'ip_address',
+        'user_agent',
+        'referrer',
+        'url',
+        'affiliate_link_id',
     ];
 
     protected $updatable = [
-        //UPDATABLE//
+        // No actualizable
     ];
 
-    protected $casts = [
-        //CASTS//
-    ];
+    protected $casts = [];
 
     protected $protected_metas = [];
 
-    protected $editable_metas = [
-        //EDITABLEMETAS//
-    ];
+    protected $editable_metas = [];
 
     public static $export_cols = [
-        //EXPORTCOLS//
+        'id',
+        'uuid',
+        'ip_address',
+        'user_agent',
+        'referrer',
+        'url',
+        'affiliate_link_id',
+        'created_at',
+        'updated_at',
+        'deleted_at',
     ];
 
     public static $loadable_relations = [
-        //LOADABLERELATIONS//
+        'link',
     ];
 
-    public static $loadable_counts = [
-        //LOADABLECOUNTS//
-    ];
+    public static $loadable_counts = [];
 
-    /*
     protected static function newFactory()
     {
         return \Innoboxrr\AffiliateSaas\Database\Factories\AffiliateClickFactory::new();
     }
-    */
-
 }

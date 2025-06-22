@@ -15,7 +15,7 @@
 
 <script>
 
-    import { showModel, updateModel} from '@affiliatesModels/affiliate-program'
+    import { showModel, updateModel} from '@affiliateModels/affiliate-program'
     import JSValidator from 'innoboxrr-js-validator'
     import {
         TextInputComponent,

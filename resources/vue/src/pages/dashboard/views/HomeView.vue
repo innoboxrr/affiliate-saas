@@ -943,13 +943,13 @@
     import {
         ChevronDownIcon,
     } from '@heroicons/vue/20/solid'
-    import AreaChart from '@affiliatesComponents/charts/AreaChart.vue';
-    import LineChart from '@affiliatesComponents/charts/LineChart.vue';
-    import ColumnChart from '@affiliatesComponents/charts/ColumnChart.vue';
-    import BarChart from '@affiliatesComponents/charts/BarChart.vue';
-    import PieChart from '@affiliatesComponents/charts/PieChart.vue';
-    import DonutChart from '@affiliatesComponents/charts/DonutChart.vue';
-    import RadialChart from '@affiliatesComponents/charts/RadialChart.vue';
+    import AreaChart from '@affiliateComponents/charts/AreaChart.vue';
+    import LineChart from '@affiliateComponents/charts/LineChart.vue';
+    import ColumnChart from '@affiliateComponents/charts/ColumnChart.vue';
+    import BarChart from '@affiliateComponents/charts/BarChart.vue';
+    import PieChart from '@affiliateComponents/charts/PieChart.vue';
+    import DonutChart from '@affiliateComponents/charts/DonutChart.vue';
+    import RadialChart from '@affiliateComponents/charts/RadialChart.vue';
 
     export default {
         name: "dealDashboardSection",

@@ -15,7 +15,10 @@ return new class extends Migration
     {
         Schema::create('affiliate_programs', function (Blueprint $table) {
             $table->id();
-            //EDIT//
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->json('payload')->nullable();
+            $table->foreignId('workspace_id')->constrained()->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

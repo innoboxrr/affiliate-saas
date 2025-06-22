@@ -2,7 +2,7 @@
 
 namespace Innoboxrr\AffiliateSaas\Models\Traits\Storage;
 
-// use Innoboxrr\AffiliateSaas\Models\AffiliateProgramMeta;
+use Innoboxrr\AffiliateSaas\Models\AffiliateProgramMeta;
 
 trait AffiliateProgramStorage
 {
@@ -11,6 +11,8 @@ trait AffiliateProgramStorage
     {
 
         $affiliateProgram = $this->create($request->only($this->creatable));
+
+        $affiliateProgram->updateModelMetas($request);
 
         return $affiliateProgram;
 
@@ -21,11 +23,12 @@ trait AffiliateProgramStorage
      
         $this->update($request->only($this->updatable));
 
+        $this->updateModelMetas($request);
+
         return $this;
 
     }
 
-    /*
     public function updateModelMetas($request)
     {
 
@@ -34,7 +37,6 @@ trait AffiliateProgramStorage
         return $this;
 
     }
-    */
 
     public function deleteModel()
     {

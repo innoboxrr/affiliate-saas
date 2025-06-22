@@ -15,7 +15,11 @@ return new class extends Migration
     {
         Schema::create('affiliate_links', function (Blueprint $table) {
             $table->id();
-            //EDIT//
+            $table->string('name');
+            $table->string('code')->unique();
+            $table->string('target');
+            $table->foreignId('affiliate_id')->constrained('affiliates')->onDelete('cascade');
+            $table->foreignId('affiliate_program_id')->constrained('affiliate_programs')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

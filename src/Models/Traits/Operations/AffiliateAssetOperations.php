@@ -5,7 +5,6 @@ namespace Innoboxrr\AffiliateSaas\Models\Traits\Operations;
 trait AffiliateAssetOperations
 {
 
-    /*
     public function buildPayload()
     {
 
@@ -21,6 +20,5 @@ trait AffiliateAssetOperations
         return $this->save();
 
     }
-    */
 
 }

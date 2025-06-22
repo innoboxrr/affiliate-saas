@@ -25,7 +25,7 @@
 
 <script>
 
-	import { showModel } from '@affiliatesModels/affiliate-conversion'
+	import { showModel } from '@affiliateModels/affiliate-conversion'
 	
 	export default {
 

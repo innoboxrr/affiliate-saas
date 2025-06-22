@@ -19,28 +19,28 @@ export const useGlobalStore = defineStore('affiliate-global', {
             { name: __affiliate('Dashboard'), route: { name: 'AffiliateDashboard' }, icon: HomeIcon, current: true },
             { name: __affiliate('Programs'), route: { name: 'AffiliateProgram' }, icon: CubeIcon, current: false },
             { name: __affiliate('Affiliates'), route: { name: 'AffiliateManager' }, icon: UserGroupIcon, current: false },
+            { name: __affiliate('Payouts'), route: { name: 'AffiliatePayout' }, icon: ShareIcon, current: false },
+            // { name: __affiliate('Reports'), route: { name: 'AffiliateReport' }, icon: DocumentTextIcon, current: false },
         ],
-        affiliateList: [
-            /*
+        affiliateNav: [
             {
                 id: 1,
-                name: 'Affiliate 1 ',
-                description: 'Affiliate description',
+                name: __affiliate('Programs'),
+                description: __affiliate('View and manage your programs'),
+                icon: 'fa-solid fa-cubes',
                 status: 'active',
-                route: { name: 'AffiliateDashboard' },
-                createdAt: '2023-01-23T11:00',
-                updatedAt: '2023-01-23T11:00',
+                route: { name: 'AdminAffiliateAssets', query: { view: 'affiliate' }},
+                current: true,
             },
             {
                 id: 2,
-                name: 'Affiliate 2',
-                description: 'Affiliate 2 description',
-                status: 'inactive',
-                route: { name: 'AffiliateDashboard' },
-                createdAt: '2023-01-23T11:00',
-                updatedAt: '2023-01-23T11:00',
+                name: __affiliate('Payouts'),
+                description: __affiliate('View and manage your payouts'),
+                icon: 'fa-solid fa-money-bill',
+                status: 'active',
+                route: { name: 'AffiliatePayout', query: { view: 'affiliate' } },
+                current: false,
             },
-            */
         ],
         activityItems: [
             /*

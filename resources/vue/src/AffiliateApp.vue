@@ -90,7 +90,7 @@ import { XMarkIcon } from "@heroicons/vue/24/outline";
 import SidebarMenu from "./components/partials/SidebarMenu.vue";
 import SearchHeader from "./components/partials/SearchHeader.vue";
 import ActivityFeed from "./components/partials/ActivityFeed.vue";
-import { useGlobalStore } from "@affiliatesStore/globalStore.js";
+import { useGlobalStore } from "@affiliateStore/globalStore.js";
 
 export default {
 	name: "AffiliateDashboard",

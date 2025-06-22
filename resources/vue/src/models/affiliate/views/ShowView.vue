@@ -42,9 +42,9 @@
 
 <script>
 
-	import { showModel } from '@affiliatesModels/affiliate'
-	import ModelCard from '@affiliatesModels/affiliate/widgets/ModelCard.vue'
-	import ModelProfile from '@affiliatesModels/affiliate/widgets/ModelProfile.vue'
+	import { showModel } from '@affiliateModels/affiliate'
+	import ModelCard from '@affiliateModels/affiliate/widgets/ModelCard.vue'
+	import ModelProfile from '@affiliateModels/affiliate/widgets/ModelProfile.vue'
 
 	export default {
 

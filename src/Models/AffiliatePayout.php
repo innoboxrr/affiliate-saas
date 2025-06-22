@@ -12,10 +12,12 @@ use Innoboxrr\AffiliateSaas\Models\Traits\Storage\AffiliatePayoutStorage;
 use Innoboxrr\AffiliateSaas\Models\Traits\Assignments\AffiliatePayoutAssignment;
 use Innoboxrr\AffiliateSaas\Models\Traits\Operations\AffiliatePayoutOperations;
 use Innoboxrr\AffiliateSaas\Models\Traits\Mutators\AffiliatePayoutMutators;
+use Innoboxrr\AffiliateSaas\Enums\AffiliatePayout\Status as AffiliatePayoutStatus;
+use Innoboxrr\AffiliateSaas\Enums\AffiliatePayout\Processor as AffiliatePayoutProcessor;
+use Innoboxrr\AffiliateSaas\Support\Traits\Logger;
 
 class AffiliatePayout extends Model
 {
-
     use HasFactory,
         SoftDeletes,
         MetaOperations,
@@ -24,47 +26,73 @@ class AffiliatePayout extends Model
         AffiliatePayoutStorage,
         AffiliatePayoutAssignment,
         AffiliatePayoutOperations,
-        AffiliatePayoutMutators;
-        
+        AffiliatePayoutMutators,
+        Logger;
+
     protected $fillable = [
-        //FILLABLE//
+        'processor',
+        'status',
+        'amount',
+        'currency',
+        'payload',
+        'paid_at',
+        'affiliate_id',
     ];
 
     protected $creatable = [
-        //CREATABLE//
+        'processor',
+        'status',
+        'amount',
+        'currency',
+        'affiliate_id',
     ];
 
     protected $updatable = [
-        //UPDATABLE//
+        'status',
+        'paid_at',
+        'payload',
     ];
 
     protected $casts = [
-        //CASTS//
+        'payload' => 'array',
+        'paid_at' => 'datetime',
+        'amount' => 'decimal:2',
+        'status' => AffiliatePayoutStatus::class,
+        'processor' => AffiliatePayoutProcessor::class,
     ];
 
     protected $protected_metas = [];
 
     protected $editable_metas = [
-        //EDITABLEMETAS//
+        'notes',
+        'payment_reference',
     ];
 
     public static $export_cols = [
-        //EXPORTCOLS//
+        'id',
+        'affiliate_id',
+        'processor',
+        'status',
+        'amount',
+        'currency',
+        'paid_at',
+        'created_at',
+        'updated_at',
+        'deleted_at',
     ];
 
     public static $loadable_relations = [
-        //LOADABLERELATIONS//
+        'affiliate',
+        'conversions',
+        'metas',
     ];
 
     public static $loadable_counts = [
-        //LOADABLECOUNTS//
+        'conversions',
     ];
 
-    /*
     protected static function newFactory()
     {
         return \Innoboxrr\AffiliateSaas\Database\Factories\AffiliatePayoutFactory::new();
     }
-    */
-
 }

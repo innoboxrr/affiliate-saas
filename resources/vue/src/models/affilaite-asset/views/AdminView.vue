@@ -28,7 +28,7 @@
 
 <script>
 	
-	import DataTable from '@affiliatesModels/Affiliate-asset/widgets/DataTable.vue'
+	import DataTable from '@affiliateModels/affiliate-asset/widgets/DataTable.vue'
 
 	export default {
 

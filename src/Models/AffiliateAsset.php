@@ -12,10 +12,11 @@ use Innoboxrr\AffiliateSaas\Models\Traits\Storage\AffiliateAssetStorage;
 use Innoboxrr\AffiliateSaas\Models\Traits\Assignments\AffiliateAssetAssignment;
 use Innoboxrr\AffiliateSaas\Models\Traits\Operations\AffiliateAssetOperations;
 use Innoboxrr\AffiliateSaas\Models\Traits\Mutators\AffiliateAssetMutators;
+use Innoboxrr\AffiliateSaas\Enums\AffiliateAsset\Type as AffiliateAssetType;
+use Innoboxrr\AffiliateSaas\Support\Traits\Logger;
 
 class AffiliateAsset extends Model
 {
-
     use HasFactory,
         SoftDeletes,
         MetaOperations,
@@ -24,47 +25,62 @@ class AffiliateAsset extends Model
         AffiliateAssetStorage,
         AffiliateAssetAssignment,
         AffiliateAssetOperations,
-        AffiliateAssetMutators;
-        
+        AffiliateAssetMutators,
+        Logger;
+
     protected $fillable = [
-        //FILLABLE//
+        'name',
+        'type',
+        'url',
+        'payload',
+        'affiliate_program_id',
     ];
 
     protected $creatable = [
-        //CREATABLE//
+        'name',
+        'type',
+        'url',
+        'affiliate_program_id',
     ];
 
     protected $updatable = [
-        //UPDATABLE//
+        'name',
+        'type',
+        'url',
     ];
 
     protected $casts = [
-        //CASTS//
+        'payload' => 'array',
+        'type' => AffiliateAssetType::class,
     ];
 
     protected $protected_metas = [];
 
     protected $editable_metas = [
-        //EDITABLEMETAS//
+        'description',
+        'usage_notes',
     ];
 
     public static $export_cols = [
-        //EXPORTCOLS//
+        'id',
+        'name',
+        'type',
+        'url',
+        'affiliate_program_id',
+        'created_at',
+        'updated_at',
+        'deleted_at',
     ];
 
     public static $loadable_relations = [
-        //LOADABLERELATIONS//
+        'program',
+        'metas',
     ];
 
-    public static $loadable_counts = [
-        //LOADABLECOUNTS//
-    ];
+    public static $loadable_counts = [];
 
-    /*
     protected static function newFactory()
     {
         return \Innoboxrr\AffiliateSaas\Database\Factories\AffiliateAssetFactory::new();
     }
-    */
-
 }
