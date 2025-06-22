@@ -6,7 +6,6 @@ use Innoboxrr\AffiliateSaas\Models\AffiliateLink;
 use Innoboxrr\AffiliateSaas\Http\Resources\Models\AffiliateLinkResource;
 use Innoboxrr\AffiliateSaas\Http\Events\AffiliateLink\Events\CreateEvent;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class CreateRequest extends FormRequest
 {
@@ -24,7 +23,11 @@ class CreateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|string|min:3',
+            'code' => 'required|string|min:3',
+            'target' => 'required|url',
+            'affiliate_id' => 'required|numeric|exists:affiliates,id',
+            'affiliate_program_id' => 'required|numeric|exists:affiliate_programs,id',
         ];
     }
 
@@ -49,15 +52,9 @@ class CreateRequest extends FormRequest
 
     public function handle()
     {
-
         $affiliateLink = (new AffiliateLink)->createModel($this);
-
         $response = new AffiliateLinkResource($affiliateLink);
-
         event(new CreateEvent($affiliateLink, $this->all(), $response));
-
         return $response;
-
     }
-    
 }

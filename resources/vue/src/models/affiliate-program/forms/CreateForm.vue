@@ -29,16 +29,6 @@
                     validators="length"
                     v-model="affiliateProgram.description"
                 />
-
-                <text-input-component
-                    :custom-class="inputClass"
-                    type="number"
-                    name="default_commission"
-                    label="Comisión por defecto (%)"
-                    placeholder="Ej. 10"
-                    validators="required decimal"
-                    v-model="affiliateProgram.payload.default_commission"
-                />
             </div>
         </div>
 
@@ -69,6 +59,16 @@
 
                 <text-input-component
                     :custom-class="inputClass"
+                    type="text"
+                    name="cookie_path"
+                    label="Ruta de la cookie"
+                    placeholder="Ej. https://tu-sitio.com"
+                    validators="required"
+                    v-model="affiliateProgram.payload.cookie_path"
+                />
+
+                <text-input-component
+                    :custom-class="inputClass"
                     type="number"
                     name="cookie_lifetime"
                     label="Tiempo de vida de la cookie (días)"
@@ -76,6 +76,16 @@
                     placeholder="Ej. 30"
                     validators="required"
                     v-model="affiliateProgram.payload.cookie_lifetime"
+                />
+
+                <text-input-component
+                    :custom-class="inputClass"
+                    type="number"
+                    name="default_commission"
+                    label="Comisión por defecto (%)"
+                    placeholder="Ej. 10"
+                    validators="required decimal"
+                    v-model="affiliateProgram.payload.default_commission"
                 />
             </div>
         </div>
@@ -132,6 +142,7 @@ export default {
                 payload: {
                     test_mode: false,
                     tracking_model: '',
+                    cookie_path: '',
                     cookie_lifetime: '',
                     default_commission: ''
                 },

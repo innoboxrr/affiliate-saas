@@ -13,9 +13,7 @@ class NameFilter
     {
 
         if ($data->name) {
-
-            $query->where('name', $data->name);
-
+            $query->where('name', 'like', '%' . $data->name . '%');
         }
 
         $query = Order::orderBy($query, $data, 'name');

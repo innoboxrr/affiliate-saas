@@ -73,12 +73,16 @@ export const dataTableHead = () => {
 			html: false,
 		},
 		{
-			id: 'url',
+			id: 'asset_url',
 			value: 'Enlace',
 			sortable: false,
 			html: true,
 			parser: (value) => {
-				return `<a href="${value}" target="_blank" class="text-blue-600 hover:underline">${value}</a>`;
+				return `
+					<a href="${value}" target="_blank" class="text-blue-600 hover:underline">
+						Abrir enlace
+					</a>
+				`;
 			}
 		},
 		{

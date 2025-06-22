@@ -54,6 +54,7 @@ class AffiliateProgram extends Model
     protected $editable_metas = [
         'test_mode',
         'tracking_model',
+        'cookie_path', // Ruta donde se debe instalar la cookie 
         'cookie_lifetime',
         'default_commission',
     ];

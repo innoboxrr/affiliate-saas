@@ -125,7 +125,9 @@
 
 			async fetchAffiliateLink() {
 
-				let res = await showModel(this.affiliateLinkId);
+				let res = await showModel(this.affiliateLinkId, [
+					'program'
+				]);
 
 				this.affiliateLink = res;
 

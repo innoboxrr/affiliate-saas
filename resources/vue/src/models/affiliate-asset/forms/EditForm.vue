@@ -99,8 +99,7 @@ export default {
                 type: '',
                 url: '',
                 payload: {
-                    usage_notes: '',
-                    file: ''
+                    usage_notes: ''
                 }
             },
             disabled: false,
@@ -120,7 +119,7 @@ export default {
         },
         onFileUpload(files) {
             if (files?.[0]?.path) {
-                this.affiliateAsset.payload.file = files[0].path;
+                this.affiliateAsset.url = files[0].path;
             }
         },
         onSubmit() {
@@ -130,8 +129,7 @@ export default {
                     name: this.affiliateAsset.name,
                     type: this.affiliateAsset.type,
                     url: this.affiliateAsset.url,
-                    usage_notes: this.affiliateAsset.payload.usage_notes,
-                    file: this.affiliateAsset.payload.file
+                    usage_notes: this.affiliateAsset.payload.usage_notes
                 }).then(res => {
                     this.$emit('submit', res);
                     setTimeout(() => { this.disabled = false; }, 2500);

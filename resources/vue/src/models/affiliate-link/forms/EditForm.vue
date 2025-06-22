@@ -1,70 +1,59 @@
 <template>
-	
 	<form :id="formId" @submit.prevent="onSubmit">
 
-        <!-- ID del afiliado -->
+        <!-- Nombre del enlace -->
         <text-input-component
             :custom-class="inputClass"
-            type="number"
-            name="affiliate_id"
-            label="ID del Afiliado"
-            placeholder="ID del afiliado"
-            validators="required positive_integer"
-            v-model="affiliateLink.affiliate_id" />
+            type="text"
+            name="name"
+            label="Nombre del enlace"
+            placeholder="Nombre del enlace"
+            validators="required length"
+            :min_length="3"
+            v-model="affiliateLink.name" />
+
+        <!-- Código personalizado -->
+        <text-input-component
+            :custom-class="inputClass"
+            type="text"
+            name="code"
+            label="Código"
+            placeholder="Ej. summer-campaign"
+            validators="required length"
+            :min_length="3"
+            v-model="affiliateLink.code" />
 
         <!-- Enlace destino -->
         <text-input-component
             :custom-class="inputClass"
             type="text"
-            name="url"
+            name="target"
             label="Enlace destino"
             placeholder="https://..."
             validators="required url"
-            v-model="affiliateLink.url" />
-
-        <!-- Etiqueta -->
-        <text-input-component
-            :custom-class="inputClass"
-            type="text"
-            name="label"
-            label="Etiqueta"
-            placeholder="Ej. campaña verano"
-            v-model="affiliateLink.label" />
-
-        <!-- Descripción -->
-        <textarea-input-component
-            :custom-class="inputClass"
-            name="description"
-            label="Descripción"
-            placeholder="Descripción o contexto del enlace"
-            v-model="affiliateLink.description" />
+            v-model="affiliateLink.target" />
 
         <button-component
             :custom-class="buttonClass"
             :disabled="disabled"
             value="Actualizar" />
-        
+
     </form>
 </template>
 
 <script>
-
 import { showModel, updateModel } from '@affiliateModels/affiliate-link'
 import JSValidator from 'innoboxrr-js-validator'
 import {
     TextInputComponent,
-    TextareaInputComponent,
     ButtonComponent
 } from 'innoboxrr-form-elements'
 
 export default {
-
     components: {
         TextInputComponent,
-        TextareaInputComponent,
         ButtonComponent
     },
-
     props: {
         formId: {
             type: String,
@@ -75,56 +64,43 @@ export default {
             required: true
         }
     },
-
     emits: ['submit'],
-
     data() {
         return {
             affiliateLink: {
-                affiliate_id: '',
-                url: '',
-                label: '',
-                description: ''
+                name: '',
+                code: '',
+                target: ''
             },
             disabled: false,
-            JSValidator: undefined,
+            JSValidator: undefined
         }
     },
-
     mounted() {
-        this.fetchData(); 
+        this.fetchAffiliateLink();
         this.JSValidator = new JSValidator(this.formId).init();
         this.JSValidator.status = true;
     },
-
     methods: {
-
-        fetchData() {
-            this.fetchAffiliateLink();
-        },
-
         fetchAffiliateLink() {
             showModel(this.affiliateLinkId).then(res => {
                 this.affiliateLink = res;
             });
         },
-
         onSubmit() {
             if(this.JSValidator.status) {
                 this.disabled = true;
                 updateModel(this.affiliateLink.id, {
-                    affiliate_id: this.affiliateLink.affiliate_id,
-                    url: this.affiliateLink.url,
-                    label: this.affiliateLink.label,
-                    description: this.affiliateLink.description
+                    name: this.affiliateLink.name,
+                    code: this.affiliateLink.code,
+                    target: this.affiliateLink.target
                 }).then(res => {
                     this.$emit('submit', res);
                     setTimeout(() => { this.disabled = false; }, 2500);
                 }).catch(error => {
                     this.disabled = false;
                     if(error.response.status == 422)
-                        this.JSValidator
-                            .appendExternalErrors(error.response.data.errors);
+                        this.JSValidator.appendExternalErrors(error.response.data.errors);
                 });
             } else {
                 this.disabled = false;

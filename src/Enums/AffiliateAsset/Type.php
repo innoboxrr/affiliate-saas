@@ -11,6 +11,8 @@ enum Type: string {
     case IMAGE = 'image';
     case VIDEO = 'video';
     case PDF = 'pdf';
+    case DOCUMENT = 'document';
+    case URL = 'url';
 
 
     public static function getLabels(): array

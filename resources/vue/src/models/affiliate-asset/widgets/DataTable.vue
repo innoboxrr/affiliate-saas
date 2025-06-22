@@ -112,7 +112,11 @@
 
 			affiliateAssetExternalFilters() {
 
-				let filters = {/* Add custom filters */}
+				let filters = {
+					appends: [
+						'asset_url',
+					]
+				}
 
 				return {
 					...this.externalFilters,

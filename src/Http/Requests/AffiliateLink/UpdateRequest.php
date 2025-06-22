@@ -6,7 +6,6 @@ use Innoboxrr\AffiliateSaas\Models\AffiliateLink;
 use Innoboxrr\AffiliateSaas\Http\Resources\Models\AffiliateLinkResource;
 use Innoboxrr\AffiliateSaas\Http\Events\AffiliateLink\Events\UpdateEvent;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class UpdateRequest extends FormRequest
 {
@@ -18,18 +17,17 @@ class UpdateRequest extends FormRequest
 
     public function authorize()
     {
-        
         $affiliateLink = AffiliateLink::findOrFail($this->affiliate_link_id);
 
         return $this->user()->can('update', $affiliateLink);
-
     }
 
     public function rules()
     {
         return [
-            //
-            'affiliate_link_id' => 'required|numeric'
+            'name' => 'required|string|min:3',
+            'code' => 'required|string|min:3',
+            'target' => 'required|url',
         ];
     }
 
@@ -54,17 +52,11 @@ class UpdateRequest extends FormRequest
 
     public function handle()
     {
-
         $affiliateLink = AffiliateLink::findOrFail($this->affiliate_link_id);
-
         $affiliateLink = $affiliateLink->updateModel($this);
-
         $response = new AffiliateLinkResource($affiliateLink);
-
         event(new UpdateEvent($affiliateLink, $this->all(), $response));
-
         return $response;
-
     }
 
 }

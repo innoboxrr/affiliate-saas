@@ -52,6 +52,16 @@
 					<option value="last_click">Último click</option>
 				</select-input-component>
 
+				<text-input-component
+                    :custom-class="inputClass"
+                    type="text"
+                    name="cookie_path"
+                    label="Ruta de la cookie"
+                    placeholder="Ej. https://tu-sitio.com"
+                    validators="required"
+                    v-model="affiliateProgram.payload.cookie_path"
+                />
+
 				<!-- Tiempo de vida de la cookie -->
 				<text-input-component
 					:custom-class="inputClass"
@@ -132,6 +142,7 @@ export default {
 				payload: {
 					test_mode: false,
 					tracking_model: '',
+					cookie_path: '',
 					cookie_lifetime: '',
 					default_commission: ''
 				},

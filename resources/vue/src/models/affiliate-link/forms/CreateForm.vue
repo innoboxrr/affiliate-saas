@@ -1,118 +1,149 @@
 <template>
-	
-	<form :id="formId" @submit.prevent="onSubmit">      
+    <form :id="formId" @submit.prevent="onSubmit">
 
-        <!-- ID del afiliado -->
+        <!-- Afiliado -->
+        <model-search-input-component
+            v-if="!affiliateId"
+            custom-class="bg-gray-50 rounded-lg text-sm py-0.5 border border-gray-300"
+            label-str="Selecciona un afiliado"
+            placeholder-str="Buscar por nombre o ID"
+            :route="affiliateRoute"
+            q="name"
+            :get-option-label="option => `${option.payload?.user?.name} (ID: ${option.id})`"
+            @submit="setAffiliate" />
+
+        <!-- Programa de Afiliados -->
+        <model-search-input-component
+            v-if="!affiliateProgramId"
+            custom-class="bg-gray-50 rounded-lg text-sm py-0.5 border border-gray-300"
+            label-str="Selecciona un programa"
+            placeholder-str="Buscar por nombre o ID"
+            :route="affiliateProgramRoute"
+            q="name"
+            :get-option-label="option => `${option.name} (ID: ${option.id})`"
+            @submit="setAffiliateProgram" />
+
+        <!-- Nombre del enlace -->
         <text-input-component
             :custom-class="inputClass"
-            type="number"
-            name="affiliate_id"
-            label="ID del Afiliado"
-            placeholder="ID del afiliado"
-            validators="required positive_integer"
-            v-model="affiliateLink.affiliate_id" />
+            type="text"
+            name="name"
+            label="Nombre del enlace"
+            placeholder="Nombre descriptivo"
+            validators="required length"
+            :min_length="3"
+            v-model="affiliateLink.name" />
+
+        <!-- Código del enlace -->
+        <text-input-component
+            :custom-class="inputClass"
+            type="text"
+            name="code"
+            label="Código"
+            placeholder="Código único del enlace"
+            validators="required length"
+            :min_length="3"
+            v-model="affiliateLink.code" />
 
         <!-- Enlace destino -->
         <text-input-component
             :custom-class="inputClass"
             type="text"
-            name="url"
+            name="target"
             label="Enlace destino"
             placeholder="https://..."
             validators="required url"
-            v-model="affiliateLink.url" />
-
-        <!-- Etiqueta -->
-        <text-input-component
-            :custom-class="inputClass"
-            type="text"
-            name="label"
-            label="Etiqueta"
-            placeholder="Ej. campaña verano"
-            v-model="affiliateLink.label" />
-
-        <!-- Descripción -->
-        <textarea-input-component
-            :custom-class="inputClass"
-            name="description"
-            label="Descripción"
-            placeholder="Descripción o contexto del enlace"
-            v-model="affiliateLink.description" />
+            v-model="affiliateLink.target" />
 
         <button-component
             :custom-class="buttonClass"
             :disabled="disabled"
             value="Crear" />
-        
-    </form>
 
+    </form>
 </template>
 
 <script>
-
 import { createModel } from '@affiliateModels/affiliate-link'
+import { API_ROUTE_PREFIX as AFFILIATE_ROUTE_PREFIX } from '@affiliateModels/affiliate'
+import { API_ROUTE_PREFIX as PROGRAM_ROUTE_PREFIX } from '@affiliateModels/affiliate-program'
 import JSValidator from 'innoboxrr-js-validator'
 import {
     TextInputComponent,
-    TextareaInputComponent,
-    ButtonComponent
+    ButtonComponent,
+    ModelSearchInputComponent
 } from 'innoboxrr-form-elements'
 
 export default {
-
     components: {
         TextInputComponent,
-        TextareaInputComponent,
-        ButtonComponent
+        ButtonComponent,
+        ModelSearchInputComponent
     },
-
     props: {
         formId: {
             type: String,
-            default: 'createAffiliateLinkForm',
+            default: 'createAffiliateLinkForm'
+        },
+        affiliateId: {
+            type: [Number, String],
+            default: null
+        },
+        affiliateProgramId: {
+            type: [Number, String],
+            default: null
         }
     },
-
     emits: ['submit'],
-
     data() {
         return {
             disabled: false,
             JSValidator: undefined,
+            affiliateRoute: route(`${AFFILIATE_ROUTE_PREFIX}index`),
+            affiliateProgramRoute: route(`${PROGRAM_ROUTE_PREFIX}index`),
             affiliateLink: {
-                affiliate_id: '',
-                url: '',
-                label: '',
-                description: ''
-            }
+                name: '',
+                code: this.randomCode(8),
+                target: ''
+            },
+            selectedAffiliateId: this.affiliateId,
+            selectedAffiliateProgramId: this.affiliateProgramId
         }
     },
-
     mounted() {
-        this.fetchData();
         this.JSValidator = new JSValidator(this.formId).init();
     },
-
     methods: {
-
-        fetchData() {},
-
+        setAffiliate(id) {
+            this.selectedAffiliateId = id;
+        },
+        setAffiliateProgram(id) {
+            this.selectedAffiliateProgramId = id;
+        },
+        randomCode(length) {
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let result = '';
+            for (let i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            return result;
+        },
         onSubmit() {
             if(this.JSValidator.status) {
                 this.disabled = true;
                 createModel({
-                    affiliate_id: this.affiliateLink.affiliate_id,
-                    url: this.affiliateLink.url,
-                    label: this.affiliateLink.label,
-                    description: this.affiliateLink.description
+                    name: this.affiliateLink.name,
+                    code: this.affiliateLink.code,
+                    target: this.affiliateLink.target,
+                    affiliate_id: this.selectedAffiliateId,
+                    affiliate_program_id: this.selectedAffiliateProgramId
                 }).then(res => {
                     this.$emit('submit', res);
                     setTimeout(() => { this.disabled = false; }, 2500);
                 }).catch(error => {
                     this.disabled = false;
                     if(error.response.status == 422)
-                        this.JSValidator
-                            .appendExternalErrors(error.response.data.errors);
+                        this.JSValidator.appendExternalErrors(error.response.data.errors);
                 });
             } else {
                 this.disabled = false;

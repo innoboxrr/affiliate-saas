@@ -125,7 +125,9 @@
 
 			async fetchAffiliateAsset() {
 
-				let res = await showModel(this.affiliateAssetId);
+				let res = await showModel(this.affiliateAssetId, [], [], {
+					'appends': ['asset_url']
+				});
 
 				this.affiliateAsset = res;
 

@@ -1,121 +1,103 @@
 <template>
-	
-	<div class="uk-card uk-card-default uk-card-body uk-border-rounded uk-margin uk-padding-small">
+    <div class="bg-white dark:bg-gray-800 border rounded-lg overflow-hidden border dark:border-gray-700">
+        <!-- Dropdown Actions -->
+        <div class="flex justify-end p-4">
+            <dropdown-button-component
+                :items="[
+                    {
+                        type: 'router',
+                        to: {
+                            name: 'AdminShowAffiliateLink',
+                            params: { id: affiliateLink.id },
+                        },
+                        label: 'Mostrar',
+                    },
+                    {
+                        type: 'router',
+                        to: {
+                            name: 'AdminEditAffiliateLink',
+                            params: { id: affiliateLink.id },
+                        },
+                        label: 'Editar',
+                    },
+                    {
+                        type: 'event',
+                        action: deleteAffiliateLink,
+                        label: 'Eliminar',
+                    },
+                ]"
+            />
+        </div>
 
-	    <div class="flex justify-end">
+        <!-- Card Content -->
+        <div class="flex flex-col items-center px-6 pb-8">
+            <div class="w-28 h-28 mb-4 rounded-full shadow-md flex items-center justify-center bg-gray-200 dark:bg-gray-600 text-gray-400 text-2xl">
+                <i class="fas fa-link"></i>
+            </div>
 
-			<dropdown-button-component 
-				:items="[
-					{
-						type: 'router',
-						to: {
-							name: 'AdminShowAffiliateLink',
-							params: {
-								id: affiliateLink.id
-							}
-						},
-						label: 'Mostrar',
-					},
-					{
-						type: 'router',
-						to: {
-							name: 'AdminEditAffiliateLink',
-							params: {
-								id: affiliateLink.id
-							}
-						},
-						label: 'Editar',
-					},
-					{
-						type: 'event',
-						action: deleteAffiliateLink,
-						label: 'Eliminar',
-					},
-				]"/>
+            <h5 class="text-lg font-semibold text-gray-900 dark:text-white text-center">
+                {{ affiliateLink.name }}
+            </h5>
 
-	    </div>
+            <p class="mt-2 text-sm text-gray-500 dark:text-gray-400 text-center">
+                Código: <code>{{ affiliateLink.code }}</code>
+            </p>
 
-	    <div class="flex flex-col items-center pb-10">
-	        
-	        <img 
-				v-if="false"
-	        	class="w-24 h-24 mb-3 rounded-full shadow-sm" 
-	        	src="https://picsum.photos/536/354" />
+            <!-- Clipboard Link -->
+            <div class="w-full text-center mt-4">
+                <clipboard-input 
+                    :value="registerLink" 
+                    class="block w-full text-blue-600 hover:text-blue-800 hover:underline dark:text-blue-300 dark:hover:text-blue-400" />
+            </div>
 
-	        <h5 class="mb-1 text-xl font-medium text-gray-900 mdark:text-white">
-	        	
-	        	Título de la tarjeta
-
-	        </h5>
-
-			<div 
-				v-if="false" 
-				class="flex mt-4 space-x-3 md:mt-6">
-
-				<a 
-	            	class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white hover:text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
-
-	            	Botón A
-
-	            </a>
-
-	            <a 
-	            	class="uk-link-reset inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 mdark:bg-gray-800 mdark:text-white mdark:border-gray-600 mdark:hover:bg-gray-700 mdark:hover:border-gray-700 mdark:focus:ring-gray-700">
-
-	            	Botón B
-
-	            </a>
-        	
-        	</div>
-
-	    </div>
-
-	</div>
-
+            <!-- Botones -->
+            <div class="mt-6 flex space-x-4">
+                <router-link
+                    :to="{
+                        name: 'AdminEditAffiliateLink',
+                        params: { id: affiliateLink.id },
+                    }"
+                    class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 dark:bg-blue-700 dark:hover:bg-blue-800 dark:focus:ring-blue-800 hover:text-white">
+                    <i class="fas fa-pen mr-2"></i>
+                    Editar
+                </router-link>
+                <button
+                    @click="deleteAffiliateLink"
+                    class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:ring-red-300 dark:bg-red-700 dark:hover:bg-red-800 dark:focus:ring-red-900">
+                    <i class="fas fa-trash mr-2"></i>
+                    Eliminar
+                </button>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
-	
-	export default {
+import { deleteModel } from '@affiliateModels/affiliate-link'
 
-		props: {
+export default {
+    props: {
+        affiliateLink: {
+            type: Object,
+            required: true,
+        },
+    },
+    computed: {
+        registerLink() {
+            const base = this.affiliateLink.program?.payload?.cookie_path;
 
-			affiliateLink: {
-				type: Object,
-				required: false,
-			},
+			// Añadir parametro pero ver si ya tiene o no, añadirlo de una manera correcta
+			const separator = base.includes('?') ? '&' : '?';
+			return `${base}${separator}sp-aff=${this.affiliateLink.code}`;
 
-			affiliateLinkId: {
-				type: [Number, String],
-				required: false
-			}
-
-		},
-
-		created() {
-	
-	        if (!this.affiliateLink && !this.affiliateLinkId) {
-	
-	            console.error("Se debe proporcionar 'affiliateLink' o 'affiliateLinkId'.");
-	
-	        }
-	
-	    },
-
-	    methods: {
-
-	    	deleteAffiliateLink() {
-
-	    		deleteModel(this.affiliateLink).then( res => {
-
-	    			this.$router.push({ name: 'AdminAffiliateLinks' });
-
-	    		})
-
-	    	}
-
-	    }
-
-	}
-
+        },
+    },
+    methods: {
+        deleteAffiliateLink() {
+            deleteModel(this.affiliateLink).then(() => {
+                this.$router.push({ name: 'AdminAffiliateLinks' });
+            });
+        },
+    },
+}
 </script>

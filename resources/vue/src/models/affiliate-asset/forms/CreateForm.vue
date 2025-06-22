@@ -8,6 +8,7 @@
             label-str="Selecciona un programa de afiliados"
             placeholder-str="Buscar por nombre o ID"
             :route="affiliateProgramRoute"
+            :external-filters="{ managed: true }"
             q="name"
             :get-option-label="option => `${option.name} (ID: ${option.id})`"
             @submit="setAffiliateProgram" />
@@ -33,10 +34,12 @@
             <option value="image">Imagen</option>
             <option value="video">Video</option>
             <option value="document">Documento</option>
+            <option value="url">URL</option>
         </select-input-component>
 
         <!-- URL -->
         <text-input-component
+            v-if="affiliateAsset.type === 'url'"
             :custom-class="inputClass"
             type="text"
             name="url"
@@ -98,7 +101,7 @@ export default {
     props: {
         formId: {
             type: String,
-            default: 'createAffiliateAssetForm',
+            default: 'createAffiliateAssetForm'
         },
         affiliateProgramId: {
             type: [Number, String],
@@ -108,19 +111,18 @@ export default {
     emits: ['submit'],
     data() {
         return {
-            disabled: false,
-            JSValidator: undefined,
-            affiliateProgramRoute: route(`${API_ROUTE_PREFIX}index`),
             affiliateAsset: {
                 name: '',
                 type: '',
                 url: '',
                 payload: {
-                    usage_notes: '',
-                    file: ''
+                    usage_notes: ''
                 }
             },
-            selectedAffiliateProgramId: this.affiliateProgramId
+            affiliateProgramRoute: route(`${API_ROUTE_PREFIX}index`),
+            selectedAffiliateProgramId: this.affiliateProgramId,
+            disabled: false,
+            JSValidator: undefined
         }
     },
     mounted() {
@@ -129,7 +131,7 @@ export default {
     methods: {
         onFileUpload(files) {
             if (files?.[0]?.path) {
-                this.affiliateAsset.payload.file = files[0].path;
+                this.affiliateAsset.url = files[0].path;
             }
         },
         setAffiliateProgram(id) {
@@ -143,7 +145,6 @@ export default {
                     type: this.affiliateAsset.type,
                     url: this.affiliateAsset.url,
                     usage_notes: this.affiliateAsset.payload.usage_notes,
-                    file: this.affiliateAsset.payload.file,
                     affiliate_program_id: this.selectedAffiliateProgramId
                 }).then(res => {
                     this.$emit('submit', res);

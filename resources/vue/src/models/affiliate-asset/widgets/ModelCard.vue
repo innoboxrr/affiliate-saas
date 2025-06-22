@@ -1,121 +1,83 @@
 <template>
-	
-	<div class="uk-card uk-card-default uk-card-body uk-border-rounded uk-margin uk-padding-small">
+    <div class="bg-white dark:bg-gray-800 border rounded-lg overflow-hidden border dark:border-gray-700">
+        <!-- Dropdown Actions -->
+        <div class="flex justify-end p-4">
+            <dropdown-button-component
+                :items="[
+                    {
+                        type: 'router',
+                        to: {
+                            name: 'AdminShowAffiliateAsset',
+                            params: { id: affiliateAsset.id },
+                        },
+                        label: 'Mostrar',
+                    },
+                    {
+                        type: 'router',
+                        to: {
+                            name: 'AdminEditAffiliateAsset',
+                            params: { id: affiliateAsset.id },
+                        },
+                        label: 'Editar',
+                    },
+                    {
+                        type: 'event',
+                        action: deleteAffiliateAsset,
+                        label: 'Eliminar',
+                    },
+                ]"
+            />
+        </div>
 
-	    <div class="flex justify-end">
+        <!-- Content -->
+        <div class="flex flex-col items-center px-6 pb-8">
+            <div class="w-28 h-28 mb-4 rounded-full shadow-md flex items-center justify-center bg-gray-200 dark:bg-gray-600 text-gray-400 text-2xl">
+                <i class="fas fa-link"></i>
+            </div>
 
-			<dropdown-button-component 
-				:items="[
-					{
-						type: 'router',
-						to: {
-							name: 'AdminShowAffiliateAsset',
-							params: {
-								id: affiliateAsset.id
-							}
-						},
-						label: 'Mostrar',
-					},
-					{
-						type: 'router',
-						to: {
-							name: 'AdminEditAffiliateAsset',
-							params: {
-								id: affiliateAsset.id
-							}
-						},
-						label: 'Editar',
-					},
-					{
-						type: 'event',
-						action: deleteAffiliateAsset,
-						label: 'Eliminar',
-					},
-				]"/>
+            <h5 class="text-lg font-semibold text-gray-900 dark:text-white text-center">
+                {{ affiliateAsset.name }}
+            </h5>
 
-	    </div>
+            <p class="mt-2 text-sm text-gray-500 dark:text-gray-400 text-center capitalize">
+                Tipo: {{ affiliateAsset.type }}
+            </p>
 
-	    <div class="flex flex-col items-center pb-10">
-	        
-	        <img 
-				v-if="false"
-	        	class="w-24 h-24 mb-3 rounded-full shadow-sm" 
-	        	src="https://picsum.photos/536/354" />
-
-	        <h5 class="mb-1 text-xl font-medium text-gray-900 mdark:text-white">
-	        	
-	        	Título de la tarjeta
-
-	        </h5>
-
-			<div 
-				v-if="false" 
-				class="flex mt-4 space-x-3 md:mt-6">
-
-				<a 
-	            	class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white hover:text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
-
-	            	Botón A
-
-	            </a>
-
-	            <a 
-	            	class="uk-link-reset inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 mdark:bg-gray-800 mdark:text-white mdark:border-gray-600 mdark:hover:bg-gray-700 mdark:hover:border-gray-700 mdark:focus:ring-gray-700">
-
-	            	Botón B
-
-	            </a>
-        	
-        	</div>
-
-	    </div>
-
-	</div>
-
+            <a
+                :href="affiliateAsset.asset_url"
+                target="_blank"
+                class="mt-4 text-sm text-blue-600 hover:text-blue-800 dark:text-blue-300 dark:hover:text-blue-400 underline">
+                Ver recurso
+            </a>
+        </div>
+    </div>
 </template>
 
 <script>
-	
-	export default {
+import { deleteModel } from '@affiliateModels/affiliate-asset'
 
-		props: {
-
-			affiliateAsset: {
-				type: Object,
-				required: false,
-			},
-
-			affiliateAssetId: {
-				type: [Number, String],
-				required: false
-			}
-
-		},
-
-		created() {
-	
-	        if (!this.affiliateAsset && !this.affiliateAssetId) {
-	
-	            console.error("Se debe proporcionar 'affiliateAsset' o 'affiliateAssetId'.");
-	
-	        }
-	
-	    },
-
-	    methods: {
-
-	    	deleteAffiliateAsset() {
-
-	    		deleteModel(this.affiliateAsset).then( res => {
-
-	    			this.$router.push({ name: 'AdminAffiliateAssets' });
-
-	    		})
-
-	    	}
-
-	    }
-
-	}
-
+export default {
+    props: {
+        affiliateAsset: {
+            type: Object,
+            required: false,
+        },
+        affiliateAssetId: {
+            type: [Number, String],
+            required: false,
+        },
+    },
+    created() {
+        if (!this.affiliateAsset && !this.affiliateAssetId) {
+            console.error("Se debe proporcionar 'affiliateAsset' o 'affiliateAssetId'.");
+        }
+    },
+    methods: {
+        deleteAffiliateAsset() {
+            deleteModel(this.affiliateAsset).then(() => {
+                this.$router.push({ name: 'AdminAffiliateAssets' });
+            });
+        },
+    },
+}
 </script>
