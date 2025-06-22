@@ -34,7 +34,7 @@ class AffiliateProgramsExports implements FromView
     public function getQuery()
     {   
         $builder = new Builder();
-        return $builder->get(AffiliateProgram::class, $this->data);
+        return $builder->get(AffiliateProgram::class, $this->data, config('affiliate.search-options'));
     }
 
 }

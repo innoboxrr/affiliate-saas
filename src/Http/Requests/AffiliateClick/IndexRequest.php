@@ -52,7 +52,7 @@ class IndexRequest extends FormRequest
 
         $builder = new Builder();
 
-        $query = $builder->get(AffiliateClick::class, $this->all());
+        $query = $builder->get(AffiliateClick::class, $this->all(), config('affiliate.search-options'));
 
         return AffiliateClickResource::collection($query);
 
