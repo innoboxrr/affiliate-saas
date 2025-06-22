@@ -4,7 +4,7 @@
 
 		<breadcrumbs-component :items="items" />
 	    
-	    <div class="uk-container uk-container-expand">
+	    <div class="uk-container uk-container-expand mt-4">
 
 	    	<div class="uk-grid-small" uk-grid>
 	    		
@@ -15,7 +15,7 @@
 
 	    		</div>
 
-	    		<div class="uk-width-expand uk-width-1-2@m uk-width-1-1@s">
+	    		<div class="uk-width-expand">
 
 	    			<div v-if="this.isShowView">
 
@@ -92,15 +92,15 @@
 
 					return [
 						{ text: 'AffiliateClicks', path: '/admin/affiliate-click'},
-						{ text: this.affiliate-click.name ?? 'AffiliateClick', path: '/admin/affiliate-click/' + this.affiliate-click.id}
+						{ text: this.affiliateClick.name ?? 'AffiliateClick', path: '/admin/affiliate-click/' + this.affiliateClick.id}
 					];
 
 				} else if(this.$route.name == 'AdminEditAffiliateClick') {
 
 					return [
 						{ text: 'AffiliateClicks', path: '/admin/affiliate-click'},
-						{ text: this.affiliate-click.name ?? 'AffiliateClick' , path: '/admin/affiliate-click/' + this.affiliate-click.id},
-						{ text: 'Editar affiliate-click', path: '/admin/affiliate-click/' + this.affiliate-click.id + '/edit'}	
+						{ text: this.affiliateClick.name ?? 'AffiliateClick' , path: '/admin/affiliate-click/' + this.affiliateClick.id},
+						{ text: 'Editar affiliate-click', path: '/admin/affiliate-click/' + this.affiliateClick.id + '/edit'}	
 					];
 
 				}

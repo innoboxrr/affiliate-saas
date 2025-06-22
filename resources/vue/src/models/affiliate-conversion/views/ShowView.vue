@@ -4,7 +4,7 @@
 
 		<breadcrumbs-component :items="items" />
 	    
-	    <div class="uk-container uk-container-expand">
+	    <div class="uk-container uk-container-expand mt-4">
 
 	    	<div class="uk-grid-small" uk-grid>
 	    		
@@ -15,7 +15,7 @@
 
 	    		</div>
 
-	    		<div class="uk-width-expand uk-width-1-2@m uk-width-1-1@s">
+	    		<div class="uk-width-expand">
 
 	    			<div v-if="this.isShowView">
 
@@ -92,15 +92,15 @@
 
 					return [
 						{ text: 'AffiliateConversions', path: '/admin/affiliate-conversion'},
-						{ text: this.affiliate-conversion.name ?? 'AffiliateConversion', path: '/admin/affiliate-conversion/' + this.affiliate-conversion.id}
+						{ text: this.affiliateConversion.name ?? 'AffiliateConversion', path: '/admin/affiliate-conversion/' + this.affiliateConversion.id}
 					];
 
 				} else if(this.$route.name == 'AdminEditAffiliateConversion') {
 
 					return [
 						{ text: 'AffiliateConversions', path: '/admin/affiliate-conversion'},
-						{ text: this.affiliate-conversion.name ?? 'AffiliateConversion' , path: '/admin/affiliate-conversion/' + this.affiliate-conversion.id},
-						{ text: 'Editar affiliate-conversion', path: '/admin/affiliate-conversion/' + this.affiliate-conversion.id + '/edit'}	
+						{ text: this.affiliateConversion.name ?? 'AffiliateConversion' , path: '/admin/affiliate-conversion/' + this.affiliateConversion.id},
+						{ text: 'Editar affiliate-conversion', path: '/admin/affiliate-conversion/' + this.affiliateConversion.id + '/edit'}	
 					];
 
 				}

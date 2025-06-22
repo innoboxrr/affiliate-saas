@@ -93,24 +93,6 @@ export const dataTableHead = () => {
 			sortable: true,
 			html: false,
 		},
-		{
-			id: 'created_at',
-			value: 'Creado',
-			sortable: true,
-			html: false,
-		},
-		{
-			id: 'updated_at',
-			value: 'Actualizado',
-			sortable: true,
-			html: false,
-		},
-		{
-			id: 'deleted_at',
-			value: 'Eliminado',
-			sortable: true,
-			html: false,
-		},
 		//DATA_TABLE_COLUMNS//
 	];
 };

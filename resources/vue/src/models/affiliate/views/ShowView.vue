@@ -1,13 +1,13 @@
 <template>
 	<div v-if="dataLoaded">
 		<breadcrumbs-component :items="items" />
-	    <div class="uk-container uk-container-expand">
+	    <div class="uk-container uk-container-expand mt-4">
 	    	<div class="uk-grid-small" uk-grid>
 	    		<div class="uk-width-1-3@m uk-width-1-1@s">
 					<model-card 
 						:affiliate="affiliate" />
 	    		</div>
-	    		<div class="uk-width-expand uk-width-1-2@m uk-width-1-1@s">
+	    		<div class="uk-width-expand">
 	    			<div v-if="this.isShowView">
 	    				<model-profile 
 	    					:affiliate="affiliate" />
