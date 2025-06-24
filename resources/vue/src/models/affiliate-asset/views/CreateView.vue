@@ -17,6 +17,7 @@
 					<h2 class="text-xl font-bold mb-4">Crear AffiliateAssets</h2>
 					
 					<create-form 
+						:affiliate-program-id="$route.query.affiliate_program_id"
 						@submit="formSubmit"/>
 
 				</div>

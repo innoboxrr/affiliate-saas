@@ -4,13 +4,25 @@
 	    <div class="uk-container uk-container-expand mt-4">
 	    	<div class="uk-grid-small" uk-grid>
 	    		<div class="uk-width-1-3@m uk-width-1-1@s">
-					<model-card 
-						:affiliate="affiliate" />
+					<model-card :affiliate="affiliate" />
 	    		</div>
 	    		<div class="uk-width-expand">
 	    			<div v-if="this.isShowView">
-	    				<model-profile 
-	    					:affiliate="affiliate" />
+	    				<model-profile :affiliate="affiliate" />
+
+						<div class="bg-white dark:bg-slate-700 border rounded-lg px-8 pt-6 pb-8 mb-4 dark:border-slate-800 uk-border-rounded uk-margin uk-padding-small">
+							<h3 class="text-lg font-semibold mb-4">
+								{{ __affiliate('Affiliate Links') }}
+							</h3>
+							<affiliate-link-data-table 
+								:card-wrapper="false"
+								:extra-query="{
+									affiliate_id: affiliate.id,
+								}"
+								:externalFilters="{ 
+									affiliate_id:  affiliate.id,
+								}" />
+						</div>
 	    			</div>
 	    			<div v-else>
 	    				<router-view @updateData="fetchData"></router-view>
@@ -26,11 +38,13 @@
 	import { showModel } from '@affiliateModels/affiliate'
 	import ModelCard from '@affiliateModels/affiliate/widgets/ModelCard.vue'
 	import ModelProfile from '@affiliateModels/affiliate/widgets/ModelProfile.vue'
+	import AffiliateLinkDataTable from '@affiliateModels/affiliate-link/widgets/DataTable.vue'
 
 	export default {
 		components: {
 			ModelCard,
-			ModelProfile
+			ModelProfile,
+			AffiliateLinkDataTable,
 		},
 		mounted() {
 			this.fetchData();

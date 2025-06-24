@@ -17,6 +17,7 @@
 					<h2 class="text-xl font-bold mb-4">Crear AffiliateLinks</h2>
 					
 					<create-form 
+						:affiliate-id="$route.query.affiliate_id"
 						@submit="formSubmit"/>
 
 				</div>

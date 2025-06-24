@@ -12,6 +12,7 @@
 						{{ __affiliate('Create Affiliate') }}
 					</h2>
 					<create-form 
+						:affiliate-program-id="$route.query.affiliate_program_id"
 						@submit="formSubmit"/>
 				</div>
 			</div>

@@ -12,17 +12,6 @@
             :get-option-label="option => `${option.payload?.user?.name} (ID: ${option.id})`"
             @submit="setAffiliate" />
 
-        <!-- Programa de Afiliados -->
-        <model-search-input-component
-            v-if="!affiliateProgramId"
-            custom-class="bg-gray-50 rounded-lg text-sm py-0.5 border border-gray-300"
-            label-str="Selecciona un programa"
-            placeholder-str="Buscar por nombre o ID"
-            :route="affiliateProgramRoute"
-            q="name"
-            :get-option-label="option => `${option.name} (ID: ${option.id})`"
-            @submit="setAffiliateProgram" />
-
         <!-- Nombre del enlace -->
         <text-input-component
             :custom-class="inputClass"
@@ -50,9 +39,10 @@
             :custom-class="inputClass"
             type="text"
             name="target"
-            label="Enlace destino"
+            label="Enlace destino (Opcional)"
+            help="Si no se especifica, se usará el destino por defecto del programa."
             placeholder="https://..."
-            validators="required url"
+            validators="url"
             v-model="affiliateLink.target" />
 
         <button-component
@@ -66,7 +56,6 @@
 <script>
 import { createModel } from '@affiliateModels/affiliate-link'
 import { API_ROUTE_PREFIX as AFFILIATE_ROUTE_PREFIX } from '@affiliateModels/affiliate'
-import { API_ROUTE_PREFIX as PROGRAM_ROUTE_PREFIX } from '@affiliateModels/affiliate-program'
 import JSValidator from 'innoboxrr-js-validator'
 import {
     TextInputComponent,
@@ -89,10 +78,6 @@ export default {
             type: [Number, String],
             default: null
         },
-        affiliateProgramId: {
-            type: [Number, String],
-            default: null
-        }
     },
     emits: ['submit'],
     data() {
@@ -100,7 +85,6 @@ export default {
             disabled: false,
             JSValidator: undefined,
             affiliateRoute: route(`${AFFILIATE_ROUTE_PREFIX}index`),
-            affiliateProgramRoute: route(`${PROGRAM_ROUTE_PREFIX}index`),
             affiliateLink: {
                 name: '',
                 code: this.randomCode(8),
@@ -108,7 +92,6 @@ export default {
                 target: ''
             },
             selectedAffiliateId: this.affiliateId,
-            selectedAffiliateProgramId: this.affiliateProgramId
         }
     },
     mounted() {
@@ -117,9 +100,6 @@ export default {
     methods: {
         setAffiliate(id) {
             this.selectedAffiliateId = id;
-        },
-        setAffiliateProgram(id) {
-            this.selectedAffiliateProgramId = id;
         },
         randomCode(length) {
             const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -138,7 +118,6 @@ export default {
                     server_token: this.affiliateLink.server_token,
                     target: this.affiliateLink.target,
                     affiliate_id: this.selectedAffiliateId,
-                    affiliate_program_id: this.selectedAffiliateProgramId
                 }).then(res => {
                     this.$emit('submit', res);
                     setTimeout(() => { this.disabled = false; }, 2500);

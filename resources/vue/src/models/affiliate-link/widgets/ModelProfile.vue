@@ -59,10 +59,10 @@
         <div class="border rounded-xl shadow-sm p-6 bg-white dark:bg-gray-800 dark:border-gray-700">
             <div class="mb-4">
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                    Token del servidor
+                    Link token
                 </h3>
                 <p class="text-sm text-gray-500 dark:text-gray-400">
-                    Este token se utiliza para autenticar las llamadas al sistema desde tu aplicación.
+                    Para enviar conversiones a este link desde un servicio externo, utiliza el siguiente token. Este token es único para cada enlace y debe ser tratado como un secreto.
                 </p>
             </div>
 
@@ -74,52 +74,46 @@
             </div>
         </div>
 
-        <affiliate-pixel-documentation :code="affiliateLink.code" />
-
     </div>
 </template>
 
 <script>
-import { showModel } from '@affiliateModels/affiliate-link'
-import AffiliatePixelDocumentation from '@affiliateModels/affiliate-link/widgets/AffiliatePixelDocumentation.vue'
+    import { showModel } from '@affiliateModels/affiliate-link'
 
-export default {
-    components: {
-        AffiliatePixelDocumentation,
-    },
-    props: {
-        affiliateLink: {
-            type: Object,
-            required: false,
+    export default {
+        props: {
+            affiliateLink: {
+                type: Object,
+                required: false,
+            },
+            affiliateLinkId: {
+                type: [Number, String],
+                required: false,
+            },
         },
-        affiliateLinkId: {
-            type: [Number, String],
-            required: false,
+        data() {
+            return {
+                dataLoaded: false,
+            }
         },
-    },
-    data() {
-        return {
-            dataLoaded: false,
-        }
-    },
-    created() {
-        if (!this.affiliateLink && !this.affiliateLinkId) {
-            console.error("Se debe proporcionar 'affiliateLink' o 'affiliateLinkId'.")
-        }
-    },
-    mounted() {
-        if (!this.affiliateLink && this.affiliateLinkId) {
-            this.fetchAffiliateLink()
-        } else {
-            this.dataLoaded = true
-        }
-    },
-    methods: {
-        async fetchAffiliateLink() {
-            const res = await showModel(this.affiliateLinkId)
-            this.affiliateLink = res
-            this.dataLoaded = true
+        created() {
+            if (!this.affiliateLink && !this.affiliateLinkId) {
+                console.error("Se debe proporcionar 'affiliateLink' o 'affiliateLinkId'.")
+            }
         },
-    },
-}
+        mounted() {
+            if (!this.affiliateLink && this.affiliateLinkId) {
+                this.fetchAffiliateLink()
+            } else {
+                this.dataLoaded = true
+            }
+        },
+        methods: {
+            async fetchAffiliateLink() {
+                const res = await showModel(this.affiliateLinkId)
+                this.affiliateLink = res
+                this.dataLoaded = true
+            },
+        },
+    }
 </script>

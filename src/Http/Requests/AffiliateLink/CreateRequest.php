@@ -27,7 +27,6 @@ class CreateRequest extends FormRequest
             'code' => 'required|string|min:3',
             'target' => 'required|url',
             'affiliate_id' => 'required|numeric|exists:affiliates,id',
-            'affiliate_program_id' => 'required|numeric|exists:affiliate_programs,id',
         ];
     }
 

@@ -45,9 +45,13 @@
             <p class="mt-4 text-sm text-gray-600 dark:text-gray-300">
                 Comisión: {{ affiliateProgram.payload.default_commission }}%
             </p>
+            <hr class="my-4 w-full border-gray-300 dark:border-gray-600" />
             <p 
                 v-if="affiliateProgram.allow_affiliate_register"
                 class="mt-2 text-sm text-gray-600 dark:text-gray-300 w-full">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    URL de registro de afiliados:
+                </label>
                 <clipboard-input
                     :value="affiliateProgram.affiliate_register_url"
                     class="block w-full text-blue-600 hover:text-blue-800 hover:underline dark:text-blue-300 dark:hover:text-blue-400"

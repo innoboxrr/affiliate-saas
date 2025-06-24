@@ -54,13 +54,13 @@ class CreateRequest extends FormRequest
             'financial_account_holder' => ['nullable', 'string'],
             'financial_stripe_account_id' => ['nullable', 'string'],
 
-            'workspace_id' => ['required', 'integer', 'exists:workspaces,id'],
+            'affiliate_program_id' => ['required', 'integer', 'exists:affiliate_programs,id'],
 
             'user_id' => [
                 'required',
                 'integer',
                 Rule::unique('affiliates')->where(function ($query) {
-                    return $query->where('workspace_id', request('workspace_id'));
+                    return $query->where('affiliate_program_id', request('affiliate_program_id'));
                 }),
             ],
         ];

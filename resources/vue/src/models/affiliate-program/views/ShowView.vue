@@ -10,6 +10,34 @@
 	    		<div class="uk-width-expand">
 	    			<div v-if="this.isShowView">
 	    				<model-profile :affiliate-program="affiliateProgram" />
+
+						<div class="bg-white dark:bg-slate-700 border rounded-lg px-8 pt-6 pb-8 mb-4 dark:border-slate-800 uk-border-rounded uk-margin uk-padding-small">
+							<h3 class="text-lg font-semibold mb-4">
+								{{ __affiliate('Affiliates') }}
+							</h3>
+							<affiliate-data-table 
+								:card-wrapper="false"
+								:extra-query="{
+									affiliate_program_id: affiliateProgram.id,
+								}"
+								:externalFilters="{ 
+									program_id:  affiliateProgram.id,
+								}" />
+						</div>
+
+						<div class="bg-white dark:bg-slate-700 border rounded-lg px-8 pt-6 pb-8 mb-4 dark:border-slate-800 uk-border-rounded uk-margin uk-padding-small">
+							<h3 class="text-lg font-semibold mb-4">
+								{{ __affiliate('Affiliate Assets') }}
+							</h3>
+							<affiliate-asset-data-table 
+								:card-wrapper="false"
+								:extra-query="{
+									affiliate_program_id: affiliateProgram.id,
+								}"
+								:externalFilters="{ 
+									program_id:  affiliateProgram.id,
+								}" />
+						</div>
 	    			</div>
 	    			<div v-else>
 	    				<router-view @updateData="fetchData"></router-view>
@@ -26,12 +54,16 @@
 	import ModelCard from '@affiliateModels/affiliate-program/widgets/ModelCard.vue'
 	import ModelProfile from '@affiliateModels/affiliate-program/widgets/ModelProfile.vue'
 	import ProgramDocumentation from '@affiliateModels/affiliate-program/widgets/ProgramDocumentation.vue'
+	import AffiliateDataTable from '@affiliateModels/affiliate/widgets/DataTable.vue'
+	import AffiliateAssetDataTable from '@affiliateModels/affiliate-asset/widgets/DataTable.vue'
 
 	export default {
 		components: {
 			ModelCard,
 			ModelProfile,
-			ProgramDocumentation
+			ProgramDocumentation,
+			AffiliateDataTable,
+			AffiliateAssetDataTable,
 		},
 		mounted() {
 			this.fetchData();

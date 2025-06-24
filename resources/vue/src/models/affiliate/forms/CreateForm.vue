@@ -13,11 +13,12 @@
 				<i :class="['fa-solid', collapsed.user ? 'fa-chevron-down' : 'fa-chevron-up', 'text-gray-400']"></i>
 			</div>
 			<div v-show="!collapsed.user" class="p-4 space-y-4">
+
 				<!-- User Select or Create -->
-				<div v-if="user_id == null" uk-grid="">
+				<div v-if="user_id == null" uk-grid="" class="uk-grid-small">
 					<div class="uk-width-expand">
 						<model-search-input-component
-							custom-class="bg-gray-50 rounded-lg text-sm py-0.5"
+							custom-class="bg-gray-50 rounded-lg text-sm py-0.5 border border-gray-300"
 							label-str="Buscar usuario"
 							placeholder-str="Escribe el correo del usuario"
 							:route="userRoute"
@@ -32,11 +33,27 @@
 							@submit="setUser" />
 					</div>
 					<div class="uk-width-auto uk-flex uk-flex-middle">
-						<a class="uk-button button" href="#createUserModal" uk-toggle>
+						<a 
+							:class="buttonClass" 
+							class="hover:text-white"
+							href="#createUserModal" 
+							uk-toggle>
 							Agregar usuario
 						</a>
 					</div>
 				</div>
+
+				<!-- Programa de Afiliados -->
+				<model-search-input-component
+					v-if="!affiliateProgramId"
+					custom-class="bg-gray-50 rounded-lg text-sm py-0.5 border border-gray-300"
+					label-str="Selecciona un programa de afiliados"
+					placeholder-str="Buscar por nombre o ID"
+					:route="affiliateProgramRoute"
+					:external-filters="{ managed: true }"
+					q="name"
+					:get-option-label="option => `${option.name} (ID: ${option.id})`"
+					@submit="setAffiliateProgram" />
 
 				<text-input-component 
 					:custom-class="inputClass" 
@@ -251,6 +268,7 @@
 
 <script>
 	import { payload, createModel } from '@affiliateModels/affiliate'
+	import { API_ROUTE_PREFIX } from '@affiliateModels/affiliate-program'
 	import JSValidator from 'innoboxrr-js-validator'
 	import {
 		TextInputComponent,
@@ -274,7 +292,11 @@ export default {
 		formId: {
 			type: String,
 			default: 'createAffiliateForm'
-		}
+		},
+		affiliateProgramId: {
+            type: [Number, String],
+            default: null
+        }
 	},
 	emits: ['submit'],
 	data() {
@@ -289,6 +311,8 @@ export default {
 			affiliate: {
 				payload: payload
 			},
+			selectedAffiliateProgramId: this.affiliateProgramId,
+			affiliateProgramRoute: route(`${API_ROUTE_PREFIX}index`),
 			user_id: null,
 			disabled: false,
 			JSValidator: undefined,
@@ -303,6 +327,7 @@ export default {
 				this.disabled = true;
 				createModel({
 					user_id: this.user_id,
+					affiliate_program_id: this.selectedAffiliateProgramId,
 					...this.affiliate.payload
 				}).then(res => {
 					this.$emit('submit', res);
@@ -316,6 +341,9 @@ export default {
 				this.disabled = false;
 			}
 		},
+		setAffiliateProgram(id) {
+            this.selectedAffiliateProgramId = id;
+        },
 		setUser(userId) {
 			this.user_id = userId;
 		},

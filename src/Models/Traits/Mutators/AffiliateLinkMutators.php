@@ -7,7 +7,7 @@ trait AffiliateLinkMutators
 
 	public function getWorkspaceIdAttribute()
     {
-        return $this->program?->workspace_id;
+        return $this->affiliate?->workspace_id;
     }
 
 }

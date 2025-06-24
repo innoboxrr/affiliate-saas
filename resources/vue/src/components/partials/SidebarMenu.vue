@@ -1,7 +1,7 @@
 <template>
     <nav v-if="dataLoaded" class="flex flex-1 flex-col">
         <div class="text-xs font-semibold text-gray-400 mb-2">
-            {{ __affiliate('Admin Nav') }}
+            {{ __affiliate('Affiliate System') }}
         </div>
         <ul role="list" class="flex flex-1 flex-col gap-y-7">
             <li class="list-items">
@@ -21,7 +21,7 @@
             </li>
             <li class="list-items">
                 <div class="text-xs font-semibold text-gray-400">
-                    {{ __affiliate('Models') }}
+                    {{ __affiliate('Navigation') }}
                 </div>
                 <ul role="list" class="-mx-2 mt-2 space-y-1">
                     <li 
@@ -37,7 +37,7 @@
                     </li>
                 </ul>
             </li>
-            <li class="-mx-6 mt-auto author-list-items">
+            <li v-if="false" class="-mx-6 mt-auto author-list-items">
                 <router-link to="/perfil" class="flex items-center gap-x-4 px-6 py-3 text-sm font-semibold text-gray-900 hover:bg-gray-50">
                     <img class="h-8 w-8 rounded-full bg-gray-100"
                          src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
