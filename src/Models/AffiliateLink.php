@@ -30,6 +30,7 @@ class AffiliateLink extends Model
     protected $fillable = [
         'name',
         'code',
+        'server_token',
         'target',
         'affiliate_id',
         'affiliate_program_id',
@@ -38,6 +39,7 @@ class AffiliateLink extends Model
     protected $creatable = [
         'name',
         'code',
+        'server_token',
         'target',
         'affiliate_id',
         'affiliate_program_id',
@@ -46,6 +48,7 @@ class AffiliateLink extends Model
     protected $updatable = [
         'name',
         'target',
+        'server_token',
     ];
 
     protected $casts = [];

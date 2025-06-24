@@ -35,6 +35,6 @@ trait AffiliateProgramRelations
 
     public function affiliates()
     {
-        return $this->hasManyThrough(Affiliate::class, AffiliateLink::class, 'affiliate_program_id', 'id', 'id', 'affiliate_id');
+        return $this->hasMany(Affiliate::class, 'affiliate_program_id'); 
     }
 }

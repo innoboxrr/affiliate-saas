@@ -8,19 +8,15 @@ enum EventType: string {
 
     use EnumTrait;
 
-    case ONLINE_PURCHASE = 'online_purchase';
-    case OFFLINE_PURCHASE = 'offline_purchase';
-    case ONLINE_SUBSCRIPTION = 'online_subscription';
-    case OFFLINE_SUBSCRIPTION = 'offline_subscription';
+    case CLIENT_CONVERSION = 'client_conversion';
+    case SERVER_CONVERSION = 'server_conversion';
 
 
     public static function getLabels(): array
     {
         return [
-            self::ONLINE_PURCHASE->value => __('Online Purchase'),
-            self::OFFLINE_PURCHASE->value => __('Offline Purchase'),
-            self::ONLINE_SUBSCRIPTION->value => __('Online Subscription'),
-            self::OFFLINE_SUBSCRIPTION->value => __('Offline Subscription'),
+            self::CLIENT_CONVERSION->value => 'Client Conversion',
+            self::SERVER_CONVERSION->value => 'Server Conversion',
         ];
     }
 

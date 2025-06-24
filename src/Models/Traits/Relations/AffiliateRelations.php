@@ -2,6 +2,7 @@
 
 namespace Innoboxrr\AffiliateSaas\Models\Traits\Relations;
 
+use Innoboxrr\AffiliateSaas\Models\AffiliateProgram;
 use Innoboxrr\AffiliateSaas\Models\AffiliateLink;
 use Innoboxrr\AffiliateSaas\Models\AffiliateConversion;
 use Innoboxrr\AffiliateSaas\Models\AffiliateMeta;
@@ -18,9 +19,9 @@ trait AffiliateRelations
         return $this->belongsTo(config('affiliate.user_class'));
     }
 
-    public function workspace()
+    public function program()
     {
-        return $this->belongsTo(config('affiliate.workspace_class'), 'workspace_id');
+        return $this->belongsTo(AffiliateProgram::class, 'affiliate_program_id');
     }
 
     public function links()

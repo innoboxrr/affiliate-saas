@@ -28,7 +28,7 @@ class UpdateRequest extends FormRequest
             'affiliate_asset_id' => ['required', 'numeric'],
             'name' => ['required', 'string', 'min:3'],
             'type' => ['required', 'string', 'in:image,video,document,url'],
-            'url' => ['nullable', 'url'],
+            'url' => ['nullable', 'string'],
             'usage_notes' => ['nullable', 'string'],
         ];
     }

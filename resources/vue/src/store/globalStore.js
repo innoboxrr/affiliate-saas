@@ -25,15 +25,6 @@ export const useGlobalStore = defineStore('affiliate-global', {
         modelsNav: [
             {
                 id: 1,
-                name: __affiliate('Affiliates'),
-                description: __affiliate('View and manage your affiliates'),
-                icon: 'fa-solid fa-users',
-                status: 'active',
-                route: { name: 'AdminAffiliates'},
-                current: true,
-            },
-            {
-                id: 2,
                 name: __affiliate('Programs'),
                 description: __affiliate('View and manage your affiliate programs'),
                 icon: 'fa-solid fa-cubes',
@@ -42,7 +33,7 @@ export const useGlobalStore = defineStore('affiliate-global', {
                 current: false,
             },
             {
-                id: 3,
+                id: 2,
                 name: __affiliate('Assets'),
                 description: __affiliate('View and manage your affiliate assets'),
                 icon: 'fa-solid fa-file-image',
@@ -51,7 +42,16 @@ export const useGlobalStore = defineStore('affiliate-global', {
                 current: false,
             },
             {
-                id: 5,
+                id: 3,
+                name: __affiliate('Affiliates'),
+                description: __affiliate('View and manage your affiliates'),
+                icon: 'fa-solid fa-users',
+                status: 'active',
+                route: { name: 'AdminAffiliates'},
+                current: true,
+            },
+            {
+                id: 4,
                 name: __affiliate('Links'),
                 description: __affiliate('View and manage your affiliate links'),
                 icon: 'fa-solid fa-link',
@@ -60,16 +60,7 @@ export const useGlobalStore = defineStore('affiliate-global', {
                 current: false,
             },
             {
-                id: 4,
-                name: __affiliate('Payouts'),
-                description: __affiliate('View and manage your affiliate payouts'),
-                icon: 'fa-solid fa-money-bill-wave',
-                status: 'active',
-                route: { name: 'AdminAffiliatePayouts' },
-                current: false,
-            },
-            {
-                id: 6,
+                id: 5,
                 name: __affiliate('Clicks'),
                 description: __affiliate('View and manage your affiliate clicks'),
                 icon: 'fa-solid fa-mouse-pointer',
@@ -78,7 +69,7 @@ export const useGlobalStore = defineStore('affiliate-global', {
                 current: false,
             },
             {
-                id: 7,
+                id: 6,
                 name: __affiliate('Conversions'),
                 description: __affiliate('View and manage your affiliate conversions'),
                 icon: 'fa-solid fa-chart-line',
@@ -86,6 +77,15 @@ export const useGlobalStore = defineStore('affiliate-global', {
                 route: { name: 'AdminAffiliateConversions' },
                 current: false,
             },
+            {
+                id: 7,
+                name: __affiliate('Payouts'),
+                description: __affiliate('View and manage your affiliate payouts'),
+                icon: 'fa-solid fa-money-bill-wave',
+                status: 'active',
+                route: { name: 'AdminAffiliatePayouts' },
+                current: false,
+            }
         ],
         activityItems: [
             /*

@@ -2,9 +2,11 @@
 
 	<div class="flex justify-center items-center">
 			
-		<div class="max-w-2xl w-full">
+		<div class="w-full">
 			
 			<div class="card bg-white dark:bg-slate-600 border rounded-lg px-8 pt-6 pb-8 mb-4 dark:border-slate-800">
+
+				<h2 class="text-xl font-bold mb-4">Editar Programa</h2>
 
 				<edit-form 
 					:key="$route.params.id"

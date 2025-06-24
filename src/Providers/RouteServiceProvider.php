@@ -18,6 +18,8 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::middleware('web')
             ->namespace('Innoboxrr\AffiliateSaas\Http\Controllers')
+            ->prefix('affiliate')
+            ->as('affiliate.')
             ->group(__DIR__ . '/../../routes/web.php');
     }
 

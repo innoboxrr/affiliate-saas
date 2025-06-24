@@ -2,6 +2,8 @@
 
 namespace Innoboxrr\AffiliateSaas\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Innoboxrr\AffiliateSaas\Models\AffiliateProgram;
 use Innoboxrr\AffiliateSaas\Http\Requests\Affiliate\{
     PoliciesRequest,
     PolicyRequest,
@@ -19,7 +21,7 @@ class AffiliateController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:sanctum');
+        $this->middleware('auth:sanctum')->except(['register']);
     }
 
     public function policies(PoliciesRequest $request)
@@ -70,5 +72,10 @@ class AffiliateController extends Controller
     public function export(ExportRequest $request)
     {
         return $request->handle();   
+    }
+
+    public function register(Request $request, AffiliateProgram $program)
+    {
+        return view('affiliate::models.affiliate.register', compact('program'));
     }
 }

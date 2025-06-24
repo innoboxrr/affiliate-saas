@@ -14,5 +14,14 @@ Añade la URL de tracking a la lista de URLs middleware de Laravel.
 En `config/cors.php`, añade la URL de tracking a la lista de URLs permitidas:
 
 ```php
-'paths' => ['api/*', 'track/*'],
+'paths' => ['api/*', 'affiliate/*'],
+```
+
+# Excentar de la verificación CSRF
+Para evitar la verificación CSRF en las rutas de afiliados, añade las siguientes rutas al middleware `VerifyCsrfToken` en `app/Http/Middleware/VerifyCsrfToken.php`:
+
+```php
+protected $except = [
+    'affiliate/*',
+];
 ```

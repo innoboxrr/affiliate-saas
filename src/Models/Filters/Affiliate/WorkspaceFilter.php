@@ -14,7 +14,9 @@ class WorkspaceFilter
 
         if ($data->workspace_id) {
 
-            $query->where('workspace_id', $data->workspace_id);
+            $query->whereHas('program', function ($query) use ($data) {
+                $query->where('workspace_id', $data->workspace_id);
+            });
 
         }
 

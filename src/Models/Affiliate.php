@@ -29,13 +29,13 @@ class Affiliate extends Model
         
     protected $fillable = [
         'payload',
-        'workspace_id',
+        'affiliate_program_id',
         'user_id',
         'verified_at',
     ];
 
     protected $creatable = [
-        'workspace_id',
+        'affiliate_program_id',
         'user_id',
         'verified_at',
     ];
@@ -80,7 +80,7 @@ class Affiliate extends Model
 
     public static $export_cols = [
         'id',
-        'workspace_id',
+        'affiliate_program_id',
         'user_id',
         'verified_at',
         'created_at',

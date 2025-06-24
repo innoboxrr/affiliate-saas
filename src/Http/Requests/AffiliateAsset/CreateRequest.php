@@ -25,7 +25,7 @@ class CreateRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'min:3'],
             'type' => ['required', 'string', 'in:image,video,document,url'],
-            'url' => ['nullable', 'url'],
+            'url' => ['nullable', 'string'],
             'usage_notes' => ['nullable', 'string'],
             'affiliate_program_id' => ['required', 'numeric', 'exists:affiliate_programs,id'],
         ];

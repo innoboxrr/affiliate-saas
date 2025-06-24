@@ -1,5 +1,5 @@
 <template>
-    <div v-if="dataLoaded" class="space-y-6">
+    <div v-if="dataLoaded" class="space-y-4">
         <div class="border rounded-xl shadow-sm p-6 bg-white dark:bg-gray-800 dark:border-gray-700">
             <div class="flex justify-between items-center border-b pb-4 mb-6 dark:border-gray-600">
                 <div>
@@ -54,13 +54,39 @@
                 </div>
             </dl>
         </div>
+
+        <!-- TOKEN DEL SERVIDOR -->
+        <div class="border rounded-xl shadow-sm p-6 bg-white dark:bg-gray-800 dark:border-gray-700">
+            <div class="mb-4">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                    Token del servidor
+                </h3>
+                <p class="text-sm text-gray-500 dark:text-gray-400">
+                    Este token se utiliza para autenticar las llamadas al sistema desde tu aplicación.
+                </p>
+            </div>
+
+            <div class="relative rounded-md shadow-sm">
+                <clipboard-input
+                    :value="affiliateLink.server_token"
+                    class="w-full pr-12 text-sm text-gray-700 dark:text-gray-100 bg-gray-50 dark:bg-gray-700 rounded-md py-2 px-3"
+                />
+            </div>
+        </div>
+
+        <affiliate-pixel-documentation :code="affiliateLink.code" />
+
     </div>
 </template>
 
 <script>
 import { showModel } from '@affiliateModels/affiliate-link'
+import AffiliatePixelDocumentation from '@affiliateModels/affiliate-link/widgets/AffiliatePixelDocumentation.vue'
 
 export default {
+    components: {
+        AffiliatePixelDocumentation,
+    },
     props: {
         affiliateLink: {
             type: Object,

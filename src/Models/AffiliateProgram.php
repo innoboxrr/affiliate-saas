@@ -30,6 +30,7 @@ class AffiliateProgram extends Model
     protected $fillable = [
         'name',
         'description',
+        'server_token',
         'payload',
         'workspace_id',
     ];
@@ -37,26 +38,46 @@ class AffiliateProgram extends Model
     protected $creatable = [
         'name',
         'description',
+        'server_token',
         'workspace_id',
     ];
 
     protected $updatable = [
         'name',
         'description',
+        'server_token',
     ];
 
     protected $casts = [
         'payload' => 'array',
     ];
 
+    protected $appends = [
+        'allow_affiliate_register',
+        'affiliate_register_url',
+    ];
+
     protected $protected_metas = [];
 
     protected $editable_metas = [
+        // Thechnical settings
         'test_mode',
         'tracking_model',
         'cookie_path', // Ruta donde se debe instalar la cookie 
         'cookie_lifetime',
         'default_commission',
+        'currency',
+        'payout_threshold',
+
+        // Security settings
+        'allow_frontend_conversions',
+        'allowed_urls',
+
+        // Registration settings
+        'registration_title',
+        'registration_description',
+        'registration_image',
+        'allow_self_registration',
     ];
 
     public static $export_cols = [

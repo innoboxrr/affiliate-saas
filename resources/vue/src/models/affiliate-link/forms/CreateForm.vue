@@ -104,6 +104,7 @@ export default {
             affiliateLink: {
                 name: '',
                 code: this.randomCode(8),
+                server_token: this.randomCode(64),
                 target: ''
             },
             selectedAffiliateId: this.affiliateId,
@@ -134,6 +135,7 @@ export default {
                 createModel({
                     name: this.affiliateLink.name,
                     code: this.affiliateLink.code,
+                    server_token: this.affiliateLink.server_token,
                     target: this.affiliateLink.target,
                     affiliate_id: this.selectedAffiliateId,
                     affiliate_program_id: this.selectedAffiliateProgramId
