@@ -4,6 +4,15 @@ namespace Innoboxrr\AffiliateSaas\Models\Traits\Mutators;
 
 trait AffiliateProgramMutators
 {
+    public function getIsTestAttribute()
+    {
+        return filter_var($this->getPayload('is_test', false), FILTER_VALIDATE_BOOLEAN);
+    }
+
+    public function getCurrencyAttribute()
+    {
+        return $this->getPayload('currency');
+    }
 
     public function getAllowAffiliateRegisterAttribute()
     {

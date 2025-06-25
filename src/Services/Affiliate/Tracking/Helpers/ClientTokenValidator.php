@@ -1,6 +1,6 @@
 <?php
 
-namespace Innoboxrr\AffiliateSaas\Services\Affiliate\Tracking\Validators;
+namespace Innoboxrr\AffiliateSaas\Services\Affiliate\Tracking\Helpers;
 
 class ClientTokenValidator
 {

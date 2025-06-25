@@ -39,17 +39,33 @@ trait AffiliateOperations
                 'account_number'     => $this->meta('financial_account_number'),
                 'account_holder'     => $this->meta('financial_account_holder'),
                 'stripe_account_id'  => $this->meta('financial_stripe_account_id'),
+            ],
+            'commission' => [
+                'use_custom' => $this->meta('use_custom_commission', false),
+                'type' => $this->meta('commission_type', 'percentage'), // 'percentage' or 'fixed'
+                'value' => $this->meta('commission_value', 0),
             ]
         ];
     }
 
     public function updatePayload()
     {
-
         $this->payload = $this->buildPayload();
-
         return $this->save();
+    }
 
+    public function calculateCommission($amount, $currency = 'USD')
+    {
+        $commissionType = $this->commission_type;
+        $commissionValue = $this->commission_value;
+
+        if ($commissionType === 'percentage') {
+            return ($amount * $commissionValue) / 100;
+        } elseif ($commissionType === 'fixed') {
+            return $commissionValue;
+        }
+
+        return 0.00;
     }
 
 }

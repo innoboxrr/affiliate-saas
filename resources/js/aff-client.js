@@ -50,6 +50,9 @@
 
     // Función genérica de requests
     async function sendRequest(endpoint, payload, label) {
+
+        payload = appendExtraParams(payload);
+
         try {
             log(`Enviando ${label}...`, payload);
             const response = await fetch(`${API_BASE}${endpoint}`, {
@@ -62,6 +65,20 @@
             return result;
         } catch (err) {
             log(`Error al enviar ${label.toLowerCase()}:`, err.message);
+        }
+    }
+
+    // Agregar parámetros extra al payload
+    function appendExtraParams(payload) {
+        log('Agregando parámetros extra al payload:', payload);
+        if (!payload || typeof payload !== 'object') {
+            log('Payload inválido, no se agregan parámetros extra.');
+            return payload;
+        }
+        return {
+            ...payload,
+            referer: document.referrer || null,
+            location: window.location.href,
         }
     }
 

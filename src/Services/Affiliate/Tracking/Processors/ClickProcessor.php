@@ -26,8 +26,8 @@ class ClickProcessor
             'uuid' => $clickId,
             'ip_address' => $this->request->ip(),
             'user_agent' => $this->request->userAgent(),
-            'referer' => $this->request->input('url', $this->request->headers->get('referer')),
-            'url' => $this->link->target,
+            'referer' => $this->request->input('referer', $this->request->headers->get('referer')),
+            'url' => $this->request->input('location'),
             'affiliate_link_id' => $this->link->id,
         ]);
 

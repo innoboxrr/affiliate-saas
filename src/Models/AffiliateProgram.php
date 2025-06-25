@@ -65,7 +65,10 @@ class AffiliateProgram extends Model
         'tracking_model',
         'cookie_path', // Ruta donde se debe instalar la cookie 
         'cookie_lifetime',
+        
+        'commission_type', // 'percentage' or 'fixed'
         'default_commission',
+
         'currency',
         'payout_threshold',
 

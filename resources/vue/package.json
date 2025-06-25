@@ -11,6 +11,7 @@
   "dependencies": {
     "@headlessui/vue": "^1.7.23",
     "@heroicons/vue": "^2.2.0",
+    "apexcharts": "^4.7.0",
     "dayjs": "^1.11.13",
     "innoboxrr-form-elements": "^3.0.4",
     "innoboxrr-http-request": "^1.1.0",

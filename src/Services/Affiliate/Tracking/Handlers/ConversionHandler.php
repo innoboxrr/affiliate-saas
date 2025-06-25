@@ -17,7 +17,7 @@ class ConversionHandler implements TrackingHandlerInterface
             return $response;
         }
 
-        $processor = new ConversionProcessor($validator->getClick(), $request);
+        $processor = new ConversionProcessor($validator->getValidatedEntity(), $request);
         $processor->process();
 
         return ConversionResponder::success();

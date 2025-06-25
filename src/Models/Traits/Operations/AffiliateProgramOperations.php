@@ -12,7 +12,10 @@ trait AffiliateProgramOperations
             'tracking_model' => $this->meta('tracking_model', 'cookie'),
             'cookie_path' => $this->meta('cookie_path', 'https://google.com'), // Default to root path
             'cookie_lifetime' => $this->meta('cookie_lifetime', 30), // Default to 30 days
+            
+            'commission_type' => $this->meta('commission_type', 'percentage'), // percentage or fixed
             'default_commission' => $this->meta('default_commission', 0.00), // Default to 0.00
+
             'currency' => $this->meta('currency', 'USD'), // Default to USD
             'payout_threshold' => (float) $this->meta('payout_threshold', 100.00), // Default to 100.00
             

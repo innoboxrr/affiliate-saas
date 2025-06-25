@@ -4,9 +4,11 @@ namespace Innoboxrr\AffiliateSaas\Services\Affiliate\Tracking\Validators;
 
 use Illuminate\Http\Request;
 use Innoboxrr\AffiliateSaas\Models\AffiliateClick;
+use Innoboxrr\AffiliateSaas\Services\Affiliate\Tracking\Helpers\ClientTokenValidator;
 use Innoboxrr\AffiliateSaas\Services\Affiliate\Tracking\Responders\EventResponder;
+use Innoboxrr\AffiliateSaas\Services\Affiliate\Tracking\Contracts\TrackingValidatorInterface;
 
-class EventValidator
+class EventValidator implements TrackingValidatorInterface
 {
     protected Request $request;
     protected ?AffiliateClick $click = null;
@@ -31,14 +33,18 @@ class EventValidator
             return EventResponder::invalidClick();
         }
 
-        if (!$token || !ClientTokenValidator::validate($token, $clickId)) {
-            return EventResponder::invalidToken();
+        if ($this->request->input('server_conversion') && (!$token || !ServerTokenValidator::validate($token, $this->click))) {
+            return EventResponder::invalidServerToken();
+        }
+
+        if ($this->request->input('client_conversion') && (!$token || !ClientTokenValidator::validate($token, $clickId))) {
+            return EventResponder::invalidClientToken();
         }
 
         return null;
     }
 
-    public function getClick(): AffiliateClick
+    public function getValidatedEntity(): AffiliateClick
     {
         return $this->click;
     }

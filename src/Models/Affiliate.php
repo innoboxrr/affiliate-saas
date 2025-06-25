@@ -55,11 +55,13 @@ class Affiliate extends Model
         'user_name',
         'user_email',
         'user_phone',
+        
         'address_street',
         'address_city',
         'address_state',
         'address_country',
         'address_zip',
+        
         'links_website',
         'links_facebook',
         'links_twitter',
@@ -67,6 +69,7 @@ class Affiliate extends Model
         'links_linkedin',
         'links_youtube',
         'links_tiktok',
+        
         'financial_affiliate_type',
         'financial_tax_id',
         'financial_comercial_name',
@@ -76,6 +79,10 @@ class Affiliate extends Model
         'financial_account_number',
         'financial_account_holder',
         'financial_stripe_account_id',
+
+        'commission_use_custom',
+        'commission_type',
+        'commission_value',
     ];
 
     public static $export_cols = [

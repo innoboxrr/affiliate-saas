@@ -17,8 +17,8 @@ class ClickHandler implements TrackingHandlerInterface
             return $response;
         }
 
-        $clickId = (new ClickProcessor($validator->getAffiliateLink(), $request))->process();
+        $clickId = (new ClickProcessor($validator->getValidatedEntity(), $request))->process();
 
-        return ClickResponder::success($clickId, $validator->getAffiliateLink()->target);
+        return ClickResponder::success($clickId, $validator->getValidatedEntity()->target);
     }
 }

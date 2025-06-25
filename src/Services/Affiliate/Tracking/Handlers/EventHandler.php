@@ -17,7 +17,7 @@ class EventHandler implements TrackingHandlerInterface
             return $response;
         }
 
-        (new EventProcessor($validator->getClick()))->process();
+        (new EventProcessor($validator->getValidatedEntity()))->process();
 
         return EventResponder::success();
     }

@@ -14,9 +14,14 @@ class EventResponder
         return response()->json(['error' => 'Click no válido'], 404);
     }
 
-    public static function invalidToken()
+    public static function invalidServerToken()
     {
-        return response()->json(['error' => 'Token inválido o manipulado'], 403);
+        return response()->json(['error' => 'Invalid Token'], 403);
+    }
+
+    public static function invalidClientToken()
+    {
+        return response()->json(['error' => 'Invalid Token'], 403);
     }
 
     public static function success()
