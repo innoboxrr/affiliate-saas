@@ -42,6 +42,25 @@
                 </div>
             </dl>
         </div>
+
+        <!-- TOKEN DEL SERVIDOR -->
+        <div class="border rounded-xl shadow-sm p-6 bg-white dark:bg-gray-800 dark:border-gray-700">
+            <div class="mb-4">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                    Program token
+                </h3>
+                <p class="text-sm text-gray-500 dark:text-gray-400">
+                    Este es el token del programa de afiliados que se utiliza para autenticar las solicitudes desde el servidor. Asegúrate de mantenerlo seguro y no compartirlo públicamente.
+                </p>
+            </div>
+
+            <div class="relative rounded-md shadow-sm">
+                <clipboard-input
+                    :value="affiliateProgram.server_token"
+                    class="w-full pr-12 text-sm text-gray-700 dark:text-gray-100 bg-gray-50 dark:bg-gray-700 rounded-md py-2 px-3"
+                />
+            </div>
+        </div>
     </div>
 </template>
 
