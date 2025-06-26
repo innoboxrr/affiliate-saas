@@ -48,7 +48,7 @@ export const useGlobalStore = defineStore('affiliate-global', {
                 icon: 'fa-solid fa-users',
                 status: 'active',
                 route: { name: 'AdminAffiliates'},
-                current: true,
+                current: false,
             },
             {
                 id: 4,

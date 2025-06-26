@@ -1,4 +1,5 @@
 import makeHttpRequest from 'innoboxrr-http-request'
+import ClipboardInput from '@components/ClipboardInput.vue';
 
 export const API_ROUTE_PREFIX = 'api.innoboxrr.affiliatesaas.affiliate_link.'; // Reemplaza con la ruta adecuada
 
@@ -52,6 +53,12 @@ export const crudActions = () => {
 	];
 };
 
+export const dataTableComponents = () => {
+    return {
+        'ClipboardInput': ClipboardInput,
+    };
+}
+
 export const dataTableHead = () => {
 	return [
 		{
@@ -67,32 +74,24 @@ export const dataTableHead = () => {
 			html: false,
 		},
 		{
-			id: 'code',
-			value: 'Código',
-			sortable: true,
-			html: false,
-		},
+            id: 'code',
+            value: 'Enlace',
+            sortable: false,
+            component: 'ClipboardInput',
+            parser: (value, body) => ({ value: getAffiliateUrl(body?.program?.payload?.cookie_path, value) }),
+            callback: (event, body) => {
+                console.log(event, body);
+            }
+        },
 		{
 			id: 'target',
 			value: 'Destino',
 			sortable: false,
 			html: true,
 			parser: (value) => {
-				return `<a href="${value}" target="_blank" class="text-blue-600 hover:underline">${value}</a>`;
+				return `<a href="${value}" target="_blank" class="text-blue-600 hover:underline">Abrir</a>`;
 			}
-		},
-		{
-			id: 'affiliate_id',
-			value: 'Afiliado',
-			sortable: true,
-			html: false,
-		},
-		{
-			id: 'affiliate_program_id',
-			value: 'Programa',
-			sortable: true,
-			html: false,
-		},
+		}
 		//DATA_TABLE_COLUMNS//
 	];
 };
@@ -191,3 +190,8 @@ export const exportModel = (data) => {
         ...data,
     }, {}, 3, 1500, confirmOptions);
 };
+
+export const getAffiliateUrl = (programCookiePath, linkCode) => {
+	const separator = programCookiePath.includes('?') ? '&' : '?';
+	return `${programCookiePath}${separator}sp-aff=${linkCode}`;
+}

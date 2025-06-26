@@ -95,10 +95,40 @@ export const dataTableHead = () => {
 			html: false,
 		},
 		{
-			id: 'workspace_id',
-			value: 'Workspace ID',
-			sortable: true,
-			html: false,
+			id: 'payload',
+			value: 'Usuario',
+			sortable: false,
+			html: true,
+			parser: (value) => {
+				if (value?.user.name) {
+					return `<span class="text-primary">${value.user.name}</span>`;
+				}
+				return '<span class="text-muted">N/A</span>';
+			}
+		},
+		{
+			id: 'payload',
+			value: 'Email',
+			sortable: false,
+			html: true,
+			parser: (value) => {
+				if (value?.user.email) {
+					return `<span class="text-primary">${value.user.email}</span>`;
+				}
+				return '<span class="text-muted">N/A</span>';
+			}
+		},
+		{
+			id: 'payload',
+			value: 'Phone',
+			sortable: false,
+			html: true,
+			parser: (value) => {
+				if (value?.user.phone) {
+					return `<span class="text-primary">${value.user.phone}</span>`;
+				}
+				return '<span class="text-muted">N/A</span>';
+			}
 		},
 		{
 			id: 'user_id',

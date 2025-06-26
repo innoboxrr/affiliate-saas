@@ -112,7 +112,9 @@
 
 			affiliateLinkExternalFilters() {
 
-				let filters = {/* Add custom filters */}
+				let filters = {
+					load_program: 1,
+				}
 
 				return {
 					...this.externalFilters,

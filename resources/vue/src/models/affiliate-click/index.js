@@ -97,12 +97,13 @@ export const dataTableHead = () => {
 			sortable: false,
 			html: true,
 			parser: (value) => {
-				return `<a href="${value}" target="_blank" class="text-blue-600 hover:underline">${value}</a>`;
+				if (!value) return '<span class="text-gray-400">—</span>';
+				return `<a href="${value}" target="_blank" class="text-blue-600 hover:underline" uk-tooltip="title: ${value}">Abrir</a>`;
 			}
 		},
 		{
 			id: 'affiliate_link_id',
-			value: 'ID Link',
+			value: 'LinkID',
 			sortable: true,
 			html: false,
 		},

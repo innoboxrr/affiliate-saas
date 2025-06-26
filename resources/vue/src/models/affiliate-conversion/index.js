@@ -66,8 +66,14 @@ export const dataTableHead = () => {
 			sortable: true,
 			html: true,
 			parser: (value) => {
-				const color = value === 'approved' ? 'green' : value === 'rejected' ? 'red' : 'gray';
-				return `<span class="px-2 py-1 text-xs font-semibold text-${color}-800 bg-${color}-100 rounded dark:bg-${color}-900 dark:text-${color}-300">${value}</span>`;
+				if (!value) return '-';
+				const map = {
+					approved: ['green', 'Aprobado'],
+					rejected: ['red', 'Rechazado'],
+					pending: ['yellow', 'Pendiente'],
+				};
+				const [color, label] = map[value] || ['gray', value];
+				return `<span class="px-2 py-1 text-xs font-semibold text-${color}-800 bg-${color}-100 rounded dark:bg-${color}-900 dark:text-${color}-300">${label}</span>`;
 			}
 		},
 		{
@@ -96,60 +102,31 @@ export const dataTableHead = () => {
 		},
 		{
 			id: 'is_test',
-			value: 'Test',
+			value: '¿Es Test?',
 			sortable: true,
 			html: true,
 			parser: (value) => {
 				return value
 					? `<span class="text-xs px-2 py-1 rounded bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300">Sí</span>`
-					: `<span class="text-xs px-2 py-1 rounded bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">No</span>`;
+					: `<span class="text-xs px-2 py-1 rounded bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300">No</span>`;
 			}
 		},
 		{
-			id: 'external_order_id',
-			value: 'Orden Externa',
-			sortable: true,
-			html: false,
-		},
-		{
-			id: 'external_user_id',
-			value: 'Usuario Externo',
-			sortable: true,
-			html: false,
-		},
-		{
-			id: 'affiliate_link_id',
-			value: 'ID Link',
-			sortable: true,
-			html: false,
-		},
-		{
 			id: 'affiliate_click_id',
-			value: 'ID Click',
+			value: 'Click Afiliado',
 			sortable: true,
 			html: false,
 		},
 		{
 			id: 'affiliate_payout_id',
-			value: 'ID Pago',
-			sortable: true,
-			html: false,
-		},
-		{
-			id: 'approved_by',
-			value: 'Aprobado por',
-			sortable: true,
-			html: false,
-		},
-		{
-			id: 'approved_at',
-			value: 'Aprobado el',
+			value: 'Pago Afiliado',
 			sortable: true,
 			html: false,
 		},
 		//DATA_TABLE_COLUMNS//
 	];
 };
+
 
 export const dataTableSort = () => {
 	return {

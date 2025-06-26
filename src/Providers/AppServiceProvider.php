@@ -3,7 +3,8 @@
 namespace Innoboxrr\AffiliateSaas\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Innoboxrr\AffiliateSaas\Console\Commands\BuildAffiliateScript;
+use Innoboxrr\AffiliateSaas\Console\Commands\App\BuildAffiliateScript;
+use Innoboxrr\AffiliateSaas\Console\Commands\Affiliate\CalculateAffiliatePayouts;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -14,6 +15,7 @@ class AppServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__ . '/../../config/affiliate.php', 'affiliate');
         $this->commands([
             BuildAffiliateScript::class,
+            CalculateAffiliatePayouts::class,
         ]);
     }
 

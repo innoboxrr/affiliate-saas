@@ -1,6 +1,6 @@
 <?php
 
-namespace Innoboxrr\AffiliateSaas\Console\Commands;
+namespace Innoboxrr\AffiliateSaas\Console\Commands\App;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Process\Process;
@@ -25,7 +25,7 @@ class BuildAffiliateScript extends Command
             return Command::FAILURE;
         }
 
-        $basePath = realpath(__DIR__ . '/../../../resources/js');
+        $basePath = realpath(__DIR__ . '/../../../../resources/js');
         $inputPath = "{$basePath}/aff-client.js";
         $outputPath = "{$basePath}/aff-client.min.js";
         $tempPath = "{$basePath}/aff-client.tmp.js";
