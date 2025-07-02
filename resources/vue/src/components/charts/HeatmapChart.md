@@ -2,13 +2,13 @@
     <div 
         v-flowbite 
         class="w-full bg-white rounded-lg shadow-sm dark:bg-gray-800 p-4 md:p-6">
-
+        
         <div class="flex justify-between items-center mb-4">
             <div>
                 <h5 class="text-2xl font-bold text-gray-900 dark:text-white">
-                    {{ title }}
+                    {{ __affiliate('Annual Heatmap') }}
                 </h5>
-                <p class="text-sm text-gray-500 dark:text-gray-400">{{ subtitle }}</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Actividad anual por día</p>
             </div>
             <select 
                 class="border border-gray-300 rounded px-2 py-1 text-sm dark:bg-gray-700 dark:text-white"
@@ -18,7 +18,7 @@
             </select>
         </div>
 
-        <div :id="chartId"></div>
+        <div id="commits-chart"></div>
     </div>
 </template>
 
@@ -35,42 +35,12 @@ dayjs.extend(isLeapYear)
 
 export default {
     name: 'LeadsAnnualHeatmap',
-    props: {
-        chartId: {
-            type: String,
-            default: 'commits-chart'
-        },
-        title: {
-            type: String,
-            default: 'Annual Heatmap'
-        },
-        subtitle: {
-            type: String,
-            default: 'Actividad anual por día'
-        },
-        height: {
-            type: Number,
-            default: 200
-        },
-        color: {
-            type: String,
-            default: '#1A56DB'
-        },
-        valueFormatter: {
-            type: Function,
-            default: val => `${val} leads`
-        },
-        yearsRange: {
-            type: Number,
-            default: 2 // años hacia atrás
-        }
-    },
     data() {
         const currentYear = new Date().getFullYear()
         return {
             selectedYear: currentYear,
-            years: Array.from({ length: this.yearsRange + 1 }, (_, i) => currentYear - i),
-            chart: null
+            years: [currentYear, currentYear - 1, currentYear - 2],
+            chart: null,
         }
     },
     mounted() {
@@ -92,7 +62,7 @@ export default {
                     const date = dayjs().year(year).isoWeek(w).isoWeekday(i + 1)
                     data.push({
                         x: `W${w}`,
-                        y: Math.floor(Math.random() * 20),
+                        y: Math.floor(Math.random() * 20), // ⚠️ reemplaza con datos reales si necesitas
                         date: date.format('YYYY-MM-DD')
                     })
                 }
@@ -105,12 +75,12 @@ export default {
         getChartOptions() {
             return {
                 chart: {
-                    height: this.height,
+                    height: 200,
                     type: 'heatmap',
                     animations: { enabled: false },
-                    toolbar: { show: false }
+                    toolbar: { show: false },
                 },
-                colors: [this.color],
+                colors: ['#1A56DB'],
                 dataLabels: { enabled: false },
                 grid: {
                     padding: { top: 0, right: 0, bottom: 0, left: 0 }
@@ -138,7 +108,7 @@ export default {
                     y: {
                         formatter: (val, { seriesIndex, dataPointIndex, w }) => {
                             const point = w.config.series[seriesIndex].data[dataPointIndex]
-                            return `${this.valueFormatter(val)} el ${point.date}`
+                            return `${val} leads el ${point.date}`
                         }
                     }
                 },
@@ -148,7 +118,10 @@ export default {
 
         renderChart() {
             const options = this.getChartOptions()
-            this.chart = new ApexCharts(document.querySelector(`#${this.chartId}`), options)
+            this.chart = new ApexCharts(
+                document.querySelector("#commits-chart"),
+                options
+            )
             this.chart.render()
         },
 

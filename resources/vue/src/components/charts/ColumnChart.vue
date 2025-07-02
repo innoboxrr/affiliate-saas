@@ -2,7 +2,9 @@
     <div 
         v-flowbite 
         class="w-full bg-white rounded-lg shadow-sm dark:bg-gray-800 p-4 md:p-6">
-        <div class="flex justify-between pb-4 mb-4 border-b border-gray-200 dark:border-gray-700">
+
+        <!-- HEADER -->
+        <div class="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-4 mb-4">
             <div class="flex items-center">
                 <div class="w-12 h-12 rounded-lg bg-gray-100 dark:bg-gray-700 flex items-center justify-center me-3">
                     <svg class="w-6 h-6 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 19">
@@ -11,224 +13,186 @@
                     </svg>
                 </div>
                 <div>
-                    <h5 class="leading-none text-2xl font-bold text-gray-900 dark:text-white pb-1">3.4k</h5>
-                    <p class="text-sm font-normal text-gray-500 dark:text-gray-400">Leads generated per week</p>
+                    <h5 class="leading-none text-2xl font-bold text-gray-900 dark:text-white pb-1">{{ value }}</h5>
+                    <p class="text-sm font-normal text-gray-500 dark:text-gray-400">{{ label }}</p>
                 </div>
             </div>
             <div>
-                <span class="bg-green-100 text-green-800 text-xs font-medium inline-flex items-center px-2.5 py-1 rounded-md dark:bg-green-900 dark:text-green-300">
-                    <svg class="w-2.5 h-2.5 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4"/>
-                    </svg>
-                    42.5%
+                <span
+                    :class="percentage >= 0 ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300'"
+                    class="text-xs font-medium inline-flex items-center px-2.5 py-1 rounded-md">
+                    <i :class="['fa-solid mr-2', percentage >= 0 ? 'fa-arrow-up text-green-500 dark:text-green-400' : 'fa-arrow-down text-red-500 dark:text-red-400']"></i>
+                    {{ percentage }}%
                 </span>
             </div>
         </div>
 
-        <div class="grid grid-cols-2">
-            <dl class="flex items-center">
-                <dt class="text-gray-500 dark:text-gray-400 text-sm font-normal me-1">Money spent:</dt>
-                <dd class="text-gray-900 text-sm dark:text-white font-semibold">$3,232</dd>
-            </dl>
-            <dl class="flex items-center justify-end">
-                <dt class="text-gray-500 dark:text-gray-400 text-sm font-normal me-1">Conversion rate:</dt>
-                <dd class="text-gray-900 text-sm dark:text-white font-semibold">1.2%</dd>
+        <!-- METRICS -->
+        <div class="grid grid-cols-2 py-3">
+            <dl v-for="(metric, index) in metrics" :key="index" class="flex items-center">
+                <dt class="text-gray-500 dark:text-gray-400 text-sm font-normal me-1">{{ metric.label }}</dt>
+                <dd class="text-gray-900 dark:text-white text-sm font-semibold">{{ metric.value }}</dd>
             </dl>
         </div>
 
-        <div id="column-chart"></div>
-        <div class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between">
-            <div class="flex justify-between items-center pt-5">
-                <!-- Button -->
+        <!-- CHART -->
+        <div :id="chartId"></div>
+
+        <!-- FOOTER -->
+        <div class="flex justify-between items-center border-t border-gray-200 dark:border-gray-700 pt-5 mt-5">
+            <!-- Dropdown -->
+            <div class="relative">
                 <button
-                    id="dropdownDefaultButton"
-                    data-dropdown-toggle="lastDaysdropdown"
-                    data-dropdown-placement="right"
-                    class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 text-center inline-flex items-center dark:hover:text-white"
+                    :id="`dropdownDefaultButton-${chartId}`"
+                    :data-dropdown-toggle="`dropdown-${chartId}`"
+                    data-dropdown-placement="bottom-start"
+                    class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white inline-flex items-center"
                     type="button">
-                    Last 7 days
+                    {{ selectedPeriodLabel }}
                     <i class="fa-solid fa-caret-down text-gray-500 dark:text-gray-400 ms-1"></i>
                 </button>
-                <!-- Dropdown menu -->
-                <div 
-                    id="lastDaysdropdown" 
+
+                <div
+                    :id="`dropdown-${chartId}`"
                     class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700">
-                    <ul 
-                        class="py-2 text-sm text-gray-700 dark:text-gray-200" 
-                        aria-labelledby="dropdownDefaultButton">
-                        <li>
-                            <a 
-                                href="#" 
+                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" :aria-labelledby="`dropdownDefaultButton-${chartId}`">
+                        <li v-for="period in periods" :key="period.key">
+                            <a
+                                href="#"
+                                @click.prevent="selectPeriod(period)"
                                 class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                Yesterday
-                            </a>
-                        </li>
-                        <li>
-                            <a 
-                                href="#" 
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                Today
-                            </a>
-                        </li>
-                        <li>
-                            <a 
-                                href="#" 
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                Last 7 days
-                            </a>
-                        </li>
-                        <li>
-                            <a 
-                                href="#" 
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                Last 30 days
-                            </a>
-                        </li>
-                        <li>
-                            <a 
-                                href="#" 
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                Last 90 days
+                                {{ period.label }}
                             </a>
                         </li>
                     </ul>
                 </div>
-                <a
-                    href="#"
-                    class="uppercase text-sm font-semibold inline-flex items-center rounded-lg text-blue-600 hover:text-blue-700 dark:hover:text-blue-500  hover:bg-gray-100 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 px-3 py-2">
-                    Users Report
-                    <i class="fa-solid fa-arrow-right text-blue-600 dark:text-blue-500 ml-2"></i>
-                </a>
             </div>
+
+            <!-- Report -->
+            <a
+                href="#"
+                @click.prevent="$emit('viewReport', chartId)"
+                class="uppercase text-sm font-semibold inline-flex items-center text-blue-600 hover:text-blue-700 dark:hover:text-blue-500">
+                {{ reportLabel || 'Ver reporte' }}
+                <i class="fa-solid fa-arrow-right ml-2"></i>
+            </a>
         </div>
     </div>
 </template>
 
 <script>
-    import ApexCharts from 'apexcharts'
+import ApexCharts from 'apexcharts';
 
-    export default {
-        name: 'ColumnChart',
-        props: {
-            chartData: {
-                type: Object,
-                required: false
-            }
+export default {
+    name: 'ColumnChart',
+    props: {
+        chartId: {
+            type: String,
+            required: true
         },
-        mounted() {
-            this.renderChart()
+        value: [String, Number],
+        label: String,
+        percentage: Number,
+        metrics: {
+            type: Array,
+            default: () => []
         },
-        methods: {
-            renderChart() {
-                const options = {
-                colors: ["#1A56DB", "#FDBA8C"],
-                series: [
-                    {
-                    name: "Organic",
-                    color: "#1A56DB",
-                    data: [
-                        { x: "Mon", y: 231 },
-                        { x: "Tue", y: 122 },
-                        { x: "Wed", y: 63 },
-                        { x: "Thu", y: 421 },
-                        { x: "Fri", y: 122 },
-                        { x: "Sat", y: 323 },
-                        { x: "Sun", y: 111 },
-                    ],
-                    },
-                    {
-                    name: "Social media",
-                    color: "#FDBA8C",
-                    data: [
-                        { x: "Mon", y: 232 },
-                        { x: "Tue", y: 113 },
-                        { x: "Wed", y: 341 },
-                        { x: "Thu", y: 224 },
-                        { x: "Fri", y: 522 },
-                        { x: "Sat", y: 411 },
-                        { x: "Sun", y: 243 },
-                    ],
-                    },
-                ],
+        periods: {
+            type: Array,
+            default: () => [
+                { key: 'yesterday', label: 'Ayer' },
+                { key: 'today', label: 'Hoy' },
+                { key: 'last_7_days', label: 'Últimos 7 días' },
+                { key: 'last_30_days', label: 'Últimos 30 días' },
+                { key: 'last_90_days', label: 'Últimos 90 días' }
+            ]
+        },
+        defaultPeriod: {
+            type: String,
+            default: 'last_7_days'
+        },
+        reportLabel: String,
+        series: Array,
+        colors: {
+            type: Array,
+            default: () => ['#4F46E5', '#3B82F6', '#10B981', '#F59E0B', '#EF4444']
+        },
+    },
+    data() {
+        return {
+            selectedPeriod: this.defaultPeriod
+        };
+    },
+    computed: {
+        selectedPeriodLabel() {
+            const period = this.periods.find(p => p.key === this.selectedPeriod);
+            return period ? period.label : '';
+        }
+    },
+    mounted() {
+        this.renderChart();
+    },
+    methods: {
+        selectPeriod(period) {
+            this.selectedPeriod = period.key;
+            this.$emit('updatePeriod', { chartId: this.chartId, period: period.key });
+        },
+        renderChart() {
+            const options = {
+                colors: this.colors,
+                series: this.series || [],
                 chart: {
                     type: "bar",
                     height: 250,
                     fontFamily: "Inter, sans-serif",
-                    toolbar: {
-                    show: false,
-                    },
+                    toolbar: { show: false }
                 },
                 plotOptions: {
                     bar: {
-                    horizontal: false,
-                    columnWidth: "70%",
-                    borderRadiusApplication: "end",
-                    borderRadius: 8,
-                    },
+                        horizontal: false,
+                        columnWidth: "70%",
+                        borderRadiusApplication: "end",
+                        borderRadius: 8
+                    }
                 },
                 tooltip: {
                     shared: true,
                     intersect: false,
-                    style: {
-                    fontFamily: "Inter, sans-serif",
-                    },
-                },
-                states: {
-                    hover: {
-                    filter: {
-                        type: "darken",
-                        value: 1,
-                    },
-                    },
+                    style: { fontFamily: "Inter, sans-serif" }
                 },
                 stroke: {
                     show: true,
                     width: 0,
-                    colors: ["transparent"],
+                    colors: ["transparent"]
                 },
                 grid: {
                     show: false,
                     strokeDashArray: 4,
-                    padding: {
-                    left: 2,
-                    right: 2,
-                    top: -14
-                    },
+                    padding: { left: 2, right: 2, top: -14 }
                 },
-                dataLabels: {
-                    enabled: false,
-                },
-                legend: {
-                    show: false,
-                },
+                dataLabels: { enabled: false },
+                legend: { show: false },
                 xaxis: {
-                    floating: false,
                     labels: {
-                    show: true,
-                    style: {
-                        fontFamily: "Inter, sans-serif",
-                        cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400'
-                    }
+                        show: true,
+                        style: {
+                            fontFamily: "Inter, sans-serif",
+                            cssClass: "text-xs font-normal fill-gray-500 dark:fill-gray-400"
+                        }
                     },
-                    axisBorder: {
-                    show: false,
-                    },
-                    axisTicks: {
-                    show: false,
-                    },
+                    axisBorder: { show: false },
+                    axisTicks: { show: false }
                 },
-                yaxis: {
-                    show: false,
-                },
-                fill: {
-                    opacity: 1,
-                },
-                }
-                if(document.getElementById("column-chart") && typeof ApexCharts !== 'undefined') {
-                    const chart = new ApexCharts(document.getElementById("column-chart"), options);
-                    chart.render();
-                }
+                yaxis: { show: false },
+                fill: { opacity: 1 }
+            };
+
+            const chartEl = document.getElementById(this.chartId);
+            if (chartEl && typeof ApexCharts !== 'undefined') {
+                const chart = new ApexCharts(chartEl, options);
+                chart.render();
             }
         }
     }
+};
 </script>

@@ -17,7 +17,7 @@ export const useGlobalStore = defineStore('affiliate-global', {
         sidebarOpen: false,
         navigation: [
             { name: __affiliate('Dashboard'), route: { name: 'AffiliateDashboard' }, icon: HomeIcon, current: true },
-            // { name: __affiliate('Programs'), route: { name: 'AffiliateProgram' }, icon: CubeIcon, current: false },
+            { name: __affiliate('My Affiliations'), route: { name: 'MyAffiliations' }, icon: UserGroupIcon, current: false },
             // { name: __affiliate('Affiliates'), route: { name: 'AffiliateManager' }, icon: UserGroupIcon, current: false },
             // { name: __affiliate('Payouts'), route: { name: 'AffiliatePayout' }, icon: ShareIcon, current: false },
             // { name: __affiliate('Reports'), route: { name: 'AffiliateReport' }, icon: DocumentTextIcon, current: false },

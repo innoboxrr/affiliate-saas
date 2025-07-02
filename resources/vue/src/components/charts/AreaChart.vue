@@ -1,170 +1,198 @@
 <template>
     <div 
-        v-flowbite 
+        v-flowbite
         class="w-full bg-white rounded-lg shadow-sm dark:bg-gray-800 p-4 md:p-6">
+        
+        <!-- HEADER: Valor principal + porcentaje -->
         <div class="flex justify-between">
             <div>
                 <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">
-                    32.4k
+                    {{ value }}
                 </h5>
-            <p class="text-base font-normal text-gray-500 dark:text-gray-400">
-                Users this week
-            </p>
+                <p class="text-base font-normal text-gray-500 dark:text-gray-400">
+                    {{ label }}
+                </p>
             </div>
-            <div class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500 text-center">
-                12%
-                <i class="fa-solid fa-arrow-up text-green-500 dark:text-green-500 ms-1"></i>
+            <div
+                class="flex items-center px-2.5 py-0.5 text-base font-semibold"
+                :class="percentage >= 0 ? 'text-green-500' : 'text-red-500'">
+                {{ percentage }}%
+                <i
+                    :class="[ 
+                        'fa-solid ms-1', 
+                        percentage >= 0 ? 'fa-arrow-up text-green-500' : 'fa-arrow-down text-red-500' 
+                    ]"></i>
             </div>
         </div>
-        <div id="area-chart"></div>
-        <div class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between">
-            <div class="flex justify-between items-center pt-5">
-                <!-- Button -->
+
+        <!-- CHART -->
+        <div class="mt-6" :id="chartId"></div>
+
+        <!-- FOOTER COMPACTO -->
+        <div class="flex items-center justify-between gap-2 border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
+            <!-- Dropdown -->
+            <div class="relative">
                 <button
-                    id="dropdownDefaultButton"
-                    data-dropdown-toggle="lastDaysdropdown"
-                    data-dropdown-placement="right"
-                    class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 text-center inline-flex items-center dark:hover:text-white"
+                    :id="`dropdownDefaultButton-${chartId}`"
+                    :data-dropdown-toggle="`dropdown-${chartId}`"
+                    data-dropdown-placement="bottom-start"
+                    class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white inline-flex items-center"
                     type="button">
-                    Last 7 days
-                    <i class="fa-solid fa-caret-down text-gray-500 dark:text-gray-400 ms-1"></i>
+                    {{ selectedPeriodLabel }}
+                    <i class="fa-solid fa-caret-down text-gray-500 dark:text-gray-400 ml-1"></i>
                 </button>
-                <!-- Dropdown menu -->
-                <div 
-                    id="lastDaysdropdown" 
-                    class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700">
-                    <ul 
-                        class="py-2 text-sm text-gray-700 dark:text-gray-200" 
-                        aria-labelledby="dropdownDefaultButton">
-                        <li>
-                            <a 
-                                href="#" 
+
+                <div
+                    :id="`dropdown-${chartId}`"
+                    class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                    <ul
+                        class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                        :aria-labelledby="`dropdownDefaultButton-${chartId}`">
+                        <li v-for="period in periods" :key="period.key">
+                            <a
+                                href="#"
+                                @click.prevent="handlePeriodSelect ? handlePeriodSelect(period) : selectPeriod(period)"
                                 class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                Yesterday
-                            </a>
-                        </li>
-                        <li>
-                            <a 
-                                href="#" 
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                Today
-                            </a>
-                        </li>
-                        <li>
-                            <a 
-                                href="#" 
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                Last 7 days
-                            </a>
-                        </li>
-                        <li>
-                            <a 
-                                href="#" 
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                Last 30 days
-                            </a>
-                        </li>
-                        <li>
-                            <a 
-                                href="#" 
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                Last 90 days
+                                {{ period.label }}
                             </a>
                         </li>
                     </ul>
                 </div>
-                <a
-                    href="#"
-                    class="uppercase text-sm font-semibold inline-flex items-center rounded-lg text-blue-600 hover:text-blue-700 dark:hover:text-blue-500  hover:bg-gray-100 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 px-3 py-2">
-                    Users Report
-                    <i class="fa-solid fa-arrow-right text-blue-600 dark:text-blue-500 ml-2"></i>
-                </a>
             </div>
+
+            <!-- Link a reporte -->
+            <a
+                href="#"
+                @click.prevent="$emit('viewReport', chartId)"
+                class="text-sm font-semibold text-blue-600 hover:text-blue-700 dark:hover:text-blue-500 inline-flex items-center whitespace-nowrap">
+                {{ reportLabel || 'VER REPORTE' }}
+                <i class="fa-solid fa-arrow-right ml-2"></i>
+            </a>
         </div>
     </div>
 </template>
 
-<script>
-    import ApexCharts from 'apexcharts'
 
-    export default {
-        name: 'AreaChart',
-        mounted() {
-            this.renderChart()
+<script>
+import ApexCharts from 'apexcharts';
+
+export default {
+    name: 'AreaChart',
+    props: {
+        chartId: {
+            type: String,
+            default: 'area-chart'
         },
-        methods: {
-            renderChart() {
-                const options = {
-                    chart: {
-                        height: "270px",
-                        maxWidth: "100%",
-                        type: "area",
-                        fontFamily: "Inter, sans-serif",
-                        dropShadow: {
-                        enabled: false,
-                        },
-                        toolbar: {
-                        show: false,
-                        },
-                    },
-                    tooltip: {
-                        enabled: true,
-                        x: {
-                        show: false,
-                        },
-                    },
-                    fill: {
-                        type: "gradient",
-                        gradient: {
+        label: {
+            type: String,
+            required: true
+        },
+        value: {
+            type: [String, Number],
+            required: true
+        },
+        percentage: {
+            type: Number,
+            default: 0
+        },
+        categories: {
+            type: Array,
+            required: true
+        },
+        series: {
+            type: Array,
+            required: true
+        },
+        color: {
+            type: String,
+            default: '#1A56DB'
+        },
+        periods: {
+            type: Array,
+            default: () => ([
+                { key: 'yesterday', label: 'Ayer' },
+                { key: 'today', label: 'Hoy' },
+                { key: 'last_7_days', label: 'Últimos 7 días' },
+                { key: 'last_30_days', label: 'Últimos 30 días' },
+                { key: 'last_90_days', label: 'Últimos 90 días' }
+            ])
+        },
+        defaultPeriod: {
+            type: String,
+            default: 'last_7_days'
+        },
+        chartHeight: {
+            type: Number,
+            default: 200
+        },
+    },
+    emits: ['updatePeriod', 'viewReport'],
+    data() {
+        return {
+            selectedPeriodKey: this.defaultPeriod
+        };
+    },
+    computed: {
+        selectedPeriodLabel() {
+            const period = this.periods.find(p => p.key === this.selectedPeriodKey);
+            return period ? period.label : '';
+        }
+    },
+    mounted() {
+        this.$nextTick(() => {
+            this.renderChart();
+        });
+    },
+    methods: {
+        handlePeriodSelect(period) {
+            this.selectedPeriodKey = period.key;
+            this.$emit('updatePeriod', { chartId: this.chartId, period: period.key });
+        },
+        renderChart() {
+            const options = {
+                chart: {
+                    height: this.chartHeight || 200,
+                    maxWidth: "100%",
+                    type: "area",
+                    fontFamily: "Inter, sans-serif",
+                    toolbar: { show: false },
+                    dropShadow: { enabled: false }
+                },
+                tooltip: { enabled: true, x: { show: false } },
+                fill: {
+                    type: "gradient",
+                    gradient: {
                         opacityFrom: 0.55,
                         opacityTo: 0,
-                        shade: "#1C64F2",
-                        gradientToColors: ["#1C64F2"],
-                        },
-                    },
-                    dataLabels: {
-                        enabled: false,
-                    },
-                    stroke: {
-                        width: 6,
-                    },
-                    grid: {
-                        show: false,
-                        strokeDashArray: 4,
-                        padding: {
-                        left: 2,
-                        right: 2,
-                        top: 0
-                        },
-                    },
-                    series: [
-                        {
-                        name: "New users",
-                        data: [6500, 6418, 6456, 6526, 6356, 6456],
-                        color: "#1A56DB",
-                        },
-                    ],
-                    xaxis: {
-                        categories: ['01 February', '02 February', '03 February', '04 February', '05 February', '06 February', '07 February'],
-                        labels: {
-                        show: false,
-                        },
-                        axisBorder: {
-                        show: false,
-                        },
-                        axisTicks: {
-                        show: false,
-                        },
-                    },
-                    yaxis: {
-                        show: false,
-                    },
-                }
-                if (document.getElementById("area-chart") && typeof ApexCharts !== 'undefined') {
-                    const chart = new ApexCharts(document.getElementById("area-chart"), options);
-                    chart.render();
-                }
-            },
-        },
+                        shade: this.color,
+                        gradientToColors: [this.color]
+                    }
+                },
+                dataLabels: { enabled: false },
+                stroke: { width: 6 },
+                grid: {
+                    show: false,
+                    strokeDashArray: 4,
+                    padding: { left: 2, right: 2, top: 0 }
+                },
+                series: Array.isArray(this.series)
+                    ? this.series.map(s => ({ ...s, color: s.color || this.color }))
+                    : [],
+                xaxis: {
+                    categories: this.categories,
+                    labels: { show: false },
+                    axisBorder: { show: false },
+                    axisTicks: { show: false }
+                },
+                yaxis: { show: false }
+            };
+
+            const chartElement = document.getElementById(this.chartId);
+            if (chartElement && typeof ApexCharts !== 'undefined') {
+                const chart = new ApexCharts(chartElement, options);
+                chart.render();
+            }
+        }
     }
+};
 </script>
