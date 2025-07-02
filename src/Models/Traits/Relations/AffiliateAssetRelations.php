@@ -14,6 +14,11 @@ trait AffiliateAssetRelations
         return $this->hasMany(AffiliateAssetMeta::class, 'affiliate_asset_id');
     }
 
+    public function program()
+    {
+        return $this->belongsTo(AffiliateProgram::class, 'affiliate_program_id');
+    }
+
     public function affiliateProgram()
     {
         return $this->belongsTo(AffiliateProgram::class, 'affiliate_program_id');

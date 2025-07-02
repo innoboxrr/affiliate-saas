@@ -36,6 +36,9 @@ trait AffiliateConversionRelations
 
     public function program()
     {
-        return $this->belongsToThrough(AffiliateProgram::class, AffiliateLink::class);
+        return $this->belongsToThrough(AffiliateProgram::class, [
+            Affiliate::class,
+            AffiliateLink::class
+        ]);
     }
 }
