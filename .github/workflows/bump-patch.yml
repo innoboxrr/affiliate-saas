@@ -1,4 +1,4 @@
-name: Bump Patch Tag on Master
+name: Bump Semantic Tag on Master
 
 on:
     push:
@@ -6,7 +6,7 @@ on:
             - master
 
 jobs:
-    bump-patch:
+    bump-version:
         runs-on: ubuntu-latest
 
         steps:
@@ -20,19 +20,34 @@ jobs:
                   git config user.name "github-actions[bot]"
                   git config user.email "github-actions[bot]@users.noreply.github.com"
 
-            - name: Get latest tag and bump patch
+            - name: Get latest tag and bump version
               id: bump
               run: |
-                  # Obtener el último tag (sin v)
                   latestTag=$(git tag --sort=-creatordate | head -n 1)
 
                   if [ -z "$latestTag" ]; then
-                      newTag="0.0.1"
+                      major=0
+                      minor=0
+                      patch=1
                   else
                       IFS='.' read -r major minor patch <<< "$latestTag"
-                      patch=$((patch + 1))
-                      newTag="$major.$minor.$patch"
+
+                      # Obtener mensaje del último commit
+                      commitMessage=$(git log -1 --pretty=%B)
+
+                      if [[ "$commitMessage" == *#major* ]]; then
+                          major=$((major + 1))
+                          minor=0
+                          patch=0
+                      elif [[ "$commitMessage" == *#minor* ]]; then
+                          minor=$((minor + 1))
+                          patch=0
+                      else
+                          patch=$((patch + 1))
+                      fi
                   fi
+
+                  newTag="$major.$minor.$patch"
 
                   echo "✅ Nuevo tag: $newTag"
                   echo "new_tag=$newTag" >> "$GITHUB_OUTPUT"
