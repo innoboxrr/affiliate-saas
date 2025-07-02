@@ -140,6 +140,22 @@
 
                 <select-input-component
                     :custom-class="inputClass"
+                    name="payout_threshold_days"
+                    label="Días para el registro de conversiones"
+                    help="Número de días que un afiliado debe esperar antes de procesar conversiones para el pago"
+                    v-model="affiliateProgram.payload.payout_threshold_days">
+                    <option value="30">30 días</option>
+                    <option value="60">60 días</option>
+                    <option value="90">90 días (recomendado)</option>
+                    <option value="120">120 días</option>
+                    <option value="180">180 días</option>
+                    <option value="365">365 días</option>
+                    <option value="540">545 días</option>
+                    <option value="730">730 días</option>
+                </select-input-component>
+
+                <select-input-component
+                    :custom-class="inputClass"
                     name="allow_frontend_conversions"
                     label="Permitir conversiones desde el frontend"
                     v-model="affiliateProgram.payload.allow_frontend_conversions">
@@ -302,7 +318,9 @@ export default {
 					cookie_lifetime: '',
 					default_commission: '',
 
+                    payout_threshold_days: 90, // Días para el umbral de pago
                     allow_frontend_conversions: 0,
+                    allowed_urls: [],
 
                     registration_title: '',
                     registration_description: '',

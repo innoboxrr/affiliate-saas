@@ -9,56 +9,71 @@ use Illuminate\Console\Command;
 
 class CalculateAffiliatePayouts extends Command
 {
-    protected $signature = 'affiliate:calculate-payouts
-                            {--current-month : Calcula para el mes actual (por defecto)}
-                            {--previous-month : Calcula para el mes pasado}
-                            {--start-date= : Fecha de inicio personalizada (YYYY-MM-DD)}
-                            {--end-date= : Fecha de fin personalizada (YYYY-MM-DD)}';
+    protected $signature = 'affiliate:calculate-payouts';
 
-    protected $description = 'Calcula las comisiones de afiliados y genera payouts.';
+    protected $description = 'Calcula las comisiones de afiliados y genera payouts agrupados por programa.';
 
     public function handle()
     {
-        $range = $this->getDateRange();
-        $this->info("Procesando conversions del {$range['start']} al {$range['end']}...");
-
-        $affiliates = Affiliate::whereHas('conversions', function ($query) use ($range) {
-            $query->whereBetween('affiliate_conversions.created_at', [$range['start'], $range['end']])
-                  ->where('status', 'approved')
+        $affiliates = Affiliate::whereHas('conversions', function ($query) {
+            $query->where('status', 'approved')
                   ->whereNull('affiliate_payout_id');
-        })->get();
+        })->with('program')->get();
 
         if ($affiliates->isEmpty()) {
-            $this->warn('No hay afiliados con conversions aprobadas en este periodo.');
+            $this->warn('No hay afiliados con conversions aprobadas pendientes.');
             return 0;
         }
 
-        foreach ($affiliates as $affiliate) {
-            ProcessAffiliatePayouts::dispatchSync($affiliate, $range['start'], $range['end']);
-            $this->info("Job enviado para Affiliate ID: {$affiliate->id}");
+        // Agrupamos afiliados por programa
+        $grouped = $affiliates->groupBy('program_id');
+
+        foreach ($grouped as $programId => $group) {
+
+            $program = $group->first()->program;
+
+            /*
+            if($program->is_active === false || $program->is_blocked) {
+                $this->warn("Programa #{$programId} está inactivo o bloqueado. Payout omitido.");
+                continue;
+            }
+            */
+
+            $days = $program->payout_threshold_days ?? 90;
+
+            $range = [
+                'start' => now()->subDays($days + 180)->endOfDay(),
+                'end' => now()->subDays($days)->endOfDay(),
+            ];
+
+            $this->info("Programa #{$programId} → Ventana de pago: {$range['start']} → {$range['end']}");
+
+            foreach ($group as $affiliate) {
+
+                /*
+                if ($affiliate->fraud_risk || $affiliate->is_blocked_from_payouts) {
+                    $this->warn("Afiliado {$affiliate->id} marcado como riesgo de fraude. Payout omitido.");
+                    continue;
+                }
+                */
+
+                $hasConversions = $affiliate->conversions()
+                    ->whereBetween('created_at', [$range['start'], $range['end']])
+                    ->where('status', 'approved')
+                    ->whereNull('affiliate_payout_id')
+                    ->exists();
+
+                if (!$hasConversions) {
+                    $this->line("Sin conversions válidas para el afiliado {$affiliate->id}.");
+                    continue;
+                }
+
+                ProcessAffiliatePayouts::dispatch($affiliate, $range['start'], $range['end']);
+                $this->info("Job enviado para Affiliate ID: {$affiliate->id}");
+            }
         }
 
         $this->info('Todos los trabajos fueron despachados.');
         return 1;
-    }
-
-    private function getDateRange(): array
-    {
-        if ($this->option('previous-month')) {
-            return [
-                'start' => Carbon::now()->subMonth()->startOfMonth(),
-                'end' => Carbon::now()->subMonth()->endOfMonth(),
-            ];
-        } elseif ($this->option('start-date') && $this->option('end-date')) {
-            return [
-                'start' => Carbon::parse($this->option('start-date'))->startOfDay(),
-                'end' => Carbon::parse($this->option('end-date'))->endOfDay(),
-            ];
-        } else {
-            return [
-                'start' => Carbon::now()->startOfMonth(),
-                'end' => Carbon::now()->endOfMonth(),
-            ];
-        }
     }
 }

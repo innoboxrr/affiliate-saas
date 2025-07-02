@@ -73,6 +73,7 @@ class AffiliateProgram extends Model
         'payout_threshold',
 
         // Security settings
+        'payout_threshold_days', // Días para el umbral de pago
         'allow_frontend_conversions',
         'allowed_urls',
 

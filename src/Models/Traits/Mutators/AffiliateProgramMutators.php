@@ -26,4 +26,9 @@ trait AffiliateProgramMutators
         }
     }
 
+    public function getPayoutThresholdDaysAttribute()
+    {
+        return (int) $this->getPayload('payout_threshold_days', 90);
+    }
+
 }

@@ -19,6 +19,7 @@ trait AffiliateProgramOperations
             'currency' => $this->meta('currency', 'USD'), // Default to USD
             'payout_threshold' => (float) $this->meta('payout_threshold', 100.00), // Default to 100.00
             
+            'payout_threshold_days' => (int) $this->meta('payout_threshold_days', 90), // Default to 90 days
             'allow_frontend_conversions' => filter_var($this->meta('allow_frontend_conversions', false), FILTER_VALIDATE_BOOLEAN),
             'allowed_urls' => $this->meta('allowed_urls'), // Default to an empty array
 
