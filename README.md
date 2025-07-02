@@ -25,3 +25,5 @@ protected $except = [
     'affiliate/*',
 ];
 ```
+
+Test change minor
