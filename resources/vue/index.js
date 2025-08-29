@@ -10,7 +10,7 @@ export default {
     install(app, options = {}) {
         app.use(TranslatePlugin, options.translateOptions || {});
         app.use(TitlePlugin);
-        app.component('PageHeader', PageHeader);
+        // app.component('PageHeader', PageHeader);
         app.component('AffiliateApp', AffiliateApp);
         app.component('UnderConstruction', UnderConstruction);
     }
