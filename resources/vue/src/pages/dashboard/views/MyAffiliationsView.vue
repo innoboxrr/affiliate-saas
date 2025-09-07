@@ -15,6 +15,7 @@
 </template>
 
 <script>
+    import UnderConstruction from '@affiliateComponents/partials/UnderConstruction.vue';
     import DashboardHeader from './../components/headers/DashboardHeader.vue';
     import StatsGrid from './../components/stats/StatsGrid.vue';
     import ChartsGrid from './../components/charts/ChartsGrid.vue';
