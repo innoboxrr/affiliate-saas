@@ -1,7 +1,7 @@
-import AffiliateRoutes from './routes';
 import { TranslatePlugin, TitlePlugin } from './plugins';
+import AffiliateApp from './app'
 
-export const routes = AffiliateRoutes;
+export { AffiliateApp };
 
 export default {
     install(app, options = {}) {

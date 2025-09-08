@@ -25,6 +25,7 @@
     export default {
         name: "dealDashboardSection",
         components: {
+            UnderConstruction,
             DashboardHeader,
             StatsGrid,
             ChartsGrid,

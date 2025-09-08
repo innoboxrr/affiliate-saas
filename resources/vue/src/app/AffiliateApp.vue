@@ -87,9 +87,9 @@ import {
 	TransitionRoot,
 } from "@headlessui/vue";
 import { XMarkIcon } from "@heroicons/vue/24/outline";
-import SidebarMenu from "./components/partials/SidebarMenu.vue";
-import SearchHeader from "./components/partials/SearchHeader.vue";
-import ActivityFeed from "./components/partials/ActivityFeed.vue";
+import SidebarMenu from "@affiliateComponents/partials/SidebarMenu.vue";
+import SearchHeader from "@affiliateComponents/partials/SearchHeader.vue";
+import ActivityFeed from "@affiliateComponents/partials/ActivityFeed.vue";
 import { useGlobalStore } from "@affiliateStore/globalStore.js";
 
 export default {
