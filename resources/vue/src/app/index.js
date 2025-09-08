@@ -1,4 +1,4 @@
-import AffiliateRoutes from './../routes';
+import affiliateRoutes from './../routes';
 
 export default [
     {
@@ -7,6 +7,6 @@ export default [
         component: () => import('./AffiliateApp.vue'),
         redirect: { name: 'AffiliateDashboard' },
         meta: { title: 'Affiliate' },
-        children: AffiliateRoutes
+        children: affiliateRoutes
     }
 ];
