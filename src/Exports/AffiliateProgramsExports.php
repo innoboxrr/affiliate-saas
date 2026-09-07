@@ -34,7 +34,9 @@ class AffiliateProgramsExports implements FromView
     public function getQuery()
     {   
         $builder = new Builder();
-        return $builder->get(AffiliateProgram::class, $this->data, config('affiliate.search-options'));
+        // lazy() en vez de get(): un export recorre la tabla entera y
+        // hidratar todas las filas a la vez es lo que revienta la memoria.
+        return $builder->lazy(AffiliateProgram::class, $this->data);
     }
 
 }
