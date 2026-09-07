@@ -22,12 +22,9 @@ return [
 		'affiliate-program-except-abilities' => [],
 	],
 
-	/*
-	| Obsoleto desde SearchSurge v3: los filtros se localizan solos a partir
-	| del namespace del modelo, preguntandole al autoloader de Composer.
-	| Se deja vacio y no como clave ausente para que cualquier codigo que
-	| todavia lo lea siga recibiendo un array valido.
-	*/
-	'search-options' => [],
+	'search-options' => [
+		'filtersPath' => 'vendor' . DIRECTORY_SEPARATOR . 'innoboxrr' . DIRECTORY_SEPARATOR . 'affiliate-saas' . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Models' . DIRECTORY_SEPARATOR . 'Filters',
+		'filtersNamespace' => 'Innoboxrr\AffiliateSaas\Models\Filters',
+	],
 	
 ];

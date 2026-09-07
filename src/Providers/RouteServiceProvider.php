@@ -33,6 +33,13 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace('Innoboxrr\AffiliateSaas\Http\Controllers')
                 ->group($file);
         }
+
+        // Load dashboard routes
+        Route::middleware('api')
+            ->prefix('api/innoboxrr/affiliatesaas/dashboard')
+            ->as('api.innoboxrr.affiliatesaas.dashboard.')
+            ->namespace('Innoboxrr\AffiliateSaas\Http\Controllers')
+            ->group(__DIR__ . '/../../routes/api/dashboard.php');
     }
 
 }

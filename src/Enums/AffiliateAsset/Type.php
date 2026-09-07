@@ -21,6 +21,8 @@ enum Type: string {
             self::IMAGE->value => __('Image'),
             self::VIDEO->value => __('Video'),
             self::PDF->value => __('PDF'),
+            self::DOCUMENT->value => __('Document'),
+            self::URL->value => __('URL'),
         ];
     }
 

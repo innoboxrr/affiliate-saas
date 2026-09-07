@@ -26,7 +26,15 @@ class CreateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'status' => 'required|string|in:pending,approved,rejected,cancelled',
+            'amount' => 'required|numeric|min:0',
+            'currency' => 'required|string|size:3',
+            'commission' => 'nullable|numeric|min:0',
+            'event_type' => 'required|string|in:client_conversion,server_conversion,affiliate_referer_fee',
+            'affiliate_link_id' => 'required|integer|exists:affiliate_links,id',
+            'affiliate_click_id' => 'nullable|integer|exists:affiliate_clicks,id',
+            'external_order_id' => 'nullable|string|max:255',
+            'external_user_id' => 'nullable|string|max:255',
         ];
     }
 
